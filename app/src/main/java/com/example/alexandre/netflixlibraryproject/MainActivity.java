@@ -6,10 +6,13 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.alexandre.netflixlibraryproject.asynctask.TitreTask;
+import com.example.alexandre.netflixlibraryproject.model.Film;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity implements TitreTask.ICallBack {
+public class MainActivity extends AppCompatActivity implements TitreTask.icallback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,15 +28,15 @@ public class MainActivity extends AppCompatActivity implements TitreTask.ICallBa
 
     @Override
     public void getResult(String result) throws JSONException {
-      //  Log.i("pokemon", result);
-     /*   JSONObject object = new JSONObject(result);
+        Log.i("pokemon", result);
+        JSONObject object = new JSONObject(result);
 
         Gson gson = new Gson();
         Film f = gson.fromJson(object.toString(), Film.class);
 
 //        MainWeather weather = new Gson().fromJson(object.getJSONObject("main"));
         Log.i("florian",f.getSummary());
-        Toast.makeText(this, f.getCategory()+ "", Toast.LENGTH_LONG).show();*/
-        Toast.makeText(this,"Salut",Toast.LENGTH_LONG);
+        Toast.makeText(this, f.getCategory()+ "++++", Toast.LENGTH_LONG).show();
+       // Toast.makeText(this,"Salut",Toast.LENGTH_LONG).show();
     }
 }

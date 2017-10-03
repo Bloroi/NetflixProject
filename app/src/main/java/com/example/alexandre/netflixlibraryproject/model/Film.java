@@ -3,7 +3,9 @@ package com.example.alexandre.netflixlibraryproject.model;
 
 import com.google.gson.annotations.SerializedName;
 
-//@Generated("net.hexar.json2pojo")
+import javax.annotation.Generated;
+
+@Generated("net.hexar.json2pojo")
 @SuppressWarnings("unused")
 public class Film {
 

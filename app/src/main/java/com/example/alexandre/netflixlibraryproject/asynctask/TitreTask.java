@@ -18,8 +18,8 @@ import java.net.URL;
 
 public class TitreTask extends AsyncTask<String,Void,String> {
 
-    private ICallBack callback;
-    public void setCallback(ICallBack callback){
+    private icallback callback;
+    public void setCallback(icallback callback){
         this.callback = callback;
     }
 
@@ -72,7 +72,7 @@ public class TitreTask extends AsyncTask<String,Void,String> {
         }
     }
 
-    public interface ICallBack{
+    public interface icallback {
         void getResult(String result) throws JSONException;
     }
 }
