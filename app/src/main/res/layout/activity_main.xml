@@ -26,8 +26,6 @@
 
     </LinearLayout>
 
-    hercher"
-
     <Button
         android:text="@string/btn_main_chercher"
         android:id="@+id/btn_main_chercher"
