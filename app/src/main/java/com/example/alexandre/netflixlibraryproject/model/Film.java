@@ -1,13 +1,16 @@
 
 package com.example.alexandre.netflixlibraryproject.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import javax.annotation.Generated;
 
 @Generated("net.hexar.json2pojo")
 @SuppressWarnings("unused")
-public class Film {
+public class Film implements Parcelable{
 
     @SerializedName("category")
     private String mCategory;
@@ -31,6 +34,10 @@ public class Film {
     private String mSummary;
     @SerializedName("unit")
     private Long mUnit;
+
+    public Film(){
+
+    }
 
     public String getCategory() {
         return mCategory;
@@ -120,4 +127,41 @@ public class Film {
         mUnit = unit;
     }
 
+    protected Film(Parcel in) {
+        mShowTitle = in.readString();
+        mCategory = in.readString();
+        mDirector = in.readString();
+        mPoster = in.readString();
+        mSummary = in.readString();
+        mReleaseYear = in.readString();
+    }
+
+    public static final Creator<Film> CREATOR = new Creator<Film>() {
+        @Override
+        public Film createFromParcel(Parcel in) {
+            return new Film(in);
+        }
+
+        @Override
+        public Film[] newArray(int size) {
+            return new Film[size];
+        }
+    };
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(getShowTitle());
+        parcel.writeString(getCategory());
+        parcel.writeString(getDirector());
+        parcel.writeString(getPoster());
+        parcel.writeString(getSummary());
+        parcel.writeString(getReleaseYear());
+
+    }
 }
