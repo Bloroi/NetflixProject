@@ -23,31 +23,55 @@ public class TitreTask extends AsyncTask<String,Void,String>{
 
     @Override
     protected String doInBackground(String... strings) {
-        String titre = strings[0];
+        String type = strings[0];
+        String titre = strings[1];
 
-        try{
-            URL url = new URL("https://netflixroulette.net/api/api.php?title="+titre);
+        if (type == "Titre") {
 
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.connect();
+            type = "title";
+        }
+        else if(type=="Acteur"){
+            type ="actor";
 
-            InputStream stream = connection.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-            StringBuilder builder = new StringBuilder();
-            String line = "";
+        } else if(type=="Réalisateur"){
+            type ="director";
+        }else{
+            type ="error";
+        }
+        Log.i("type",type);
+        if(type!="error") {
 
-            while((line = reader.readLine()) != null){
-                builder.append(line);
-                Log.i("TestWhile",line);
+
+
+            try {
+                URL url = new URL("https://netflixroulette.net/api/api.php?" +type+"="+titre);
+
+                Log.i("url","https://netflixroulette.net/api/api.php?" +type+"="+titre);
+
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.connect();
+
+                InputStream stream = connection.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+                StringBuilder builder = new StringBuilder();
+                String line = "";
+
+                while ((line = reader.readLine()) != null) {
+                    builder.append(line);
+                    Log.i("TestWhile", line);
+                }
+
+                reader.close();
+                connection.disconnect();
+
+                return builder.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
-            reader.close();
-            connection.disconnect();
-
-            return builder.toString();
-        }catch (IOException e) {
-            e.printStackTrace();
+        }else{
+            Log.i("Error Spinner","Attention mauvaise saisie Spinner");
         }
 
 
