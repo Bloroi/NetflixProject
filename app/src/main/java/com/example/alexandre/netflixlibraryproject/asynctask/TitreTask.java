@@ -13,23 +13,21 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by Alexandre on 03-10-17.
+ * Created by Alexandre on 04-10-17.
  */
 
-public class TitreTask extends AsyncTask<String,Void,String> {
+public class TitreTask extends AsyncTask<String,Void,String>{
 
-    private icallback callback;
-    public void setCallback(icallback callback){
-        this.callback = callback;
-    }
+    private ICallback callB;
+    public void setCallB(ICallback callB){this.callB=callB;}
 
     @Override
     protected String doInBackground(String... strings) {
         String titre = strings[0];
-       // String pays = "Belgique";
+
         try{
-            URL url = new URL("http://netflixroulette.net/api/api.php?title="+titre);
-            //URL url = new URL("http://api.openweathermap.org/data/2.5/weather?q="+ titre+ ","+ pays+ "&appid=24429ded848ec72a743564dbe43fe86d");
+            URL url = new URL("https://netflixroulette.net/api/api.php?title="+titre);
+
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.connect();
@@ -41,38 +39,35 @@ public class TitreTask extends AsyncTask<String,Void,String> {
 
             while((line = reader.readLine()) != null){
                 builder.append(line);
+                Log.i("TestWhile",line);
             }
 
             reader.close();
             connection.disconnect();
 
             return builder.toString();
-
-
-        } catch (IOException e) {
+        }catch (IOException e) {
             e.printStackTrace();
         }
+
+
         return null;
     }
-
 
 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        Log.i("TestPost","Avant");
         if(s != null){
             try {
-                Log.i("TestPost","Après");
-                callback.getResult(s);
-                Log.i("TestPost","Après2");
+                callB.getResult(s);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public interface icallback {
+    public interface ICallback {
         void getResult(String result) throws JSONException;
     }
 }
