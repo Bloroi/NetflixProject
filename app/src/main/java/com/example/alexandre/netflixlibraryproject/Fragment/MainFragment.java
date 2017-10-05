@@ -17,10 +17,13 @@ import com.example.alexandre.netflixlibraryproject.R;
 import com.example.alexandre.netflixlibraryproject.asynctask.TitreTask;
 import com.example.alexandre.netflixlibraryproject.model.Film;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,14 +98,45 @@ public class MainFragment extends Fragment implements TitreTask.ICallback {
     @Override
     public void getResult(String result) throws JSONException {
         Log.i("alex", result);
-        JSONObject object = new JSONObject(result);
-        Gson gson = new Gson();
-        Film f = gson.fromJson(object.toString(), Film.class); // Erreur quand plusieurs objets films !
+        Log.i("bracket","++"+result.substring(0,1)+"++");
+        if(result.substring(0,1).equals("[")){
+            JSONArray jsonArray = new JSONArray(result);
+            List<Film> films;
+            Type listType = new TypeToken<List<Film>>() {
+            }.getType();
+            films= new Gson().fromJson(String.valueOf(jsonArray), listType);
 
+            Log.i("testfilmsListe",films.get(0).getShowTitle());
+           // Log.i("testfilmsListe",films.get(1).getShowTitle());
+
+            tvTest.setText("Titre : "+films.get(0).getShowTitle()+" /nRéalisateur : "+films.get(0).getDirector()+"/nCatégorie : "+films.get(0).getCategory()+
+                    "/nRésumé : "+films.get(0).getSummary());
+        }
+        else if(result.substring(0,1).equals("{")){
+            JSONObject object = new JSONObject(result);
+            Gson gson = new Gson();
+            Film f = gson.fromJson(object.toString(), Film.class);
+
+            tvTest.setText("Titre : "+f.getShowTitle()+" /nRéalisateur : "+f.getDirector()+"/nCatégorie : "+f.getCategory()+
+                    "/nRésumé : "+f.getSummary());
+        }
+
+
+
+
+
+
+
+
+
+
+        //Log.i("TestArray",+"");
+
+        /*
         Log.i("Testtitle",f.getShowTitle()+" ");
 
         tvTest.setText("Titre : "+f.getShowTitle()+" /nRéalisateur : "+f.getDirector()+"/nCatégorie : "+f.getCategory()+
-                "/nRésumé : "+f.getSummary());
+                "/nRésumé : "+f.getSummary());*/
 
         //Intent i = new Intent(MainActivity.this,ShowFilm.class);
 
