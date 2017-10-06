@@ -18,7 +18,6 @@
             android:text="Entrez le nom d'un film : "
             />
         <EditText
-            android:text="Quentin Tarantino"
             android:id="@+id/et_main_titre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

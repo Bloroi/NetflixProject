@@ -109,16 +109,16 @@ public class MainFragment extends Fragment implements TitreTask.ICallback {
             Log.i("testfilmsListe",films.get(0).getShowTitle());
            // Log.i("testfilmsListe",films.get(1).getShowTitle());
 
-            tvTest.setText("Titre : "+films.get(0).getShowTitle()+" /nRéalisateur : "+films.get(0).getDirector()+"/nCatégorie : "+films.get(0).getCategory()+
-                    "/nRésumé : "+films.get(0).getSummary());
+            tvTest.setText("Titre : "+films.get(0).getShowTitle()+" \nRéalisateur : "+films.get(0).getDirector()+"\nCatégorie : "+films.get(0).getCategory()+
+                    "\nRésumé : "+films.get(0).getSummary());
         }
         else if(result.substring(0,1).equals("{")){
             JSONObject object = new JSONObject(result);
             Gson gson = new Gson();
             Film f = gson.fromJson(object.toString(), Film.class);
 
-            tvTest.setText("Titre : "+f.getShowTitle()+" /nRéalisateur : "+f.getDirector()+"/nCatégorie : "+f.getCategory()+
-                    "/nRésumé : "+f.getSummary());
+            tvTest.setText("Titre : "+f.getShowTitle()+" \nRéalisateur : "+f.getDirector()+"\nCatégorie : "+f.getCategory()+
+                    "\nRésumé : "+f.getSummary());
         }
 
 
