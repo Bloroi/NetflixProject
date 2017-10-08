@@ -127,6 +127,7 @@ public class Film implements Parcelable{
         mUnit = unit;
     }
 
+
     protected Film(Parcel in) {
         mShowTitle = in.readString();
         mCategory = in.readString();

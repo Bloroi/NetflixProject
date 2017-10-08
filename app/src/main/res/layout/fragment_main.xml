@@ -19,6 +19,7 @@
             />
         <EditText
             android:id="@+id/et_main_titre"
+            android:text="Nicolas Cage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -38,11 +39,19 @@
         android:layout_gravity="center"
         android:text="@string/btn_main_chercher" />
 
-    <TextView
-    android:text="Test"
-    android:id="@+id/tv_Fragmain_test"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/coucou"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_fragmain_listeF"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+
 
     </LinearLayout>
+
+
 </FrameLayout>

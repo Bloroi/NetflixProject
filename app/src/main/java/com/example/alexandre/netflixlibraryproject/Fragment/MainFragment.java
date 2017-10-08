@@ -1,8 +1,12 @@
 package com.example.alexandre.netflixlibraryproject.Fragment;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,14 +14,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.alexandre.netflixlibraryproject.R;
+import com.example.alexandre.netflixlibraryproject.adapter.CustomAdapter;
 import com.example.alexandre.netflixlibraryproject.asynctask.TitreTask;
 import com.example.alexandre.netflixlibraryproject.model.Film;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +39,8 @@ public class MainFragment extends Fragment implements TitreTask.ICallback {
     private EditText etTitre;
     private Spinner spinner;
     private TextView tvTest;
+    private RecyclerView rv;
+    private ImageView coucou;
 
     public MainFragment() {
         // Required empty public constructor
@@ -47,7 +56,7 @@ public class MainFragment extends Fragment implements TitreTask.ICallback {
 
 
         etTitre = (EditText) v.findViewById(R.id.et_main_titre);
-        tvTest = (TextView) v .findViewById(R.id.tv_Fragmain_test);
+       // tvTest = (TextView) v .findViewById(R.id.tv_Fragmain_test);
 
 
         //Récupération du Spinner déclaré dans le fichier main.xml de res/layout
@@ -91,6 +100,20 @@ public class MainFragment extends Fragment implements TitreTask.ICallback {
         });
 
 
+
+
+        rv = (RecyclerView) v.findViewById(R.id.rv_fragmain_listeF);
+        rv.setHasFixedSize(false);
+
+        rv.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+        coucou = v.findViewById(R.id.coucou);
+
+        Picasso.with(getContext()).load("http://i.imgur.com/DvpvklR.png").into(coucou);
+
+
+
         return v;
     }
 
@@ -99,9 +122,9 @@ public class MainFragment extends Fragment implements TitreTask.ICallback {
     public void getResult(String result) throws JSONException {
         Log.i("alex", result);
         Log.i("bracket","++"+result.substring(0,1)+"++");
+        List<Film> films = new ArrayList<Film>();
         if(result.substring(0,1).equals("[")){
             JSONArray jsonArray = new JSONArray(result);
-            List<Film> films;
             Type listType = new TypeToken<List<Film>>() {
             }.getType();
             films= new Gson().fromJson(String.valueOf(jsonArray), listType);
@@ -109,19 +132,42 @@ public class MainFragment extends Fragment implements TitreTask.ICallback {
             Log.i("testfilmsListe",films.get(0).getShowTitle());
            // Log.i("testfilmsListe",films.get(1).getShowTitle());
 
-            tvTest.setText("Titre : "+films.get(0).getShowTitle()+" \nRéalisateur : "+films.get(0).getDirector()+"\nCatégorie : "+films.get(0).getCategory()+
-                    "\nRésumé : "+films.get(0).getSummary());
+            /*tvTest.setText("Titre : "+films.get(0).getShowTitle()+" \nRéalisateur : "+films.get(0).getDirector()+"\nCatégorie : "+films.get(0).getCategory()+
+                    "\nRésumé : "+films.get(0).getSummary());*/
         }
         else if(result.substring(0,1).equals("{")){
             JSONObject object = new JSONObject(result);
             Gson gson = new Gson();
             Film f = gson.fromJson(object.toString(), Film.class);
 
-            tvTest.setText("Titre : "+f.getShowTitle()+" \nRéalisateur : "+f.getDirector()+"\nCatégorie : "+f.getCategory()+
-                    "\nRésumé : "+f.getSummary());
+            films.add(f);
+
+
+
+
+
+            /*tvTest.setText("Titre : "+f.getShowTitle()+" \nRéalisateur : "+f.getDirector()+"\nCatégorie : "+f.getCategory()+
+                    "\nRésumé : "+f.getSummary());*/
         }
 
 
+
+        ArrayList<Film> data=new ArrayList<Film>();
+
+        for(int i=0;i<films.size();i++){
+            data.add(films.get(i));
+        }
+
+        rv.setAdapter(new CustomAdapter(getContext(), data));
+
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences.Editor editor = pref.edit();
+
+        editor.putInt("NbMovie", data.size());
+        editor.apply();
+
+        int nbMovie = pref.getInt("NbMovie", 0);
+        Log.i("NbMovie", nbMovie+ "");
 
 
 
