@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">NetflixLibraryProject</string>
+    <string name="app_name">Netflix Library</string>
     <string name="btn_main_chercher">Chercher</string>
-
 </resources>
