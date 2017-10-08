@@ -24,7 +24,6 @@ import com.example.alexandre.netflixlibraryproject.asynctask.TitreTask;
 import com.example.alexandre.netflixlibraryproject.model.Film;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -106,12 +105,6 @@ public class MainFragment extends Fragment implements TitreTask.ICallback {
         rv.setHasFixedSize(false);
 
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
-        coucou = v.findViewById(R.id.coucou);
-
-        Picasso.with(getContext()).load("http://i.imgur.com/DvpvklR.png").into(coucou);
-
 
 
         return v;
