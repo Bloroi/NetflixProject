@@ -1,9 +1,7 @@
 package com.example.alexandre.netflixlibraryproject.Fragment;
 
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -152,18 +150,6 @@ public class MainFragment extends Fragment implements TitreTask.ICallback {
         }
 
         rv.setAdapter(new CustomAdapter(getContext(), data));
-
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
-        SharedPreferences.Editor editor = pref.edit();
-
-        editor.putInt("NbMovie", data.size());
-        editor.apply();
-
-        int nbMovie = pref.getInt("NbMovie", 0);
-        Log.i("NbMovie", nbMovie+ "");
-
-
-
 
 
 
