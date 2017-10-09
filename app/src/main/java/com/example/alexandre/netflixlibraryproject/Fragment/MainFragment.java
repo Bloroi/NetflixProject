@@ -39,6 +39,7 @@ public class MainFragment extends Fragment implements TitreTask.ICallback {
     private RecyclerView rv;
     private ImageView coucou;
 
+
     public MainFragment() {
         // Required empty public constructor
     }
@@ -53,7 +54,7 @@ public class MainFragment extends Fragment implements TitreTask.ICallback {
 
 
         etTitre = (EditText) v.findViewById(R.id.et_main_titre);
-       // tvTest = (TextView) v .findViewById(R.id.tv_Fragmain_test);
+        // tvTest = (TextView) v .findViewById(R.id.tv_Fragmain_test);
 
 
         //Récupération du Spinner déclaré dans le fichier main.xml de res/layout
@@ -99,11 +100,15 @@ public class MainFragment extends Fragment implements TitreTask.ICallback {
 
 
 
+
         rv = (RecyclerView) v.findViewById(R.id.rv_fragmain_listeF);
         rv.setHasFixedSize(false);
 
-        rv.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        //rv.getLayoutManager().setAutoMeasureEnabled(true);
+
+        //rv.setAdapter(new CustomAdapter(getContext(), data));
 
         return v;
     }
@@ -121,7 +126,7 @@ public class MainFragment extends Fragment implements TitreTask.ICallback {
             films= new Gson().fromJson(String.valueOf(jsonArray), listType);
 
             Log.i("testfilmsListe",films.get(0).getShowTitle());
-           // Log.i("testfilmsListe",films.get(1).getShowTitle());
+            // Log.i("testfilmsListe",films.get(1).getShowTitle());
 
             /*tvTest.setText("Titre : "+films.get(0).getShowTitle()+" \nRéalisateur : "+films.get(0).getDirector()+"\nCatégorie : "+films.get(0).getCategory()+
                     "\nRésumé : "+films.get(0).getSummary());*/
@@ -149,7 +154,9 @@ public class MainFragment extends Fragment implements TitreTask.ICallback {
             data.add(films.get(i));
         }
 
+
         rv.setAdapter(new CustomAdapter(getContext(), data));
+
 
 
 

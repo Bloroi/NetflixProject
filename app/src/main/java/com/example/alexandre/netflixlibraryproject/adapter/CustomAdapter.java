@@ -2,7 +2,6 @@ package com.example.alexandre.netflixlibraryproject.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,12 +42,16 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Film movie = movies.get(position);
-        Log.i("testPhoto",movie.getPoster());
+        //Log.i("testPhoto",movie.getPoster());
         //Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(imgView);
 
+        holder.bind(movie);
+
         //holder.image.setImage;
-        holder.title.setText(movie.getShowTitle());
-        holder.description.setText(movie.getSummary());
+        /*holder.title.setText(movie.getShowTitle());
+        holder.description.setText(movie.getSummary());*/
+
+
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -57,7 +60,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         private final TextView description;
         //private final ImageView image;
 
-        private Film movie;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -67,10 +69,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             //image = ((ImageView) itemView.findViewById(R.id.iv_image));
         }
 
+        public void bind(Film film){
+            title.setText(film.getShowTitle());
+            description.setText(film.getSummary());
+            //Picasso.with(image.getContext()).load(film.getPoster()).centerCrop().fit().into(image);
+        }
+
+/*
         public void display(Film movie) {
             this.movie = movie;
             title.setText(movie.getShowTitle());
             description.setText(movie.getSummary());
-        }
+        }*/
     }
 }
