@@ -2,6 +2,7 @@ package com.example.alexandre.netflixlibraryproject.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.alexandre.netflixlibraryproject.R;
 import com.example.alexandre.netflixlibraryproject.model.Film;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -58,7 +60,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         private final TextView title;
         private final TextView description;
-        //private final ImageView image;
+        private final ImageView image;
 
 
         public MyViewHolder(View itemView) {
@@ -66,13 +68,18 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
             title = ((TextView) itemView.findViewById(R.id.tv_title));
             description = ((TextView) itemView.findViewById(R.id.tv_description));
-            //image = ((ImageView) itemView.findViewById(R.id.iv_image));
+            image = ((ImageView) itemView.findViewById(R.id.iv_image));
         }
 
         public void bind(Film film){
             title.setText(film.getShowTitle());
             description.setText(film.getSummary());
-            //Picasso.with(image.getContext()).load(film.getPoster()).centerCrop().fit().into(image);
+            Log.i("testUrlImage",film.getPoster());
+            String tmpUrl = film.getPoster();
+            tmpUrl = tmpUrl.substring(0,4)+"s"+tmpUrl.substring(4);
+            Log.i("testNewUrl",tmpUrl);
+            Picasso.with(context).load(tmpUrl).centerCrop().fit().into(image);
+
         }
 
 /*
