@@ -19,7 +19,7 @@
             />
         <EditText
             android:id="@+id/et_main_titre"
-            android:text="Hercules"
+            android:text=""
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

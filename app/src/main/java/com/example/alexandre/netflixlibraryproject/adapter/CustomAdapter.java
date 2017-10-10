@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.alexandre.netflixlibraryproject.R;
@@ -59,7 +60,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView title;
-        private final TextView description;
+        private final TextView directeur;
+        private final TextView category;
+        private final RatingBar rating;
+        private final TextView releaseYear;
         private final ImageView image;
 
 
@@ -67,13 +71,19 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             super(itemView);
 
             title = ((TextView) itemView.findViewById(R.id.tv_title));
-            description = ((TextView) itemView.findViewById(R.id.tv_description));
+            category = ((TextView) itemView.findViewById(R.id.tv_category));
+            directeur = ((TextView) itemView.findViewById(R.id.tv_directeur));
+            rating = ((RatingBar) itemView.findViewById(R.id.tv_rating));
+            releaseYear = ((TextView) itemView.findViewById(R.id.tv_releaseYear));
             image = ((ImageView) itemView.findViewById(R.id.iv_image));
         }
 
         public void bind(Film film){
             title.setText(film.getShowTitle());
-            description.setText(film.getSummary());
+            category.setText(film.getCategory());
+            directeur.setText(film.getDirector());
+            rating.setRating(Float.parseFloat(film.getRating()));
+            releaseYear.setText(film.getReleaseYear());
             Log.i("testUrlImage",film.getPoster());
             String tmpUrl = film.getPoster();
             tmpUrl = tmpUrl.substring(0,4)+"s"+tmpUrl.substring(4);
