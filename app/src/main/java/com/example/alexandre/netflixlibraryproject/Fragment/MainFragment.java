@@ -31,14 +31,13 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainFragment extends Fragment implements TitreTask.ICallback {
+public class MainFragment extends Fragment implements TitreTask.ICallback{
 
     private EditText etTitre;
     private Spinner spinner;
     private TextView tvTest;
     private RecyclerView rv;
     private ImageView coucou;
-
 
     public MainFragment() {
         // Required empty public constructor
@@ -89,10 +88,9 @@ public class MainFragment extends Fragment implements TitreTask.ICallback {
                 if(etTitre!=null){
                     TitreTask task = new TitreTask();
                     task.setCallB(MainFragment.this);
-                    Log.i("editTextt",etTitre.getText().toString());
+                    Log.i("editText",etTitre.getText().toString());
 
                     task.execute(spinner.getSelectedItem().toString(),etTitre.getText().toString());
-
                 }
             }
         });
@@ -137,11 +135,6 @@ public class MainFragment extends Fragment implements TitreTask.ICallback {
             Film f = gson.fromJson(object.toString(), Film.class);
 
             films.add(f);
-
-
-
-
-
             /*tvTest.setText("Titre : "+f.getShowTitle()+" \nRéalisateur : "+f.getDirector()+"\nCatégorie : "+f.getCategory()+
                     "\nRésumé : "+f.getSummary());*/
         }
@@ -150,10 +143,11 @@ public class MainFragment extends Fragment implements TitreTask.ICallback {
 
         ArrayList<Film> data=new ArrayList<Film>();
 
+
         for(int i=0;i<films.size();i++){
+
             data.add(films.get(i));
         }
-
 
         rv.setAdapter(new CustomAdapter(getContext(), data));
 
@@ -180,5 +174,6 @@ public class MainFragment extends Fragment implements TitreTask.ICallback {
         //startActivity(i);
         //Toast.makeText(this, f.getReleaseYear()+ "", Toast.LENGTH_LONG).show();
     }
+
 
 }

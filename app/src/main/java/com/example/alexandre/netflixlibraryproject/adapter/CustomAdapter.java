@@ -11,8 +11,14 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.alexandre.netflixlibraryproject.R;
+import com.example.alexandre.netflixlibraryproject.asynctask.TradTask;
 import com.example.alexandre.netflixlibraryproject.model.Film;
+import com.example.alexandre.netflixlibraryproject.model.Traduction;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -53,11 +59,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         //holder.image.setImage;
         /*holder.title.setText(movie.getShowTitle());
         holder.description.setText(movie.getSummary());*/
-
-
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+    public class MyViewHolder extends RecyclerView.ViewHolder implements TradTask.ICallbackTrad {
 
         private final TextView title;
         private final TextView directeur;
@@ -79,6 +84,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         }
 
         public void bind(Film film){
+            TradTask tradtask = new TradTask();
+            tradtask.setCallBTrad(this);
+
+            tradtask.execute(film.getCategory());
+
+
+
             title.setText(film.getShowTitle());
             category.setText(film.getCategory());
             directeur.setText(film.getDirector());
@@ -90,6 +102,15 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             Log.i("testNewUrl",tmpUrl);
             Picasso.with(context).load(tmpUrl).error(context.getResources().getDrawable(R.drawable.defaut)).centerCrop().fit().into(image);
 
+        }
+
+        @Override
+        public void getResultTrad(String result) throws JSONException {
+            JSONObject object = new JSONObject(result);
+            Gson gson = new Gson();
+            Traduction t = gson.fromJson(object.toString(), Traduction.class);
+
+            category.setText(t.getText().get(0));
         }
 
 /*
