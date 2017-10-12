@@ -15,8 +15,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.alexandre.netflixlibraryproject.R;
+import com.example.alexandre.netflixlibraryproject.RecyclerItemClickListener;
 import com.example.alexandre.netflixlibraryproject.adapter.CustomAdapter;
 import com.example.alexandre.netflixlibraryproject.asynctask.TitreTask;
 import com.example.alexandre.netflixlibraryproject.model.Film;
@@ -38,6 +40,7 @@ public class MainFragment extends Fragment implements TitreTask.ICallback{
     private TextView tvTest;
     private RecyclerView rv;
     private ImageView coucou;
+    private ArrayList<Film> data=new ArrayList<Film>();
 
     public MainFragment() {
         // Required empty public constructor
@@ -112,6 +115,8 @@ public class MainFragment extends Fragment implements TitreTask.ICallback{
     }
 
 
+
+
     @Override
     public void getResult(String result) throws JSONException {
         Log.i("alex", result);
@@ -141,15 +146,31 @@ public class MainFragment extends Fragment implements TitreTask.ICallback{
 
 
 
-        ArrayList<Film> data=new ArrayList<Film>();
+        data=new ArrayList<Film>();
 
 
         for(int i=0;i<films.size();i++){
 
             data.add(films.get(i));
         }
+        rv.addOnItemTouchListener(
+                new RecyclerItemClickListener(getContext(), rv ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+
+                        Film f = data.get(position);
+
+                        Log.i("Onclick",f.getShowTitle());
+                        Toast.makeText(getContext(),f.getShowTitle(),Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                })
+        );
 
         rv.setAdapter(new CustomAdapter(getContext(), data));
+
 
 
 

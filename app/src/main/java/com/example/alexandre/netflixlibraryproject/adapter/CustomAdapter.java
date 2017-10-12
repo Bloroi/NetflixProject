@@ -32,10 +32,15 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     private List<Film> movies;
     private Context context;
     private ImageView imgView;
+
+
     public CustomAdapter(Context context, List<Film> data){
         this.context=context;
         movies = data;
     }
+
+
+
 
     @Override
     public int getItemCount() {
@@ -54,6 +59,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         //Log.i("testPhoto",movie.getPoster());
         //Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(imgView);
 
+
+
         holder.bind(movie);
 
         //holder.image.setImage;
@@ -62,7 +69,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements TradTask.ICallbackTrad {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements TradTask.ICallbackTrad{
 
         private final TextView title;
         private final TextView directeur;
@@ -74,6 +81,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         public MyViewHolder(View itemView) {
             super(itemView);
+
 
             title = ((TextView) itemView.findViewById(R.id.tv_title));
             category = ((TextView) itemView.findViewById(R.id.tv_category));
