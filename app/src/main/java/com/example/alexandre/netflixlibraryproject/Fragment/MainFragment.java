@@ -1,6 +1,7 @@
 package com.example.alexandre.netflixlibraryproject.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.alexandre.netflixlibraryproject.FilmDetails;
 import com.example.alexandre.netflixlibraryproject.R;
 import com.example.alexandre.netflixlibraryproject.RecyclerItemClickListener;
 import com.example.alexandre.netflixlibraryproject.adapter.CustomAdapter;
@@ -159,10 +161,27 @@ public class MainFragment extends Fragment implements TitreTask.ICallback{
                 new RecyclerItemClickListener(getContext(), rv ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
 
-                        Film f = data.get(position);
+                        Film film = data.get(position);
 
-                        Log.i("Onclick",f.getShowTitle());
-                        Toast.makeText(getContext(),f.getShowTitle(),Toast.LENGTH_SHORT).show();
+                        Log.i("Onclick",film.getShowTitle());
+
+                        Intent intent = new Intent(getContext(), FilmDetails.class);
+
+                        intent.putExtra("poster",film.getPoster());
+                        intent.putExtra("director",film.getDirector());
+                        intent.putExtra("showCast",film.getShowCast());
+                        intent.putExtra("category",film.getCategory());
+                        intent.putExtra("releaseYear",film.getReleaseYear());
+                        intent.putExtra("showTitle",film.getShowTitle());
+                        intent.putExtra("rating",film.getRating());
+                        intent.putExtra("summary",film.getSummary());
+                        intent.putExtra("mediaType",film.getMediatype());
+                        intent.putExtra("showId",film.getShowId());
+                        intent.putExtra("unit",film.getUnit());
+
+                        startActivity(intent);
+
+                        Toast.makeText(getContext(),film.getShowTitle(),Toast.LENGTH_SHORT).show();
                     }
 
                     @Override public void onLongItemClick(View view, int position) {
