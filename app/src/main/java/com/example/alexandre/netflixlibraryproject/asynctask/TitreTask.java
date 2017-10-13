@@ -3,14 +3,9 @@ package com.example.alexandre.netflixlibraryproject.asynctask;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import org.json.JSONException;
+import com.example.alexandre.netflixlibraryproject.model.Utils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import org.json.JSONException;
 
 /**
  * Created by Alexandre on 04-10-17.
@@ -29,12 +24,15 @@ public class TitreTask extends AsyncTask<String,Void,String>{
         if (type == "Titre") {
 
             type = "title";
+            return Utils.Intent.TAG_TITRE;
         }
         else if(type=="Acteur"){
             type ="actor";
+            return Utils.Intent.TAG_ACTEUR;
 
         } else if(type=="Réalisateur"){
             type ="director";
+            return Utils.Intent.TAG_REALISATEUR;
         }else{
             type ="error";
         }
@@ -42,7 +40,7 @@ public class TitreTask extends AsyncTask<String,Void,String>{
         if(type!="error") {
 
 
-
+/*
             try {
                 URL url = new URL("https://netflixroulette.net/api/api.php?" +type+"="+titre);
 
@@ -65,10 +63,11 @@ public class TitreTask extends AsyncTask<String,Void,String>{
                 reader.close();
                 connection.disconnect();
 
-                return builder.toString();
-            } catch (IOException e) {
+                return builder.toString();*/
+                return null;
+           /* } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
 
         }else{
             Log.i("Error Spinner","Attention mauvaise saisie Spinner");

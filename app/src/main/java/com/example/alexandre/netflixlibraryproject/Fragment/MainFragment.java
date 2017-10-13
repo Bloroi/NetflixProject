@@ -153,6 +153,8 @@ public class MainFragment extends Fragment implements TitreTask.ICallback{
 
             data.add(films.get(i));
         }
+
+        Log.i("image",data.get(0).getPoster());
         rv.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), rv ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {

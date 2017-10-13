@@ -108,8 +108,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             String tmpUrl = film.getPoster();
             tmpUrl = tmpUrl.substring(0,4)+"s"+tmpUrl.substring(4);
             Log.i("testNewUrl",tmpUrl);
-            Picasso.with(context).load(tmpUrl).error(context.getResources().getDrawable(R.drawable.defaut)).centerCrop().fit().into(image);
-
+            //Picasso.with(context).load(tmpUrl).error(context.getResources().getDrawable(R.drawable.defaut)).centerCrop().fit().into(image);
+            Picasso.with(context).load(film.getPoster()).error(context.getResources().getDrawable(R.drawable.defaut)).centerCrop().fit().into(image);
         }
 
         @Override
