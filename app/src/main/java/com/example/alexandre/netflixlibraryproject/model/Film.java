@@ -135,6 +135,8 @@ public class Film implements Parcelable{
         mPoster = in.readString();
         mSummary = in.readString();
         mReleaseYear = in.readString();
+        mShowCast = in.readString();
+        mRating = in.readString();
     }
 
     public static final Creator<Film> CREATOR = new Creator<Film>() {
@@ -163,6 +165,8 @@ public class Film implements Parcelable{
         parcel.writeString(getPoster());
         parcel.writeString(getSummary());
         parcel.writeString(getReleaseYear());
+        parcel.writeString(getShowCast());
+        parcel.writeString(getRating());
 
     }
 }

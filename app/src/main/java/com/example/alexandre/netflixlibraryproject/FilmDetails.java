@@ -1,29 +1,32 @@
 package com.example.alexandre.netflixlibraryproject;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.example.alexandre.netflixlibraryproject.model.Film;
+import com.example.alexandre.netflixlibraryproject.model.Utils;
+import com.squareup.picasso.Picasso;
 
 public class FilmDetails extends AppCompatActivity {
 
     private ImageView ivPoster;
     private TextView tvCategory;
     private TextView tvDirector;
-    private TextView tvMediaType;
-    private TextView tvRating;
+    private RatingBar tvRating;
     private TextView tvReleaseYear;
     private TextView tvShowCast;
-    private TextView tvShowId;
     private TextView tvShowTitle;
     private TextView tvSummary;
-    private TextView tvUnit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_film_details);
 
+        Film f = (Film) getIntent().getParcelableExtra(Utils.Intent.TAG_FILM);
 
         ivPoster = (ImageView) findViewById(R.id.iv_film_details_poster);
         tvDirector = (TextView) findViewById(R.id.tv_film_details_director);
@@ -31,14 +34,10 @@ public class FilmDetails extends AppCompatActivity {
         tvCategory = (TextView) findViewById(R.id.tv_film_details_category);
         tvReleaseYear = (TextView) findViewById(R.id.tv_film_details_releaseYear);
         tvShowTitle = (TextView) findViewById(R.id.tv_film_details_showTitle);
-        tvRating = (TextView) findViewById(R.id.tv_film_details_rating);
+        tvRating = (RatingBar) findViewById(R.id.tv_film_details_rating);
         tvSummary = (TextView) findViewById(R.id.tv_film_details_summary);
-        tvMediaType = (TextView) findViewById(R.id.tv_film_details_mediatype);
-        tvShowId = (TextView) findViewById(R.id.tv_film_details_showId);
-        tvUnit = (TextView) findViewById(R.id.tv_film_details_unit);
 
-
-
+/*
         ivPoster.setImageResource(getIntent().getIntExtra("poster", 00));
         tvDirector.setText("Director : "+getIntent().getStringExtra("director"));
         tvShowCast.setText("Cast : "+getIntent().getStringExtra("showCast"));
@@ -49,6 +48,16 @@ public class FilmDetails extends AppCompatActivity {
         tvSummary.setText("Summary : "+getIntent().getStringExtra("summary"));
         tvMediaType.setText("Media Type : "+getIntent().getStringExtra("mediaType"));
         tvShowId.setText("Id : "+getIntent().getStringExtra("id"));
-        tvUnit.setText("Unit : "+getIntent().getStringExtra("unit"));
+        tvUnit.setText("Unit : "+getIntent().getStringExtra("unit"));*/
+
+        //ivPoster.setImageResource(getIntent().getIntExtra("poster", 00));
+        Picasso.with(this).load(f.getPoster()).error(this.getResources().getDrawable(R.drawable.defaut)).centerCrop().fit().into(ivPoster);
+        tvDirector.setText("Director : "+f.getDirector());
+        tvShowCast.setText("Cast : "+f.getShowCast());
+        tvCategory.setText("Category : "+f.getCategory());
+        tvReleaseYear.setText("Release year : "+f.getReleaseYear());
+        tvShowTitle.setText("Title : "+f.getShowTitle());
+        tvRating.setRating(Float.parseFloat(f.getRating()));
+        tvSummary.setText("Summary : "+f.getSummary());
     }
 }

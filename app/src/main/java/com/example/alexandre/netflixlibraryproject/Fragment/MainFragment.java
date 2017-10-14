@@ -24,6 +24,7 @@ import com.example.alexandre.netflixlibraryproject.RecyclerItemClickListener;
 import com.example.alexandre.netflixlibraryproject.adapter.CustomAdapter;
 import com.example.alexandre.netflixlibraryproject.asynctask.TitreTask;
 import com.example.alexandre.netflixlibraryproject.model.Film;
+import com.example.alexandre.netflixlibraryproject.model.Utils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -166,7 +167,7 @@ public class MainFragment extends Fragment implements TitreTask.ICallback{
                         Log.i("Onclick",film.getShowTitle());
 
                         Intent intent = new Intent(getContext(), FilmDetails.class);
-
+/*
                         intent.putExtra("poster",film.getPoster());
                         intent.putExtra("director",film.getDirector());
                         intent.putExtra("showCast",film.getShowCast());
@@ -178,7 +179,8 @@ public class MainFragment extends Fragment implements TitreTask.ICallback{
                         intent.putExtra("mediaType",film.getMediatype());
                         intent.putExtra("showId",film.getShowId());
                         intent.putExtra("unit",film.getUnit());
-
+*/
+                        intent.putExtra(Utils.Intent.TAG_FILM,film);
                         startActivity(intent);
 
                         Toast.makeText(getContext(),film.getShowTitle(),Toast.LENGTH_SHORT).show();
