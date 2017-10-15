@@ -52,12 +52,12 @@ public class FilmDetails extends AppCompatActivity {
 
         //ivPoster.setImageResource(getIntent().getIntExtra("poster", 00));
         Picasso.with(this).load(f.getPoster()).error(this.getResources().getDrawable(R.drawable.defaut)).centerCrop().fit().into(ivPoster);
-        tvDirector.setText("Director : "+f.getDirector());
-        tvShowCast.setText("Cast : "+f.getShowCast());
-        tvCategory.setText("Category : "+f.getCategory());
-        tvReleaseYear.setText("Release year : "+f.getReleaseYear());
-        tvShowTitle.setText("Title : "+f.getShowTitle());
+        tvDirector.setText(f.getDirector());
+        tvShowCast.setText(f.getShowCast());
+        tvCategory.setText(f.getCategory());
+        tvReleaseYear.setText(f.getReleaseYear());
+        tvShowTitle.setText(f.getShowTitle());
         tvRating.setRating(Float.parseFloat(f.getRating()));
-        tvSummary.setText("Summary : "+f.getSummary());
+        tvSummary.setText(f.getSummary());
     }
 }
