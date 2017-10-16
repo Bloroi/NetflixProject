@@ -37,21 +37,7 @@ public class FilmDetails extends AppCompatActivity {
         tvRating = (RatingBar) findViewById(R.id.tv_film_details_rating);
         tvSummary = (TextView) findViewById(R.id.tv_film_details_summary);
 
-/*
-        ivPoster.setImageResource(getIntent().getIntExtra("poster", 00));
-        tvDirector.setText("Director : "+getIntent().getStringExtra("director"));
-        tvShowCast.setText("Cast : "+getIntent().getStringExtra("showCast"));
-        tvCategory.setText("Category : "+getIntent().getStringExtra("category"));
-        tvReleaseYear.setText("Release year : "+getIntent().getStringExtra("releaseYear"));
-        tvShowTitle.setText("Title : "+getIntent().getStringExtra("showTitle"));
-        tvRating.setText("Rating : "+getIntent().getStringExtra("rating"));
-        tvSummary.setText("Summary : "+getIntent().getStringExtra("summary"));
-        tvMediaType.setText("Media Type : "+getIntent().getStringExtra("mediaType"));
-        tvShowId.setText("Id : "+getIntent().getStringExtra("id"));
-        tvUnit.setText("Unit : "+getIntent().getStringExtra("unit"));*/
-
-        //ivPoster.setImageResource(getIntent().getIntExtra("poster", 00));
-        Picasso.with(this).load(f.getPoster()).error(this.getResources().getDrawable(R.drawable.defaut)).centerCrop().fit().into(ivPoster);
+        Picasso.with(this).load(f.getPoster()).error(this.getDrawable(R.drawable.defaut)).centerCrop().fit().into(ivPoster);
         tvDirector.setText(f.getDirector());
         tvShowCast.setText(f.getShowCast());
         tvCategory.setText(f.getCategory());

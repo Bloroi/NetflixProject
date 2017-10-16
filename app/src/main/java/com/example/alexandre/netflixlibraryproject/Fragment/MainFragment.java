@@ -1,7 +1,6 @@
 package com.example.alexandre.netflixlibraryproject.Fragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,26 +12,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.alexandre.netflixlibraryproject.FilmDetails;
 import com.example.alexandre.netflixlibraryproject.R;
 import com.example.alexandre.netflixlibraryproject.RecyclerItemClickListener;
 import com.example.alexandre.netflixlibraryproject.adapter.CustomAdapter;
 import com.example.alexandre.netflixlibraryproject.asynctask.TitreTask;
-import com.example.alexandre.netflixlibraryproject.model.Film;
-import com.example.alexandre.netflixlibraryproject.model.Utils;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.example.alexandre.netflixlibraryproject.model.Movie;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,15 +29,7 @@ public class MainFragment extends Fragment implements TitreTask.ICallback{
 
     private EditText etTitre;
     private Spinner spinner;
-    private TextView tvTest;
     private RecyclerView rv;
-    private ImageView coucou;
-    private ArrayList<Film> data=new ArrayList<Film>();
-
-    public MainFragment() {
-        // Required empty public constructor
-    }
-
 
 
     @Override
@@ -57,22 +38,19 @@ public class MainFragment extends Fragment implements TitreTask.ICallback{
 
         View v = inflater.inflate(R.layout.fragment_main,container,false);
 
-
         etTitre = (EditText) v.findViewById(R.id.et_main_titre);
-        // tvTest = (TextView) v .findViewById(R.id.tv_Fragmain_test);
-
-
-        //Récupération du Spinner déclaré dans le fichier main.xml de res/layout
         spinner = (Spinner) v.findViewById(R.id.spin_fragMain_spinner1);
-        //Création d'une liste d'élément à mettre dans le Spinner(pour l'exemple)
+
+
+        //Création d'une liste d'élément à mettre dans le Spinner
         List exempleList = new ArrayList();
-        exempleList.add("Titre");
+        exempleList.add("Film");
+        exempleList.add("Série");
         exempleList.add("Acteur");
-        exempleList.add("Réalisateur");
 
 		/*Le Spinner a besoin d'un adapter pour sa presentation alors on lui passe le context(this) et
-                un fichier de presentation par défaut( android.R.layout.simple_spinner_item)
-		Avec la liste des elements (exemple) */
+                un fichier de presentation par défaut
+		Avec la liste des elements */
         ArrayAdapter adapter = new ArrayAdapter(
                 getContext(),
                 android.R.layout.simple_spinner_item,
@@ -80,7 +58,7 @@ public class MainFragment extends Fragment implements TitreTask.ICallback{
         );
 
 
-               /* On definit une présentation du spinner quand il est déroulé         (android.R.layout.simple_spinner_dropdown_item) */
+               /* On definit une présentation du spinner quand il est déroulé */
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Enfin on passe l'adapter au Spinner et c'est tout
         spinner.setAdapter(adapter);
@@ -92,7 +70,7 @@ public class MainFragment extends Fragment implements TitreTask.ICallback{
             @Override
             public void onClick(View view) {
                 if(etTitre!=null){
-                    TitreTask task = new TitreTask();
+                    TitreTask task = new TitreTask(getContext());
                     task.setCallB(MainFragment.this);
                     Log.i("editText",etTitre.getText().toString());
 
@@ -101,18 +79,9 @@ public class MainFragment extends Fragment implements TitreTask.ICallback{
             }
         });
 
-
-
-
-
         rv = (RecyclerView) v.findViewById(R.id.rv_fragmain_listeF);
         rv.setHasFixedSize(false);
-
-
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        //rv.getLayoutManager().setAutoMeasureEnabled(true);
-
-        //rv.setAdapter(new CustomAdapter(getContext(), data));
 
         return v;
     }
@@ -121,69 +90,24 @@ public class MainFragment extends Fragment implements TitreTask.ICallback{
 
 
     @Override
-    public void getResult(String result) throws JSONException {
-        Log.i("alex", result);
-        Log.i("bracket","++"+result.substring(0,1)+"++");
-        List<Film> films = new ArrayList<Film>();
-        if(result.substring(0,1).equals("[")){
-            JSONArray jsonArray = new JSONArray(result);
-            Type listType = new TypeToken<List<Film>>() {
-            }.getType();
-            films= new Gson().fromJson(String.valueOf(jsonArray), listType);
-
-            Log.i("testfilmsListe",films.get(0).getShowTitle());
-            // Log.i("testfilmsListe",films.get(1).getShowTitle());
-
-            /*tvTest.setText("Titre : "+films.get(0).getShowTitle()+" \nRéalisateur : "+films.get(0).getDirector()+"\nCatégorie : "+films.get(0).getCategory()+
-                    "\nRésumé : "+films.get(0).getSummary());*/
-        }
-        else if(result.substring(0,1).equals("{")){
-            JSONObject object = new JSONObject(result);
-            Gson gson = new Gson();
-            Film f = gson.fromJson(object.toString(), Film.class);
-
-            films.add(f);
-            /*tvTest.setText("Titre : "+f.getShowTitle()+" \nRéalisateur : "+f.getDirector()+"\nCatégorie : "+f.getCategory()+
-                    "\nRésumé : "+f.getSummary());*/
-        }
+    public void getResult(List<Movie> result) throws JSONException {
 
 
 
-        data=new ArrayList<Film>();
-
-
-        for(int i=0;i<films.size();i++){
-
-            data.add(films.get(i));
-        }
-
-        Log.i("image",data.get(0).getPoster());
         rv.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), rv ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
+/*
+                        Movie movie = data.get(position);
 
-                        Film film = data.get(position);
-
-                        Log.i("Onclick",film.getShowTitle());
+                        Log.i("Onclick",movie.getTitle());
 
                         Intent intent = new Intent(getContext(), FilmDetails.class);
-/*
-                        intent.putExtra("poster",film.getPoster());
-                        intent.putExtra("director",film.getDirector());
-                        intent.putExtra("showCast",film.getShowCast());
-                        intent.putExtra("category",film.getCategory());
-                        intent.putExtra("releaseYear",film.getReleaseYear());
-                        intent.putExtra("showTitle",film.getShowTitle());
-                        intent.putExtra("rating",film.getRating());
-                        intent.putExtra("summary",film.getSummary());
-                        intent.putExtra("mediaType",film.getMediatype());
-                        intent.putExtra("showId",film.getShowId());
-                        intent.putExtra("unit",film.getUnit());
-*/
+
                         intent.putExtra(Utils.Intent.TAG_FILM,film);
                         startActivity(intent);
 
-                        Toast.makeText(getContext(),film.getShowTitle(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),film.getShowTitle(),Toast.LENGTH_SHORT).show();*/
                     }
 
                     @Override public void onLongItemClick(View view, int position) {
@@ -192,32 +116,10 @@ public class MainFragment extends Fragment implements TitreTask.ICallback{
                 })
         );
 
-        rv.setAdapter(new CustomAdapter(getContext(), data));
-
-
-
-
-
-
-
-        //Log.i("TestArray",+"");
-
-        /*
-        Log.i("Testtitle",f.getShowTitle()+" ");
-
-        tvTest.setText("Titre : "+f.getShowTitle()+" /nRéalisateur : "+f.getDirector()+"/nCatégorie : "+f.getCategory()+
-                "/nRésumé : "+f.getSummary());*/
-
-        //Intent i = new Intent(MainActivity.this,ShowFilm.class);
-
-
-
-
-        //i.putExtra(Utils.Intent.TAG_FILM,f);
-
-        //startActivity(i);
-        //Toast.makeText(this, f.getReleaseYear()+ "", Toast.LENGTH_LONG).show();
+        rv.setAdapter(new CustomAdapter(getContext(), result));
     }
+
+
 
 
 }
