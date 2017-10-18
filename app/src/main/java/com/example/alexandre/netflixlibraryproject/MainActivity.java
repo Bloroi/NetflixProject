@@ -8,7 +8,7 @@ import com.example.alexandre.netflixlibraryproject.Fragment.DetailsFragment;
 import com.example.alexandre.netflixlibraryproject.Fragment.MainFragment;
 import com.example.alexandre.netflixlibraryproject.model.Movie;
 
-public class MainActivity extends AppCompatActivity implements MainFragment.OnObjectSetListener, DetailsFragment.CallbackSetFilm {
+public class MainActivity extends AppCompatActivity implements MainFragment.OnObjectSetListener {
 
 
     private MainFragment FragMain = MainFragment.getInstance();
@@ -42,14 +42,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnOb
 
     }
 
-
-
-
-
-    @Override
-    public void setEnvoiFilm() {
-        FragDet.setMovie(movie);
-    }
 
 
     @Override

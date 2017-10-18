@@ -28,8 +28,6 @@ public class DetailsFragment extends Fragment {
     private TextView tvSummary;
     private Movie movie;
 
-    private CallbackSetFilm callBSetFilm;
-    public void setFilmEnvoi(CallbackSetFilm callBSetFilm){this.callBSetFilm=callBSetFilm;}
 
     private static DetailsFragment instance = null;
 
@@ -42,9 +40,7 @@ public class DetailsFragment extends Fragment {
     }
 
 
-    public interface CallbackSetFilm{
-        void setEnvoiFilm();
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
