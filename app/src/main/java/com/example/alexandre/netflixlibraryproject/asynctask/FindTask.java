@@ -89,9 +89,9 @@ public class FindTask extends AsyncTask<String,Void,String>{
             progressDialog.setProgress(20);
             try {
 
-                URL url = new URL("https://api.themoviedb.org/3/search/" + type + "?query=" + rech + "&api_key=" + Utils.Intent.TAG_APIKEY + "&language=" + Locale.getDefault().toString());
+                URL url = new URL("https://api.themoviedb.org/3/search/" + type + "?query=" + rech + "&api_key=" + Utils.Intent.TAG_APIKEY + "&language=" + Locale.getDefault().getLanguage());
 
-                Log.i("url", "https://api.themoviedb.org/3/search/" + type + "?query=" + rech + "&api_key=" + Utils.Intent.TAG_APIKEY + "&language=" + Locale.getDefault().toString());
+                Log.i("url", "https://api.themoviedb.org/3/search/" + type + "?query=" + rech + "&api_key=" + Utils.Intent.TAG_APIKEY + "&language=" + Locale.getDefault().getLanguage());
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");

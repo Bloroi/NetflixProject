@@ -58,7 +58,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder implements TradTask.ICallbackTrad{
 
         private final TextView title;
-        //private final TextView category;
+        private final TextView originalTitle;
         private final RatingBar rating;
         private final TextView releaseYear;
         private final ImageView image;
@@ -68,7 +68,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
             super(itemView);
 
             title = ((TextView) itemView.findViewById(R.id.tv_title));
-            //category = ((TextView) itemView.findViewById(R.id.tv_category));
+            originalTitle = ((TextView) itemView.findViewById(R.id.tv_originalTitle));
             rating = ((RatingBar) itemView.findViewById(R.id.tv_rating));
             releaseYear = ((TextView) itemView.findViewById(R.id.tv_releaseYear));
             image = ((ImageView) itemView.findViewById(R.id.iv_image));
@@ -79,7 +79,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
             tradtask.setCallBTrad(this);*/
 
             title.setText(film.getTitle());
-            //category.setText(film.getGenreString());
+            originalTitle.setText(film.getOriginalTitle());
             rating.setRating(film.getVoteAverage()/2);
             releaseYear.setText(film.getReleaseDate());
             Picasso.with(context).load("http://image.tmdb.org/t/p/original"+film.getPosterPath()).error(context.getDrawable(R.drawable.defaut)).centerCrop().fit().into(image);

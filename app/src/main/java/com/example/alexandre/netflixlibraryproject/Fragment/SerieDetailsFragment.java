@@ -2,7 +2,6 @@ package com.example.alexandre.netflixlibraryproject.Fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,20 +45,20 @@ public class SerieDetailsFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_details, container, false);
+        View v = inflater.inflate(R.layout.fragment_movie_details, container, false);
 
 
 
-        ivPoster = (ImageView) v.findViewById(R.id.iv_film_details_poster);
-        tvDirector = (TextView) v.findViewById(R.id.tv_film_details_director);
-        tvShowCast = (TextView) v.findViewById(R.id.tv_film_details_showCast);
-        tvCategory = (TextView) v.findViewById(R.id.tv_film_details_category);
-        tvFirstAirDate = (TextView) v.findViewById(R.id.tv_film_details_releaseYear);
-        tvShowTitle = (TextView) v.findViewById(R.id.tv_film_details_showTitle);
-        tvRating = (RatingBar) v.findViewById(R.id.tv_film_details_rating);
-        tvSummary = (TextView) v.findViewById(R.id.tv_film_details_summary);
-        tvNbSeason = (TextView) v.findViewById(R.id.tv_film_details_nbSeason);
-        tvNbEpisode = (TextView) v.findViewById(R.id.tv_film_details_nbEpisode);
+        ivPoster = (ImageView) v.findViewById(R.id.iv_serie_details_poster);
+        tvDirector = (TextView) v.findViewById(R.id.tv_serie_details_director);
+        tvShowCast = (TextView) v.findViewById(R.id.tv_serie_details_showCast);
+        tvCategory = (TextView) v.findViewById(R.id.tv_serie_details_category);
+        tvFirstAirDate = (TextView) v.findViewById(R.id.tv_serie_details_firstAirDate);
+        tvShowTitle = (TextView) v.findViewById(R.id.tv_serie_details_showTitle);
+        tvRating = (RatingBar) v.findViewById(R.id.tv_serie_details_rating);
+        tvSummary = (TextView) v.findViewById(R.id.tv_serie_details_summary);
+        tvNbSeason = (TextView) v.findViewById(R.id.tv_serie_details_nbSeason);
+        tvNbEpisode = (TextView) v.findViewById(R.id.tv_serie_details_nbEpisode);
 
         Picasso.with(getContext()).load("http://image.tmdb.org/t/p/original"+serie.getPosterPath()).error(getContext().getDrawable(R.drawable.defaut)).centerCrop().fit().into(ivPoster);
         //tvShowCast.setText(serie.getShowCast());

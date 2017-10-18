@@ -21,14 +21,14 @@ public class DetailsFragment extends Fragment {
 
     private ImageView ivPoster;
     private TextView tvCategory;
-    private TextView tvDirector;
+    private TextView tvCompany;
     private RatingBar tvRating;
     private TextView tvReleaseYear;
     private TextView tvShowCast;
     private TextView tvShowTitle;
     private TextView tvSummary;
     private Movie movie;
-
+    private View v;
 
     private static DetailsFragment instance = null;
 
@@ -47,12 +47,26 @@ public class DetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_details, container, false);
+        v = inflater.inflate(R.layout.fragment_movie_details, container, false);
 
+        //v.setBackgroundColor ( (new Random()).nextInt() );
+         /*   Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/original"+movie.getBackdropPath()).into(new Target() {
+
+                 @Override
+                 public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                     v.setBackground(new BitmapDrawable(getResources(),bitmap));
+                 }
+
+                 @Override
+                 public void onBitmapFailed(Drawable errorDrawable) {
+
+                 }
+
+                 @Override public void onPrepareLoad(Drawable placeHolderDrawable) {}});*/
 
 
         ivPoster = (ImageView) v.findViewById(R.id.iv_film_details_poster);
-        tvDirector = (TextView) v.findViewById(R.id.tv_film_details_director);
+        tvCompany = (TextView) v.findViewById(R.id.tv_film_details_company);
         tvShowCast = (TextView) v.findViewById(R.id.tv_film_details_showCast);
         tvCategory = (TextView) v.findViewById(R.id.tv_film_details_category);
         tvReleaseYear = (TextView) v.findViewById(R.id.tv_film_details_releaseYear);
@@ -61,34 +75,38 @@ public class DetailsFragment extends Fragment {
         tvSummary = (TextView) v.findViewById(R.id.tv_film_details_summary);
 
         Picasso.with(getContext()).load("http://image.tmdb.org/t/p/original"+movie.getPosterPath()).error(getContext().getDrawable(R.drawable.defaut)).centerCrop().fit().into(ivPoster);
-        //tvShowCast.setText(movie.getShowCast());
+        //v.setBackground(getContext().getDrawable(ivPoster.getDrawable()));
+
+            //tvShowCast.setText(movie.getShowCast());
         tvCategory.setText(movie.getGenreString());
         //tvReleaseYear.setText(movie.getReleaseDate());
         tvShowTitle.setText(movie.getTitle());
         tvRating.setRating(movie.getVoteAverage()/2);
         tvSummary.setText(movie.getOverview());
+        tvCompany.setText(movie.getCompanyString());
 
 
 
         // Changement du format de la date
         String mStringDate = movie.getReleaseDate();
-        String oldFormat= "yyyy-MM-dd";
-        String newFormat= "dd-MM-yyyy";
+        if(!movie.getReleaseDate().isEmpty()) {
+            String oldFormat = "yyyy-MM-dd";
+            String newFormat = "dd-MM-yyyy";
 
-        String formatedDate = "";
-        SimpleDateFormat dateFormat = new SimpleDateFormat(oldFormat);
-        Date myDate = null;
-        try {
-            myDate = dateFormat.parse(mStringDate);
-        } catch (java.text.ParseException e) {
-            e.printStackTrace();
+            String formatedDate = "";
+            SimpleDateFormat dateFormat = new SimpleDateFormat(oldFormat);
+            Date myDate = null;
+            try {
+                myDate = dateFormat.parse(mStringDate);
+            } catch (java.text.ParseException e) {
+                e.printStackTrace();
+            }
+
+            SimpleDateFormat timeFormat = new SimpleDateFormat(newFormat);
+            formatedDate = timeFormat.format(myDate);
+
+            tvReleaseYear.setText(formatedDate);
         }
-
-        SimpleDateFormat timeFormat = new SimpleDateFormat(newFormat);
-        formatedDate = timeFormat.format(myDate);
-
-        tvReleaseYear.setText(formatedDate );
-
 
 
         return v;

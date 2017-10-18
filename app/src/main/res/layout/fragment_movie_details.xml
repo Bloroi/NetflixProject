@@ -37,7 +37,7 @@
                     android:src="@drawable/defaut" />
 
 
-                <!-- 3. Linearlayout mettant les caractristiques verticalement à droite de l'image -->
+                <!-- 3. Linearlayout mettant les caractéristiques verticalement à droite de l'image -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -58,7 +58,7 @@
                             android:textSize="15dp" />
 
                         <TextView
-                            android:id="@+id/tv_film_details_director"
+                            android:id="@+id/tv_film_details_company"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="15dp"
