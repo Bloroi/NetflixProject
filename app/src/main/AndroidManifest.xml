@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ShowFilm" />
+        <activity android:name=".unused.ShowFilm" />
         <activity android:name=".MainActivity" />
         <activity android:name=".InscriptionActivity" />
         <activity android:name=".FilmDetails"></activity>

@@ -1,8 +1,9 @@
 package com.example.alexandre.netflixlibraryproject.Fragment;
 
 
+import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,8 +21,6 @@ import com.example.alexandre.netflixlibraryproject.adapter.CustomAdapter;
 import com.example.alexandre.netflixlibraryproject.asynctask.TitreTask;
 import com.example.alexandre.netflixlibraryproject.model.Movie;
 
-import org.json.JSONException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +29,22 @@ public class MainFragment extends Fragment implements TitreTask.ICallback{
     private EditText etTitre;
     private Spinner spinner;
     private RecyclerView rv;
+    private List<Movie> results;
+    private int pos;
+    private Movie filmEnvoi;
+    private static MainFragment instance = null;
 
+    private OnObjectSetListener OnObjectListener;
+
+
+
+    public static MainFragment getInstance(){
+        if(instance==null){
+            instance = new MainFragment();
+            return instance;
+        }
+        return null;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -90,14 +104,28 @@ public class MainFragment extends Fragment implements TitreTask.ICallback{
 
 
     @Override
-    public void getResult(List<Movie> result) throws JSONException {
+    public void getResult(List<Movie> result){
 
+        results = result;
 
+        for(int i=0;i<results.size();i++){
+            Log.i("results",results.get(i).getTitle());
+        }
 
         rv.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), rv ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
+
+                        Movie movie = results.get(position);
+                        Log.i("result1",results.get(position).getTitle());
+                        Log.i("resultMovie",movie.toString());
+
+                        OnObjectListener.UpdateMovie(movie);
+
+
+                        //callBtoDetails.goToDetails(movie);
 /*
+
                         Movie movie = data.get(position);
 
                         Log.i("Onclick",movie.getTitle());
@@ -120,6 +148,18 @@ public class MainFragment extends Fragment implements TitreTask.ICallback{
     }
 
 
+    public interface OnObjectSetListener {
+        void UpdateMovie(Movie m);
+    }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try{
+            OnObjectListener = (OnObjectSetListener) context;
+        }catch(Exception e){
 
+        }
+
+    }
 }

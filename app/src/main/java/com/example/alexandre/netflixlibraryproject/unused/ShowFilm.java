@@ -1,9 +1,10 @@
-package com.example.alexandre.netflixlibraryproject;
+package com.example.alexandre.netflixlibraryproject.unused;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.example.alexandre.netflixlibraryproject.R;
 import com.example.alexandre.netflixlibraryproject.model.Film;
 import com.example.alexandre.netflixlibraryproject.model.Utils;
 

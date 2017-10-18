@@ -7,6 +7,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.alexandre.netflixlibraryproject.model.Film;
+import com.example.alexandre.netflixlibraryproject.model.Movie;
 import com.example.alexandre.netflixlibraryproject.model.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -20,6 +21,8 @@ public class FilmDetails extends AppCompatActivity {
     private TextView tvShowCast;
     private TextView tvShowTitle;
     private TextView tvSummary;
+    private Movie m;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -178,4 +178,7 @@ public class Movie {
         mVoteCount = voteCount;
     }
 
+    public String toString(){
+        return "titre : "+getTitle()+" genres : "+getGenreString()+" note : "+getVoteAverage()+" année :"+getReleaseDate();
+    }
 }

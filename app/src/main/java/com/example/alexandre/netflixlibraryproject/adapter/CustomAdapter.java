@@ -82,7 +82,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             category.setText(film.getGenreString());
             rating.setRating(film.getVoteAverage()/2);
             releaseYear.setText(film.getReleaseDate());
-            Picasso.with(context).load("http://image.tmdb.org/t/p/original"+film.getPosterPath()).error(context.getResources().getDrawable(R.drawable.defaut)).centerCrop().fit().into(image);
+            Picasso.with(context).load("http://image.tmdb.org/t/p/original"+film.getPosterPath()).error(context.getDrawable(R.drawable.defaut)).centerCrop().fit().into(image);
         }
 
         @Override
