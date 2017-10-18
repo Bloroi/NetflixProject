@@ -14,17 +14,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.alexandre.netflixlibraryproject.R;
 import com.example.alexandre.netflixlibraryproject.RecyclerItemClickListener;
-import com.example.alexandre.netflixlibraryproject.adapter.CustomAdapter;
-import com.example.alexandre.netflixlibraryproject.asynctask.TitreTask;
+import com.example.alexandre.netflixlibraryproject.adapter.MovieAdapter;
+import com.example.alexandre.netflixlibraryproject.asynctask.MovieTask;
 import com.example.alexandre.netflixlibraryproject.model.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainFragment extends Fragment implements TitreTask.ICallback{
+public class MainFragment extends Fragment implements MovieTask.ICallback{
 
     private EditText etTitre;
     private Spinner spinner;
@@ -65,7 +66,7 @@ public class MainFragment extends Fragment implements TitreTask.ICallback{
 		/*Le Spinner a besoin d'un adapter pour sa presentation alors on lui passe le context(this) et
                 un fichier de presentation par défaut
 		Avec la liste des elements */
-        ArrayAdapter adapter = new ArrayAdapter(
+        final ArrayAdapter adapter = new ArrayAdapter(
                 getContext(),
                 android.R.layout.simple_spinner_item,
                 exempleList
@@ -84,11 +85,17 @@ public class MainFragment extends Fragment implements TitreTask.ICallback{
             @Override
             public void onClick(View view) {
                 if(etTitre!=null){
-                    TitreTask task = new TitreTask(getContext());
-                    task.setCallB(MainFragment.this);
-                    Log.i("editText",etTitre.getText().toString());
+                    if(spinner.getSelectedItem().toString()== "Film"){
+                        MovieTask task = new MovieTask(getContext());
+                        task.setCallB(MainFragment.this);
+                        Log.i("editText", etTitre.getText().toString());
 
-                    task.execute(spinner.getSelectedItem().toString(),etTitre.getText().toString());
+                        task.execute(spinner.getSelectedItem().toString(), etTitre.getText().toString());
+                    }else if(spinner.getSelectedItem().toString()=="Série"){
+                        Toast.makeText(getContext(), "Fonctionnalité très bientôt", Toast.LENGTH_SHORT).show();
+                    }else if(spinner.getSelectedItem().toString()=="Acteur"){
+                        Toast.makeText(getContext(), "Fonctionnalité bientôt", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -121,21 +128,6 @@ public class MainFragment extends Fragment implements TitreTask.ICallback{
                         Log.i("resultMovie",movie.toString());
 
                         OnObjectListener.UpdateMovie(movie);
-
-
-                        //callBtoDetails.goToDetails(movie);
-/*
-
-                        Movie movie = data.get(position);
-
-                        Log.i("Onclick",movie.getTitle());
-
-                        Intent intent = new Intent(getContext(), FilmDetails.class);
-
-                        intent.putExtra(Utils.Intent.TAG_FILM,film);
-                        startActivity(intent);
-
-                        Toast.makeText(getContext(),film.getShowTitle(),Toast.LENGTH_SHORT).show();*/
                     }
 
                     @Override public void onLongItemClick(View view, int position) {
@@ -144,7 +136,9 @@ public class MainFragment extends Fragment implements TitreTask.ICallback{
                 })
         );
 
-        rv.setAdapter(new CustomAdapter(getContext(), result));
+
+            rv.setAdapter(new MovieAdapter(getContext(), result));
+
     }
 
 

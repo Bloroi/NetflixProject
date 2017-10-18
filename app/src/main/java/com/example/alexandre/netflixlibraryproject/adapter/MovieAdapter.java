@@ -27,12 +27,12 @@ import java.util.List;
 
 
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder>{
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder>{
     private List<Movie> movies;
     private Context context;
 
 
-    public CustomAdapter(Context context, List<Movie> data){
+    public MovieAdapter(Context context, List<Movie> data){
         this.context=context;
         movies = data;
     }
@@ -44,7 +44,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_cell, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.list_cell_movie_tv, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -85,6 +85,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             Picasso.with(context).load("http://image.tmdb.org/t/p/original"+film.getPosterPath()).error(context.getDrawable(R.drawable.defaut)).centerCrop().fit().into(image);
         }
 
+
+        //Unused
         @Override
         public void getResultTrad(String result) throws JSONException {
             JSONObject object = new JSONObject(result);

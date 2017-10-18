@@ -68,7 +68,7 @@ public class DetailsFragment extends Fragment {
         tvCategory.setText(movie.getGenreString());
         tvReleaseYear.setText(movie.getReleaseDate());
         tvShowTitle.setText(movie.getTitle());
-        tvRating.setRating(movie.getVoteAverage());
+        tvRating.setRating(movie.getVoteAverage()/2);
         tvSummary.setText(movie.getOverview());
 
         return v;

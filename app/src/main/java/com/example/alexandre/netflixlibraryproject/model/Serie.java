@@ -3,6 +3,7 @@ package com.example.alexandre.netflixlibraryproject.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -17,6 +18,7 @@ public class Serie {
     private String mFirstAirDate;
     @SerializedName("genre_ids")
     private List<Long> mGenreIds;
+    private List<String> Genres = new ArrayList<>();
     @SerializedName("id")
     private Long mId;
     @SerializedName("name")
@@ -34,7 +36,7 @@ public class Serie {
     @SerializedName("poster_path")
     private String mPosterPath;
     @SerializedName("vote_average")
-    private Double mVoteAverage;
+    private float mVoteAverage;
     @SerializedName("vote_count")
     private Long mVoteCount;
 
@@ -126,11 +128,11 @@ public class Serie {
         mPosterPath = posterPath;
     }
 
-    public Double getVoteAverage() {
+    public float getVoteAverage() {
         return mVoteAverage;
     }
 
-    public void setVoteAverage(Double voteAverage) {
+    public void setVoteAverage(float voteAverage) {
         mVoteAverage = voteAverage;
     }
 
@@ -140,6 +142,30 @@ public class Serie {
 
     public void setVoteCount(Long voteCount) {
         mVoteCount = voteCount;
+    }
+
+    public List<String> getGenre() {
+        return Genres;
+    }
+
+    public String getGenreString(){
+        String tmp = "";
+        for(int i = 0;i<Genres.size();i++){
+            tmp+=Genres.get(i);
+            if(i!=Genres.size()-1){
+                tmp+=", ";
+            }
+        }
+        return tmp;
+    }
+
+    public void setGenre(List<String> genres) {
+        Genres = genres;
+    }
+
+    public void addGenre(Genre genre){
+        String tmpGenre = genre.getName();
+        this.Genres.add(tmpGenre);
     }
 
 }

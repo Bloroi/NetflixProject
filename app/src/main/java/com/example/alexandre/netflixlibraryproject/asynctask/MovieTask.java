@@ -30,7 +30,7 @@ import java.util.Locale;
  * Created by Alexandre on 04-10-17.
  */
 
-public class TitreTask extends AsyncTask<String,Void,List<Movie>>{
+public class MovieTask extends AsyncTask<String,Void,List<Movie>>{
 
     private ICallback callB;
     public void setCallB(ICallback callB){this.callB=callB;}
@@ -38,7 +38,7 @@ public class TitreTask extends AsyncTask<String,Void,List<Movie>>{
 
     private Context context;
 
-    public TitreTask(Context context){
+    public MovieTask(Context context){
         this.context = context;
     }
 
@@ -72,6 +72,7 @@ public class TitreTask extends AsyncTask<String,Void,List<Movie>>{
     protected List<Movie> doInBackground(String... strings) {
         String type = strings[0];
         String rech = strings[1];
+        List<Movie> movies = new ArrayList<>();
         int i,j;
         List<Genre> genres = new ArrayList<>();
 
@@ -115,19 +116,21 @@ public class TitreTask extends AsyncTask<String,Void,List<Movie>>{
                 reader.close();
                 connection.disconnect();
 
-                List<Movie> movies = new ArrayList<>();
+                if(type=="movie"){
+
+
                 JSONObject object = new JSONObject(builder.toString());
                 JSONArray jsonArray = object.getJSONArray("results");
                 Type listType = new TypeToken<List<Movie>>() {
                 }.getType();
                 movies= new Gson().fromJson(String.valueOf(jsonArray), listType);
                 progressDialog.setProgress(40);
-                for(i=0;i<movies.size();i++){
+                for(i=0;i<movies.size();i++) {
 
                     try {
-                        URL url2 = new URL("https://api.themoviedb.org/3/movie/"+movies.get(i).getId()+"?api_key=d3f617c2a1b78f7220853c4627424fe5&language="+Locale.getDefault().toString());
+                        URL url2 = new URL("https://api.themoviedb.org/3/movie/" + movies.get(i).getId() + "?api_key=d3f617c2a1b78f7220853c4627424fe5&language=" + Locale.getDefault().toString());
 
-                        Log.i("urlDetails","https://api.themoviedb.org/3/movie/"+movies.get(i).getId()+"?api_key=d3f617c2a1b78f7220853c4627424fe5&language="+Locale.getDefault().toString());
+                        Log.i("urlDetails", "https://api.themoviedb.org/3/movie/" + movies.get(i).getId() + "?api_key=d3f617c2a1b78f7220853c4627424fe5&language=" + Locale.getDefault().toString());
                         HttpURLConnection connection2 = (HttpURLConnection) url2.openConnection();
                         connection2.setRequestMethod("GET");
                         connection2.connect();
@@ -149,22 +152,23 @@ public class TitreTask extends AsyncTask<String,Void,List<Movie>>{
                         JSONArray jsonArray2 = object2.getJSONArray("genres");
                         Type listType2 = new TypeToken<List<Genre>>() {
                         }.getType();
-                        genres= new Gson().fromJson(String.valueOf(jsonArray2), listType2);
+                        genres = new Gson().fromJson(String.valueOf(jsonArray2), listType2);
 
                         progressDialog.setProgress(80);
 
 
-                        for(j=0;j<genres.size();j++){
+                        for (j = 0; j < genres.size(); j++) {
                             movies.get(i).addGenre(genres.get(j));
-                            progressDialog.setProgress(progressDialog.getProgress()+1);
+                            progressDialog.setProgress(progressDialog.getProgress() + 1);
                         }
 
 
-                    }catch (IOException e) {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                }
 
                 }
                 progressDialog.setProgress(100);

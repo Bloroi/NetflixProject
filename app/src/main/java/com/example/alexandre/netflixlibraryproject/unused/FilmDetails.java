@@ -1,11 +1,13 @@
-package com.example.alexandre.netflixlibraryproject;
+package com.example.alexandre.netflixlibraryproject.unused;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.alexandre.netflixlibraryproject.R;
 import com.example.alexandre.netflixlibraryproject.model.Film;
 import com.example.alexandre.netflixlibraryproject.model.Movie;
 import com.example.alexandre.netflixlibraryproject.model.Utils;
@@ -45,8 +47,9 @@ public class FilmDetails extends AppCompatActivity {
         tvShowCast.setText(f.getShowCast());
         tvCategory.setText(f.getCategory());
         tvReleaseYear.setText(f.getReleaseYear());
-        tvShowTitle.setText(f.getShowTitle());
-        tvRating.setRating(Float.parseFloat(f.getRating()));
+        //tvShowTitle.setText(f.getShowTitle());
+        Log.i("TestRating",Float.parseFloat(f.getRating())/2+" ");
+        tvRating.setRating(Float.parseFloat(f.getRating())/2);
         tvSummary.setText(f.getSummary());
     }
 }

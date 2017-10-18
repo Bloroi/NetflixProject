@@ -23,7 +23,7 @@
         <activity android:name=".unused.ShowFilm" />
         <activity android:name=".MainActivity" />
         <activity android:name=".InscriptionActivity" />
-        <activity android:name=".FilmDetails"></activity>
+        <activity android:name=".unused.FilmDetails"></activity>
     </application>
 
 </manifest>
