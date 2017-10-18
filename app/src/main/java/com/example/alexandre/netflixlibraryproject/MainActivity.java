@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.alexandre.netflixlibraryproject.Fragment.DetailsFragment;
 import com.example.alexandre.netflixlibraryproject.Fragment.MainFragment;
+import com.example.alexandre.netflixlibraryproject.model.Actor;
 import com.example.alexandre.netflixlibraryproject.model.Movie;
+import com.example.alexandre.netflixlibraryproject.model.Serie;
 
 public class MainActivity extends AppCompatActivity implements MainFragment.OnObjectSetListener {
 
@@ -53,5 +55,15 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnOb
                 .addToBackStack(null)
                 .commit();
         FragDet.setMovie(m);
+    }
+
+    @Override
+    public void UpdateSerie(Serie s) {
+
+    }
+
+    @Override
+    public void UpdateActor(Actor a) {
+
     }
 }

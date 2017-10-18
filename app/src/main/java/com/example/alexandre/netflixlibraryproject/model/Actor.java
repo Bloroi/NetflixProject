@@ -23,6 +23,13 @@ public class Actor {
     private Double mPopularity;
     @SerializedName("profile_path")
     private String mProfilePath;
+    private String mcharacter;
+
+    public Actor(String name,String character,String poster){
+        mName = name;
+        mcharacter = character;
+        mProfilePath=poster;
+    }
 
     public Boolean getAdult() {
         return mAdult;
@@ -70,6 +77,18 @@ public class Actor {
 
     public void setProfilePath(String profilePath) {
         mProfilePath = profilePath;
+    }
+
+    public String getCharacter() {
+        return mcharacter;
+    }
+
+    public void setCharacter(String chara) {
+        mcharacter = chara;
+    }
+
+    public String toString(){
+        return getName()+" "+getCharacter()+" "+getProfilePath();
     }
 
 }

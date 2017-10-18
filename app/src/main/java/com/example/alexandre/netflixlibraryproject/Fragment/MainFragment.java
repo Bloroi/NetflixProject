@@ -19,13 +19,21 @@ import android.widget.Toast;
 import com.example.alexandre.netflixlibraryproject.R;
 import com.example.alexandre.netflixlibraryproject.RecyclerItemClickListener;
 import com.example.alexandre.netflixlibraryproject.adapter.MovieAdapter;
-import com.example.alexandre.netflixlibraryproject.asynctask.MovieTask;
+import com.example.alexandre.netflixlibraryproject.asynctask.CastTask;
+import com.example.alexandre.netflixlibraryproject.asynctask.DetailsTask;
+import com.example.alexandre.netflixlibraryproject.asynctask.FindTask;
+import com.example.alexandre.netflixlibraryproject.model.Actor;
 import com.example.alexandre.netflixlibraryproject.model.Movie;
+import com.example.alexandre.netflixlibraryproject.model.Serie;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainFragment extends Fragment implements MovieTask.ICallback{
+public class MainFragment extends Fragment implements FindTask.ICallback,DetailsTask.ICallbackDetails,CastTask.ICallbackCast{
 
     private EditText etTitre;
     private Spinner spinner;
@@ -34,6 +42,12 @@ public class MainFragment extends Fragment implements MovieTask.ICallback{
     private int pos;
     private Movie filmEnvoi;
     private static MainFragment instance = null;
+    private List<Movie> dataF = new ArrayList<>();
+    private List<Serie> dataS = new ArrayList<>();
+    private List<Actor> dataA = new ArrayList<>();
+    private Movie m;
+    private Serie s;
+    private Actor a;
 
     private OnObjectSetListener OnObjectListener;
 
@@ -86,7 +100,7 @@ public class MainFragment extends Fragment implements MovieTask.ICallback{
             public void onClick(View view) {
                 if(etTitre!=null){
                     if(spinner.getSelectedItem().toString()== "Film"){
-                        MovieTask task = new MovieTask(getContext());
+                        FindTask task = new FindTask(getContext());
                         task.setCallB(MainFragment.this);
                         Log.i("editText", etTitre.getText().toString());
 
@@ -111,39 +125,132 @@ public class MainFragment extends Fragment implements MovieTask.ICallback{
 
 
     @Override
-    public void getResult(List<Movie> result){
+    public void getResult(String result){
 
-        results = result;
+        if(spinner.getSelectedItem().toString()== "Film") {
+            dataF = new ArrayList<>();
+            try {
+                JSONObject object = new JSONObject(result);
+                JSONArray jsonArray = object.getJSONArray("results");
+                for(int i =0;i<jsonArray.length();i++){
+                    JSONObject object2 = jsonArray.getJSONObject(i);
+                    Long id = Long.parseLong(object2.getString("id"));
+                    String title = object2.getString("title");
+                    String originalTitle = object2.getString("original_title");
+                    String poster = object2.getString("poster_path");
+                    float rating = Float.parseFloat(object2.getString("vote_average"));
+                    String release = object2.getString("release_date");
+                    Movie m = new Movie(id,poster,title,originalTitle,rating,release);
+                    Log.i("ObjectMovie",m.toString());
+                    dataF.add(m);
+                }
 
-        for(int i=0;i<results.size();i++){
-            Log.i("results",results.get(i).getTitle());
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+
+
+            rv.addOnItemTouchListener(
+                    new RecyclerItemClickListener(getContext(), rv, new RecyclerItemClickListener.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+
+                            String id = dataF.get(position).getId()+"";
+                            m = dataF.get(position);
+                            DetailsTask taskD = new DetailsTask(getContext());
+                            taskD.setCallBDetails(MainFragment.this);
+                            taskD.execute(spinner.getSelectedItem().toString(),id);
+
+                            CastTask taskC = new CastTask((getContext()));
+                            taskC.setCallBCast(MainFragment.this);
+                            taskC.execute(spinner.getSelectedItem().toString(),id);
+                            //OnObjectListener.UpdateMovie(movie);
+                        }
+
+                        @Override
+                        public void onLongItemClick(View view, int position) {
+                            // do whatever
+                        }
+                    })
+            );
+
+
+            rv.setAdapter(new MovieAdapter(getContext(), dataF));
+        }else if(spinner.getSelectedItem().toString()== "Série"){
+
+        }else if(spinner.getSelectedItem().toString()== "Actor"){
+
         }
 
-        rv.addOnItemTouchListener(
-                new RecyclerItemClickListener(getContext(), rv ,new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
+    }
 
-                        Movie movie = results.get(position);
-                        Log.i("result1",results.get(position).getTitle());
-                        Log.i("resultMovie",movie.toString());
+    @Override
+    public void getResultDetails(String result) throws JSONException {
+        Log.i("testResult2",result);
+        if(spinner.getSelectedItem().toString()== "Film") {
+            JSONObject object3 = new JSONObject(result);
+            m.setBackdropPath(object3.getString("backdrop_path"));
+            m.setOverview(object3.getString(("overview")));
+            JSONArray jArrayGenre = object3.getJSONArray("genres");
+            for(int i =0;i<jArrayGenre.length();i++) {
+                JSONObject objectGenre = jArrayGenre.getJSONObject(i);
+                String genre = objectGenre.getString("name");
+                m.addGenre(genre);
+            }
+            JSONArray jArrayCompany = object3.getJSONArray("production_companies");
+            for(int i =0;i<jArrayCompany.length();i++) {
+                JSONObject objectCompany = jArrayCompany.getJSONObject(i);
+                String comp = objectCompany.getString("name");
+                m.addCompany(comp);
+            }
 
-                        OnObjectListener.UpdateMovie(movie);
-                    }
-
-                    @Override public void onLongItemClick(View view, int position) {
-                        // do whatever
-                    }
-                })
-        );
+            Log.i("AfficheGenresOverview",m.getGenreString()+" "+m.getCompanyString()+" "+m.getOverview());
 
 
-            rv.setAdapter(new MovieAdapter(getContext(), result));
+
+
+    }else if(spinner.getSelectedItem().toString()== "Série"){
+
+    }else if(spinner.getSelectedItem().toString()== "Actor"){
 
     }
+    }
+
+    @Override
+    public void getResultCast(String result) throws JSONException {
+        Log.i("testResult3",result);
+        if(spinner.getSelectedItem().toString()== "Film") {
+            JSONObject object4 = new JSONObject(result);
+            JSONArray jArrayCast = object4.getJSONArray("cast");
+            for(int i =0;i<jArrayCast.length();i++) {
+                JSONObject objectCast = jArrayCast.getJSONObject(i);
+                Actor act = new Actor(objectCast.getString("name"),objectCast.getString("character"),objectCast.getString("profile_path"));
+                m.addActor(act);
+            }
+
+            List<Actor> actors = m.getActors();
+
+           /* for(int i=0;i<actors.size();i++) {
+                Log.i("veriflistActors",actors.get(i).toString());
+            }*/
+            OnObjectListener.UpdateMovie(m);
+
+        }else if(spinner.getSelectedItem().toString()== "Série"){
+
+        }else if(spinner.getSelectedItem().toString()== "Actor"){
+
+        }
+    }
+
 
 
     public interface OnObjectSetListener {
         void UpdateMovie(Movie m);
+        void UpdateSerie(Serie s);
+        void UpdateActor(Actor a);
     }
 
     @Override

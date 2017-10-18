@@ -16,8 +16,6 @@ public class Movie {
     private Boolean mAdult;
     @SerializedName("backdrop_path")
     private String mBackdropPath;
-    @SerializedName("genre_ids")
-    private List<Long> mGenreIds;
     private List<String> Genres = new ArrayList<>();
     @SerializedName("id")
     private Long mId;
@@ -27,20 +25,25 @@ public class Movie {
     private String mOriginalTitle;
     @SerializedName("overview")
     private String mOverview;
-    @SerializedName("popularity")
-    private Double mPopularity;
     @SerializedName("poster_path")
     private String mPosterPath;
     @SerializedName("release_date")
     private String mReleaseDate;
     @SerializedName("title")
     private String mTitle;
-    @SerializedName("video")
-    private Boolean mVideo;
     @SerializedName("vote_average")
     private float mVoteAverage;
-    @SerializedName("vote_count")
-    private Long mVoteCount;
+    private List<Actor> actors = new ArrayList<>();
+    private List<String> companys = new ArrayList<>();
+
+    public Movie(Long Id,String poster, String title,String titleOriginal,float vote,String date){
+        mId = Id;
+        mPosterPath = poster;
+        mTitle = title;
+        mOriginalTitle = titleOriginal;
+        mVoteAverage = vote;
+        mReleaseDate = date;
+    }
 
     public Boolean getAdult() {
         return mAdult;
@@ -58,13 +61,6 @@ public class Movie {
         mBackdropPath = backdropPath;
     }
 
-    public List<Long> getGenreIds() {
-        return mGenreIds;
-    }
-
-    public void setGenreIds(List<Long> genreIds) {
-        mGenreIds = genreIds;
-    }
 
     public List<String> getGenre() {
         return Genres;
@@ -85,9 +81,8 @@ public class Movie {
         Genres = genres;
     }
 
-    public void addGenre(Genre genre){
-        String tmpGenre = genre.getName();
-        this.Genres.add(tmpGenre);
+    public void addGenre(String genre){
+        this.Genres.add(genre);
     }
 
     public Long getId() {
@@ -122,14 +117,6 @@ public class Movie {
         mOverview = overview;
     }
 
-    public Double getPopularity() {
-        return mPopularity;
-    }
-
-    public void setPopularity(Double popularity) {
-        mPopularity = popularity;
-    }
-
     public String getPosterPath() {
         return mPosterPath;
     }
@@ -154,14 +141,6 @@ public class Movie {
         mTitle = title;
     }
 
-    public Boolean getVideo() {
-        return mVideo;
-    }
-
-    public void setVideo(Boolean video) {
-        mVideo = video;
-    }
-
     public float getVoteAverage() {
         return mVoteAverage;
     }
@@ -170,15 +149,45 @@ public class Movie {
         mVoteAverage = voteAverage;
     }
 
-    public Long getVoteCount() {
-        return mVoteCount;
+    public List<Actor> getActors() {
+        return actors;
     }
 
-    public void setVoteCount(Long voteCount) {
-        mVoteCount = voteCount;
+
+    public void setActor(List<Actor> listActor) {
+        actors = listActor;
     }
+
+    public void addActor(Actor actor){
+        this.actors.add(actor);
+    }
+
+    public List<String> getCompany() {
+        return companys;
+    }
+
+
+    public void setCompany(List<String> listCompanys) {
+        companys= listCompanys;
+    }
+
+    public void addCompany(String str){
+        this.companys.add(str);
+    }
+
+    public String getCompanyString(){
+        String tmp = "";
+        for(int i = 0;i<companys.size();i++){
+            tmp+=companys.get(i);
+            if(i!=companys.size()-1){
+                tmp+=", ";
+            }
+        }
+        return tmp;
+    }
+
 
     public String toString(){
-        return "titre : "+getTitle()+" genres : "+getGenreString()+" note : "+getVoteAverage()+" année :"+getReleaseDate();
+        return "id : "+mId+" titre : "+getTitle()+" Titre original : "+getOriginalTitle()+" note : "+getVoteAverage()+" année :"+getReleaseDate();
     }
 }
