@@ -4,7 +4,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.alexandre.netflixlibraryproject.Fragment.DetailsFragment;
+import com.example.alexandre.netflixlibraryproject.Fragment.MovieDetailsFragment;
 import com.example.alexandre.netflixlibraryproject.Fragment.MainFragment;
 import com.example.alexandre.netflixlibraryproject.model.Actor;
 import com.example.alexandre.netflixlibraryproject.model.Movie;
@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnOb
 
 
     private MainFragment FragMain = MainFragment.getInstance();
-    private DetailsFragment FragDet = DetailsFragment.getInstance();
+    private MovieDetailsFragment FragDet = MovieDetailsFragment.getInstance();
 
     Movie movie;
 

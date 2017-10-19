@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.alexandre.netflixlibraryproject.Fragment.DetailsFragment">
+    tools:context="com.example.alexandre.netflixlibraryproject.Fragment.MovieDetailsFragment">
 
 
     <ScrollView
@@ -128,19 +128,11 @@
                 android:text="Not find"/>
 
 
-            <RatingBar
+            <TextView
                 android:id="@+id/tv_film_details_rating"
-                style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:isIndicator="true"
-                android:numStars="5"
-                android:stepSize="0.1"
-                android:progressTint="@color/colorPrimary"
-                android:secondaryProgressTint="@color/colorPrimary"
+                android:text="0.0/10"
                 android:layout_marginBottom="15dp"/>
 
 

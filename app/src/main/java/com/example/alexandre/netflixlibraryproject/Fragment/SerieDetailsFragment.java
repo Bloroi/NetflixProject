@@ -28,11 +28,11 @@ public class SerieDetailsFragment extends Fragment{
     private Serie serie;
 
 
-    private static DetailsFragment instance = null;
+    private static MovieDetailsFragment instance = null;
 
-    public static DetailsFragment getInstance(){
+    public static MovieDetailsFragment getInstance(){
         if(instance==null){
-            instance = new DetailsFragment();
+            instance = new MovieDetailsFragment();
             return instance;
         }
         return null;

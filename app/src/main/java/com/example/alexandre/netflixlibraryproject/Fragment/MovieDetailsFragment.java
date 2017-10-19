@@ -2,11 +2,11 @@ package com.example.alexandre.netflixlibraryproject.Fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.alexandre.netflixlibraryproject.R;
@@ -17,12 +17,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class DetailsFragment extends Fragment {
+public class MovieDetailsFragment extends Fragment {
 
     private ImageView ivPoster;
     private TextView tvCategory;
     private TextView tvCompany;
-    private RatingBar tvRating;
+    private TextView tvRating;
     private TextView tvReleaseYear;
     private TextView tvShowCast;
     private TextView tvShowTitle;
@@ -30,11 +30,11 @@ public class DetailsFragment extends Fragment {
     private Movie movie;
     private View v;
 
-    private static DetailsFragment instance = null;
+    private static MovieDetailsFragment instance = null;
 
-    public static DetailsFragment getInstance(){
+    public static MovieDetailsFragment getInstance(){
         if(instance==null){
-            instance = new DetailsFragment();
+            instance = new MovieDetailsFragment();
             return instance;
         }
         return null;
@@ -71,22 +71,25 @@ public class DetailsFragment extends Fragment {
         tvCategory = (TextView) v.findViewById(R.id.tv_film_details_category);
         tvReleaseYear = (TextView) v.findViewById(R.id.tv_film_details_releaseYear);
         tvShowTitle = (TextView) v.findViewById(R.id.tv_film_details_showTitle);
-        tvRating = (RatingBar) v.findViewById(R.id.tv_film_details_rating);
+        tvRating = (TextView) v.findViewById(R.id.tv_film_details_rating);
         tvSummary = (TextView) v.findViewById(R.id.tv_film_details_summary);
 
         Picasso.with(getContext()).load("http://image.tmdb.org/t/p/original"+movie.getPosterPath()).error(getContext().getDrawable(R.drawable.defaut)).centerCrop().fit().into(ivPoster);
         //v.setBackground(getContext().getDrawable(ivPoster.getDrawable()));
 
-            //tvShowCast.setText(movie.getShowCast());
+        //tvShowCast.setText(movie.getShowCast());
         tvCategory.setText(movie.getGenreString());
         //tvReleaseYear.setText(movie.getReleaseDate());
         tvShowTitle.setText(movie.getTitle());
-        tvRating.setRating(movie.getVoteAverage()/2);
+        tvRating.setText(movie.getVoteAverage()+"/10");
         tvSummary.setText(movie.getOverview());
         tvCompany.setText(movie.getCompanyString());
 
 
 
+        Log.i("ratingverifValeur", tvRating.getText()+"r");
+       // rbRating.setRating(2);
+       // Log.i("ratingverifValeur", rbRating.getRating()+" ");
         // Changement du format de la date
         String mStringDate = movie.getReleaseDate();
         if(!movie.getReleaseDate().isEmpty()) {
