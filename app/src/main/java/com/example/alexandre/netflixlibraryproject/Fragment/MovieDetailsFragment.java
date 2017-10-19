@@ -74,7 +74,7 @@ public class MovieDetailsFragment extends Fragment {
         tvRating = (TextView) v.findViewById(R.id.tv_film_details_rating);
         tvSummary = (TextView) v.findViewById(R.id.tv_film_details_summary);
 
-        Picasso.with(getContext()).load("http://image.tmdb.org/t/p/original"+movie.getPosterPath()).error(getContext().getDrawable(R.drawable.defaut)).centerCrop().fit().into(ivPoster);
+        Picasso.with(getContext()).load("http://image.tmdb.org/t/p/original"+movie.getPosterPath()).error(getContext().getDrawable(R.drawable.defaut))/*.centerCrop().fit()*/.into(ivPoster);
         //v.setBackground(getContext().getDrawable(ivPoster.getDrawable()));
 
         //tvShowCast.setText(movie.getShowCast());

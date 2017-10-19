@@ -51,7 +51,7 @@ public class TVAdapter extends RecyclerView.Adapter<TVAdapter.MyViewHolder> {
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView title;
-        //private final TextView category;
+        private final TextView originalTitle;
         private final RatingBar rating;
         private final TextView releaseYear;
         private final ImageView image;
@@ -65,14 +65,15 @@ public class TVAdapter extends RecyclerView.Adapter<TVAdapter.MyViewHolder> {
             rating = ((RatingBar) itemView.findViewById(R.id.tv_rating));
             releaseYear = ((TextView) itemView.findViewById(R.id.tv_releaseYear));
             image = ((ImageView) itemView.findViewById(R.id.iv_image));
+            originalTitle = (TextView) itemView.findViewById(R.id.tv_originalTitle);
         }
 
         public void bind(Serie serie) {
 
-            title.setText(serie.getName());
-            //category.setText(serie.getGenreString());
+            title.setText(serie.getTitle());
+            originalTitle.setText(serie.getOriginalTitle());
             rating.setRating(serie.getVoteAverage()/ 2);
-            releaseYear.setText(serie.getFirstAirDate());
+            releaseYear.setText(serie.getReleaseDate());
             Picasso.with(context).load("http://image.tmdb.org/t/p/original" + serie.getPosterPath()).error(context.getDrawable(R.drawable.defaut)).centerCrop().fit().into(image);
         }
 

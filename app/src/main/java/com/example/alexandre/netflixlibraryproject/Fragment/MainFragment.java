@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.alexandre.netflixlibraryproject.R;
 import com.example.alexandre.netflixlibraryproject.RecyclerItemClickListener;
 import com.example.alexandre.netflixlibraryproject.adapter.MovieAdapter;
+import com.example.alexandre.netflixlibraryproject.adapter.TVAdapter;
 import com.example.alexandre.netflixlibraryproject.asynctask.CastTask;
 import com.example.alexandre.netflixlibraryproject.asynctask.DetailsTask;
 import com.example.alexandre.netflixlibraryproject.asynctask.FindTask;
@@ -99,14 +100,14 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             @Override
             public void onClick(View view) {
                 if(etTitre!=null){
-                    if(spinner.getSelectedItem().toString()== "Film"){
+                    if(spinner.getSelectedItem().toString()== "Film" || spinner.getSelectedItem().toString()=="Série"){
                         FindTask task = new FindTask(getContext());
                         task.setCallB(MainFragment.this);
                         Log.i("editText", etTitre.getText().toString());
 
                         task.execute(spinner.getSelectedItem().toString(), etTitre.getText().toString());
-                    }else if(spinner.getSelectedItem().toString()=="Série"){
-                        Toast.makeText(getContext(), "Fonctionnalité très bientôt", Toast.LENGTH_SHORT).show();
+                   /* }else if(spinner.getSelectedItem().toString()=="Série"){
+                        Toast.makeText(getContext(), "Fonctionnalité très bientôt", Toast.LENGTH_SHORT).show();*/
                     }else if(spinner.getSelectedItem().toString()=="Acteur"){
                         Toast.makeText(getContext(), "Fonctionnalité bientôt", Toast.LENGTH_SHORT).show();
                     }
@@ -140,9 +141,9 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                     String poster = object2.getString("poster_path");
                     float rating = Float.parseFloat(object2.getString("vote_average"));
                     String release = object2.getString("release_date");
-                    Movie m = new Movie(id,poster,title,originalTitle,rating,release);
-                    Log.i("ObjectMovie",m.toString());
-                    dataF.add(m);
+                    Movie movie = new Movie(id,poster,title,originalTitle,rating,release);
+                    Log.i("ObjectMovie",movie.toString());
+                    dataF.add(movie);
                 }
 
 
@@ -181,6 +182,54 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             rv.setAdapter(new MovieAdapter(getContext(), dataF));
         }else if(spinner.getSelectedItem().toString()== "Série"){
 
+            dataS = new ArrayList<>();
+            try {
+                JSONObject object = new JSONObject(result);
+                JSONArray jsonArray = object.getJSONArray("results");
+                for(int i =0;i<jsonArray.length();i++){
+                    JSONObject object2 = jsonArray.getJSONObject(i);
+                    Long id = Long.parseLong(object2.getString("id"));
+                    String title = object2.getString("name");
+                    String originalName = object2.getString("original_name");
+                    String poster = object2.getString("poster_path");
+                    float rating = Float.parseFloat(object2.getString("vote_average"));
+                    String firstairdate = object2.getString("first_air_date");
+                    Serie serie= new Serie(id,poster,title,originalName,rating,firstairdate);
+                    Log.i("ObjectMovie",serie.toString());
+                    dataS.add(serie);
+                }
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            rv.addOnItemTouchListener(
+                    new RecyclerItemClickListener(getContext(), rv, new RecyclerItemClickListener.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+
+                            String id = dataS.get(position).getId()+"";
+                            s = dataS.get(position);
+                            DetailsTask taskD = new DetailsTask(getContext());
+                            taskD.setCallBDetails(MainFragment.this);
+                            taskD.execute(spinner.getSelectedItem().toString(),id);
+
+                            CastTask taskC = new CastTask((getContext()));
+                            taskC.setCallBCast(MainFragment.this);
+                            taskC.execute(spinner.getSelectedItem().toString(),id);
+                        }
+
+                        @Override
+                        public void onLongItemClick(View view, int position) {
+                            // do whatever
+                        }
+                    })
+            );
+
+
+            rv.setAdapter(new TVAdapter(getContext(), dataS));
+
         }else if(spinner.getSelectedItem().toString()== "Actor"){
 
         }
@@ -213,6 +262,26 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
 
 
     }else if(spinner.getSelectedItem().toString()== "Série"){
+            JSONObject object3 = new JSONObject(result);
+            s.setBackdropPath(object3.getString("backdrop_path"));
+            s.setOverview(object3.getString(("overview")));
+            s.setnbSaison(object3.getInt(("number_of_seasons")));
+            s.setnbEpisodes(object3.getInt(("number_of_episodes")));
+            JSONArray jArrayGenre = object3.getJSONArray("genres");
+            for(int i =0;i<jArrayGenre.length();i++) {
+                JSONObject objectGenre = jArrayGenre.getJSONObject(i);
+                String genre = objectGenre.getString("name");
+                s.addGenre(genre);
+            }
+            JSONArray jArrayCompany = object3.getJSONArray("production_companies");
+            for(int i =0;i<jArrayCompany.length();i++) {
+                JSONObject objectCompany = jArrayCompany.getJSONObject(i);
+                String comp = objectCompany.getString("name");
+                s.addCompany(comp);
+            }
+
+            Log.i("AfficheGenresOverview",s.getGenreString()+" "+s.getCompanyString()+" "+s.getOverview());
+
 
     }else if(spinner.getSelectedItem().toString()== "Actor"){
 
@@ -231,15 +300,25 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                 m.addActor(act);
             }
 
-            List<Actor> actors = m.getActors();
-
-           /* for(int i=0;i<actors.size();i++) {
-                Log.i("veriflistActors",actors.get(i).toString());
+           /* for(int i=0;i<m.getActors().size();i++) {
+                Log.i("veriflistActors",m.getActors().get(i).toString());
             }*/
             OnObjectListener.UpdateMovie(m);
 
         }else if(spinner.getSelectedItem().toString()== "Série"){
 
+            JSONObject object4 = new JSONObject(result);
+            JSONArray jArrayCast = object4.getJSONArray("cast");
+            for(int i =0;i<jArrayCast.length();i++) {
+                JSONObject objectCast = jArrayCast.getJSONObject(i);
+                Actor act = new Actor(objectCast.getString("name"),objectCast.getString("character"),objectCast.getString("profile_path"));
+                s.addActor(act);
+            }
+
+            for(int i=0;i<s.getActors().size();i++) {
+                Log.i("veriflistActors",s.getActors().toString());
+            }
+            OnObjectListener.UpdateSerie(s);
         }else if(spinner.getSelectedItem().toString()== "Actor"){
 
         }

@@ -70,6 +70,9 @@ public class Movie {
         String tmp = "";
         for(int i = 0;i<Genres.size();i++){
             tmp+=Genres.get(i);
+            if(i==3){
+                break;
+            }
             if(i!=Genres.size()-1){
                 tmp+=", ";
             }
@@ -179,6 +182,9 @@ public class Movie {
         String tmp = "";
         for(int i = 0;i<companys.size();i++){
             tmp+=companys.get(i);
+            if(i==3){
+                break;
+            }
             if(i!=companys.size()-1){
                 tmp+=", ";
             }
