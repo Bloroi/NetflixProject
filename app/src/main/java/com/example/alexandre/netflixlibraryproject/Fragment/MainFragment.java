@@ -127,7 +127,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
 
     @Override
     public void getResult(String result){
-
+    Log.i("VerifSpinner",spinner.getSelectedItem().toString());
         if(spinner.getSelectedItem().toString()== "Film") {
             dataF = new ArrayList<>();
             try {
@@ -154,31 +154,6 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
 
 
 
-            rv.addOnItemTouchListener(
-                    new RecyclerItemClickListener(getContext(), rv, new RecyclerItemClickListener.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(View view, int position) {
-
-                            String id = dataF.get(position).getId()+"";
-                            m = dataF.get(position);
-                            DetailsTask taskD = new DetailsTask(getContext());
-                            taskD.setCallBDetails(MainFragment.this);
-                            taskD.execute(spinner.getSelectedItem().toString(),id);
-
-                            CastTask taskC = new CastTask((getContext()));
-                            taskC.setCallBCast(MainFragment.this);
-                            taskC.execute(spinner.getSelectedItem().toString(),id);
-                            //OnObjectListener.UpdateMovie(movie);
-                        }
-
-                        @Override
-                        public void onLongItemClick(View view, int position) {
-                            // do whatever
-                        }
-                    })
-            );
-
-
             rv.setAdapter(new MovieAdapter(getContext(), dataF));
         }else if(spinner.getSelectedItem().toString()== "Série"){
 
@@ -203,36 +178,56 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-            rv.addOnItemTouchListener(
-                    new RecyclerItemClickListener(getContext(), rv, new RecyclerItemClickListener.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(View view, int position) {
-
-                            String id = dataS.get(position).getId()+"";
-                            s = dataS.get(position);
-                            DetailsTask taskD = new DetailsTask(getContext());
-                            taskD.setCallBDetails(MainFragment.this);
-                            taskD.execute(spinner.getSelectedItem().toString(),id);
-
-                            CastTask taskC = new CastTask((getContext()));
-                            taskC.setCallBCast(MainFragment.this);
-                            taskC.execute(spinner.getSelectedItem().toString(),id);
-                        }
-
-                        @Override
-                        public void onLongItemClick(View view, int position) {
-                            // do whatever
-                        }
-                    })
-            );
-
-
             rv.setAdapter(new TVAdapter(getContext(), dataS));
 
         }else if(spinner.getSelectedItem().toString()== "Actor"){
 
         }
+
+        rv.addOnItemTouchListener(
+                new RecyclerItemClickListener(getContext(), rv, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        if (spinner.getSelectedItem().toString() == "Film") {
+
+                            String id = dataF.get(position).getId() + "";
+                            m = dataF.get(position);
+                            Log.i("idValeurF", id);
+                            Log.i("dataF", dataF.get(position).toString());
+                            DetailsTask taskD = new DetailsTask(getContext());
+                            taskD.setCallBDetails(MainFragment.this);
+                            taskD.execute(spinner.getSelectedItem().toString(), id);
+
+                            CastTask taskC = new CastTask((getContext()));
+                            taskC.setCallBCast(MainFragment.this);
+                            taskC.execute(spinner.getSelectedItem().toString(), id);
+                            //OnObjectListener.UpdateMovie(movie);
+                        } else if (spinner.getSelectedItem().toString() == "Série") {
+
+                            String id = dataS.get(position).getId() + "";
+                            Log.i("idValeurS", id);
+                            Log.i("dataS", dataS.get(position).toString());
+                            s = dataS.get(position);
+                            DetailsTask taskD = new DetailsTask(getContext());
+                            taskD.setCallBDetails(MainFragment.this);
+                            taskD.execute(spinner.getSelectedItem().toString(), id);
+
+                            CastTask taskC = new CastTask((getContext()));
+                            taskC.setCallBCast(MainFragment.this);
+
+                            taskC.execute(spinner.getSelectedItem().toString(), id);
+                        } else if(spinner.getSelectedItem().toString()== "Acteur") {
+
+                        }
+
+                        }
+                        @Override
+                    public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                })
+        );
+
 
     }
 

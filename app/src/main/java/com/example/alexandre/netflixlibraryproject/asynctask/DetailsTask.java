@@ -90,8 +90,7 @@ public class DetailsTask extends AsyncTask<String,Void,String>{
 
                 URL url = new URL("https://api.themoviedb.org/3/"+type+"/"+id+"?api_key=" + Utils.Intent.TAG_APIKEY + "&language=" + Locale.getDefault().toString());
 
-                Log.i("url", "https://api.themoviedb.org/3/"+type+"/"+id+"?api_key=" + Utils.Intent.TAG_APIKEY + "&language=" + Locale.getDefault().toString());
-
+                Log.i("urlDetailsTask", "https://api.themoviedb.org/3/"+type+"/"+id+"?api_key=" + Utils.Intent.TAG_APIKEY + "&language=" + Locale.getDefault().toString());
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.connect();
