@@ -196,25 +196,10 @@
                 />
          </LinearLayout>
 
-            <LinearLayout
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_fragmain_listeActors"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cast :"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:id="@+id/tv_serie_details_showCast"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:text="Not find"/>
-
-            </LinearLayout>
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
 
             <TextView

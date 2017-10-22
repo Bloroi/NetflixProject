@@ -9,9 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.alexandre.netflixlibraryproject.R;
+import com.example.alexandre.netflixlibraryproject.RecyclerItemClickListener;
 import com.example.alexandre.netflixlibraryproject.model.Actor;
 import com.squareup.picasso.Picasso;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,11 +21,14 @@ import java.util.List;
  */
 
 public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder> {
-    private List<Actor> listActors;
+    private List<Actor> listActors = Collections.emptyList();
+    //private LayoutInflater inflater;
+    private ItemClickListener clickListener;
     private Context context;
 
-    public ActorAdapter(List<Actor> listActors, Context context) {
+    public ActorAdapter(List<Actor> listActors, /*LayoutInflater inflater,*/ Context context) {
         this.listActors = listActors;
+        //this.inflater = LayoutInflater.from(context);
         this.context = context;
     }
 
@@ -31,6 +36,9 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.list_actor, parent, false);
         return new MyViewHolder(view);
+        //View view = inflater.inflate(R.layout.list_actor, parent, false);
+        //MyViewHolder myViewHolder = new MyViewHolder(view);
+        //return myViewHolder;
     }
 
     @Override
@@ -49,7 +57,7 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
 
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private final TextView name;
         private final TextView character;
@@ -62,6 +70,8 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
             name = ((TextView) itemView.findViewById(R.id.tv_name));
             character = ((TextView) itemView.findViewById(R.id.tv_character));
             image = ((ImageView) itemView.findViewById(R.id.iv_image));
+
+            itemView.setOnClickListener(this);
         }
 
         public void bind(Actor actor){
@@ -70,10 +80,23 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
             Picasso.with(context).load("http://image.tmdb.org/t/p/original" + actor.getProfilePath()).error(context.getDrawable(R.drawable.defaut)).centerCrop().fit().into(image);
         }
 
+        @Override
+        public void onClick(View view) {
+            if(clickListener != null){
+                clickListener.onItemClick(view, getAdapterPosition());
+            }
+        }
 
+
+    }   // Fin class MyViewHolder
+
+    public interface ItemClickListener{
+        void onItemClick(View view, int position);
     }
 
-
+    public void setClickListener(ItemClickListener itemClickListener){
+        this.clickListener = itemClickListener;
+    }
 
 
 }
