@@ -2,6 +2,8 @@ package com.example.alexandre.netflixlibraryproject.Fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +12,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.alexandre.netflixlibraryproject.R;
+import com.example.alexandre.netflixlibraryproject.adapter.ListActorAdapter;
+import com.example.alexandre.netflixlibraryproject.model.Actor;
 import com.example.alexandre.netflixlibraryproject.model.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class MovieDetailsFragment extends Fragment {
@@ -29,6 +35,7 @@ public class MovieDetailsFragment extends Fragment {
     private TextView tvSummary;
     private Movie movie;
     private View v;
+    private RecyclerView rv;
 
     private static MovieDetailsFragment instance = null;
 
@@ -74,6 +81,7 @@ public class MovieDetailsFragment extends Fragment {
         tvRating = (TextView) v.findViewById(R.id.tv_film_details_rating);
         tvSummary = (TextView) v.findViewById(R.id.tv_film_details_summary);
 
+
         Picasso.with(getContext()).load("http://image.tmdb.org/t/p/original"+movie.getPosterPath()).error(getContext().getDrawable(R.drawable.defaut))/*.centerCrop().fit()*/.into(ivPoster);
         //v.setBackground(getContext().getDrawable(ivPoster.getDrawable()));
 
@@ -110,6 +118,11 @@ public class MovieDetailsFragment extends Fragment {
 
             tvReleaseYear.setText(formatedDate);
         }
+
+        rv = (RecyclerView) v.findViewById(R.id.rv_fragmain_listeActors);
+       // rv.setHasFixedSize(false);
+        rv.setLayoutManager(new LinearLayoutManager(getContext()/*, LinearLayoutManager.HORIZONTAL, false*/));
+        rv.setAdapter(new ListActorAdapter(getContext(), movie.getActors()));
 
 
         return v;

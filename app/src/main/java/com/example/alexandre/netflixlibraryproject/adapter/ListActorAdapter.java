@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.alexandre.netflixlibraryproject.R;
-import com.example.alexandre.netflixlibraryproject.RecyclerItemClickListener;
 import com.example.alexandre.netflixlibraryproject.model.Actor;
 import com.squareup.picasso.Picasso;
 
@@ -20,13 +19,13 @@ import java.util.List;
  * Created by Alexandre on 18-10-17.
  */
 
-public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder> {
+public class ListActorAdapter extends RecyclerView.Adapter<ListActorAdapter.MyViewHolder> {
     private List<Actor> listActors = Collections.emptyList();
     //private LayoutInflater inflater;
     private ItemClickListener clickListener;
     private Context context;
 
-    public ActorAdapter(List<Actor> listActors, /*LayoutInflater inflater,*/ Context context) {
+    public ListActorAdapter(Context context,List<Actor> listActors) {
         this.listActors = listActors;
         //this.inflater = LayoutInflater.from(context);
         this.context = context;
@@ -34,9 +33,9 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_actor, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.list_details_actor, parent, false);
         return new MyViewHolder(view);
-        //View view = inflater.inflate(R.layout.list_actor, parent, false);
+        //View view = inflater.inflate(R.layout.list_details_actor, parent, false);
         //MyViewHolder myViewHolder = new MyViewHolder(view);
         //return myViewHolder;
     }
