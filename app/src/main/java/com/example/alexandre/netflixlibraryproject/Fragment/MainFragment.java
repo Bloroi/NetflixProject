@@ -295,9 +295,9 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                 m.addActor(act);
             }
 
-           /* for(int i=0;i<m.getActors().size();i++) {
+           for(int i=0;i<m.getActors().size();i++) {
                 Log.i("veriflistActors",m.getActors().get(i).toString());
-            }*/
+            }
             OnObjectListener.UpdateMovie(m);
 
         }else if(spinner.getSelectedItem().toString()== "Série"){

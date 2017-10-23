@@ -123,8 +123,9 @@
                 android:id="@+id/tv_film_details_showTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="40dp"
-                android:layout_marginBottom="15dp"
+                android:textSize="25dp"
+                android:textColor="#222222"
+                android:textStyle="bold"
                 android:text="Not find"/>
 
             <LinearLayout

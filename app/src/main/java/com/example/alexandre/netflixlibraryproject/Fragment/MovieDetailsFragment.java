@@ -13,14 +13,11 @@ import android.widget.TextView;
 
 import com.example.alexandre.netflixlibraryproject.R;
 import com.example.alexandre.netflixlibraryproject.adapter.ListActorAdapter;
-import com.example.alexandre.netflixlibraryproject.model.Actor;
 import com.example.alexandre.netflixlibraryproject.model.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 
 public class MovieDetailsFragment extends Fragment {
@@ -91,7 +88,6 @@ public class MovieDetailsFragment extends Fragment {
         tvRating.setText(movie.getVoteAverage()+"/10");
         tvSummary.setText(movie.getOverview());
         tvCompany.setText(movie.getCompanyString());
-
 
 
         Log.i("ratingverifValeur", tvRating.getText()+"r");
