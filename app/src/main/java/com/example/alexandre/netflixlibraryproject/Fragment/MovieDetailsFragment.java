@@ -74,7 +74,6 @@ public class MovieDetailsFragment extends Fragment {
 
         ivPoster = (ImageView) v.findViewById(R.id.iv_film_details_poster);
         tvCompany = (TextView) v.findViewById(R.id.tv_film_details_company);
-        tvShowCast = (TextView) v.findViewById(R.id.tv_film_details_showCast);
         tvCategory = (TextView) v.findViewById(R.id.tv_film_details_category);
         tvReleaseYear = (TextView) v.findViewById(R.id.tv_film_details_releaseYear);
         tvShowTitle = (TextView) v.findViewById(R.id.tv_film_details_showTitle);
@@ -119,11 +118,10 @@ public class MovieDetailsFragment extends Fragment {
             tvReleaseYear.setText(formatedDate);
         }
 
-        rv = (RecyclerView) v.findViewById(R.id.rv_fragmain_listeActors);
-       // rv.setHasFixedSize(false);
-        rv.setLayoutManager(new LinearLayoutManager(getContext()/*, LinearLayoutManager.HORIZONTAL, false*/));
+        rv = (RecyclerView) v.findViewById(R.id.rv_film_details_listeActors);
+        rv.setHasFixedSize(false);
+        rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rv.setAdapter(new ListActorAdapter(getContext(), movie.getActors()));
-
 
         return v;
     }

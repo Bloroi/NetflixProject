@@ -2,6 +2,8 @@ package com.example.alexandre.netflixlibraryproject.Fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.alexandre.netflixlibraryproject.R;
+import com.example.alexandre.netflixlibraryproject.adapter.ListActorAdapter;
 import com.example.alexandre.netflixlibraryproject.model.Serie;
 import com.squareup.picasso.Picasso;
 
@@ -23,7 +26,7 @@ public class SerieDetailsFragment extends Fragment{
     private TextView tvNbSeason;
     private TextView tvNbEpisode;
     private TextView tvCompanys;
-
+    private RecyclerView rv;
     private Serie serie;
 
 
@@ -50,7 +53,6 @@ public class SerieDetailsFragment extends Fragment{
 
         ivPoster = (ImageView) v.findViewById(R.id.iv_serie_details_poster);
         tvCompanys = (TextView) v.findViewById(R.id.tv_serie_details_companys) ;
-        tvShowCast = (TextView) v.findViewById(R.id.tv_serie_details_showCast);
         tvCategory = (TextView) v.findViewById(R.id.tv_serie_details_category);
         tvFirstAirDate = (TextView) v.findViewById(R.id.tv_serie_details_firstAirDate);
         tvShowTitle = (TextView) v.findViewById(R.id.tv_serie_details_showTitle);
@@ -70,6 +72,13 @@ public class SerieDetailsFragment extends Fragment{
         tvNbSeason.setText(serie.getnbSaison()+"");
         tvNbEpisode.setText(serie.getnbEpisodes()+"");
         tvCompanys.setText(serie.getCompanyString());
+
+
+        rv = (RecyclerView) v.findViewById(R.id.rv_serie_details_listeActors);
+        rv.setHasFixedSize(false);
+        rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        rv.setAdapter(new ListActorAdapter(getContext(), serie.getActors()));
+
 
         return v;
     }
