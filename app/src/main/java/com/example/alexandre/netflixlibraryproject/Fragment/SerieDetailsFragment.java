@@ -1,12 +1,15 @@
 package com.example.alexandre.netflixlibraryproject.Fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,8 +18,11 @@ import com.example.alexandre.netflixlibraryproject.adapter.ListActorAdapter;
 import com.example.alexandre.netflixlibraryproject.model.Serie;
 import com.squareup.picasso.Picasso;
 
-public class SerieDetailsFragment extends Fragment{
+import java.util.Locale;
+
+public class SerieDetailsFragment extends Fragment implements View.OnClickListener {
     private ImageView ivPoster;
+    private ImageView ivBackPoster;
     private TextView tvCategory;
     private TextView tvRating;
     private TextView tvFirstAirDate;
@@ -28,6 +34,7 @@ public class SerieDetailsFragment extends Fragment{
     private TextView tvCompanys;
     private RecyclerView rv;
     private Serie serie;
+    private Button btnYoutube;
 
 
     private static SerieDetailsFragment instance = null;
@@ -52,6 +59,7 @@ public class SerieDetailsFragment extends Fragment{
 
 
         ivPoster = (ImageView) v.findViewById(R.id.iv_serie_details_poster);
+        ivBackPoster = (ImageView) v.findViewById(R.id.iv_serie_details_backposter) ;
         tvCompanys = (TextView) v.findViewById(R.id.tv_serie_details_companys) ;
         tvCategory = (TextView) v.findViewById(R.id.tv_serie_details_category);
         tvFirstAirDate = (TextView) v.findViewById(R.id.tv_serie_details_firstAirDate);
@@ -60,9 +68,13 @@ public class SerieDetailsFragment extends Fragment{
         tvSummary = (TextView) v.findViewById(R.id.tv_serie_details_summary);
         tvNbSeason = (TextView) v.findViewById(R.id.tv_serie_details_nbSeason);
         tvNbEpisode = (TextView) v.findViewById(R.id.tv_serie_details_nbEpisode);
+        btnYoutube = (Button) v.findViewById(R.id.btn_serie_details_youtube);
+        btnYoutube.setOnClickListener(SerieDetailsFragment.this);
 
 
         Picasso.with(getContext()).load("http://image.tmdb.org/t/p/original"+serie.getPosterPath()).error(getContext().getDrawable(R.drawable.defaut))/*.centerCrop().fit()*/.into(ivPoster);
+        Picasso.with(getContext()).load("http://image.tmdb.org/t/p/original"+serie.getBackdropPath()).error(getContext().getDrawable(R.drawable.defautback)).into(ivBackPoster);
+
 
         tvCategory.setText(serie.getGenreString());
         tvFirstAirDate.setText(serie.getReleaseDate());
@@ -86,5 +98,20 @@ public class SerieDetailsFragment extends Fragment{
 
     public void setSerie(Serie s) {
         serie = s;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_serie_details_youtube:
+                submitAction();
+                break;
+        }
+    }
+
+    public void submitAction() {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse("https://www.youtube.com/results?search_query="+serie.getTitle()+" trailer "+Locale.getDefault().getLanguage()));
+        startActivity(i);
     }
 }

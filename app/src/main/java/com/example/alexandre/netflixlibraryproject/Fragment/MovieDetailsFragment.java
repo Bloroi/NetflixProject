@@ -1,6 +1,8 @@
 package com.example.alexandre.netflixlibraryproject.Fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,11 +21,13 @@ import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 
-public class MovieDetailsFragment extends Fragment {
+public class MovieDetailsFragment extends Fragment implements View.OnClickListener{
 
     private ImageView ivPoster;
+    private ImageView ivBackPoster;
     private TextView tvCategory;
     private TextView tvCompany;
     private TextView tvRating;
@@ -33,6 +38,7 @@ public class MovieDetailsFragment extends Fragment {
     private Movie movie;
     private View v;
     private RecyclerView rv;
+    private Button btnYoutube;
 
     private static MovieDetailsFragment instance = null;
 
@@ -70,15 +76,21 @@ public class MovieDetailsFragment extends Fragment {
 
 
         ivPoster = (ImageView) v.findViewById(R.id.iv_film_details_poster);
+        ivBackPoster = (ImageView) v.findViewById(R.id.iv_film_details_backposter) ;
         tvCompany = (TextView) v.findViewById(R.id.tv_film_details_company);
         tvCategory = (TextView) v.findViewById(R.id.tv_film_details_category);
         tvReleaseYear = (TextView) v.findViewById(R.id.tv_film_details_releaseYear);
         tvShowTitle = (TextView) v.findViewById(R.id.tv_film_details_showTitle);
         tvRating = (TextView) v.findViewById(R.id.tv_film_details_rating);
         tvSummary = (TextView) v.findViewById(R.id.tv_film_details_summary);
+        btnYoutube = (Button) v.findViewById(R.id.btn_film_details_youtube);
+        btnYoutube.setOnClickListener(MovieDetailsFragment.this);
 
 
-        Picasso.with(getContext()).load("http://image.tmdb.org/t/p/original"+movie.getPosterPath()).error(getContext().getDrawable(R.drawable.defaut))/*.centerCrop().fit()*/.into(ivPoster);
+
+
+        Picasso.with(getContext()).load("http://image.tmdb.org/t/p/original"+movie.getPosterPath()).error(getContext().getDrawable(R.drawable.defaut)).centerCrop().fit().into(ivPoster);
+        Picasso.with(getContext()).load("http://image.tmdb.org/t/p/original"+movie.getBackdropPath()).error(getContext().getDrawable(R.drawable.defautback)).into(ivBackPoster);
         //v.setBackground(getContext().getDrawable(ivPoster.getDrawable()));
 
         //tvShowCast.setText(movie.getShowCast());
@@ -125,5 +137,20 @@ public class MovieDetailsFragment extends Fragment {
 
     public void setMovie(Movie m) {
         movie = m;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_film_details_youtube:
+                submitAction();
+                break;
+        }
+    }
+
+    public void submitAction() {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse("https://www.youtube.com/results?search_query="+movie.getTitle()+" trailer "+Locale.getDefault().getLanguage()));
+        startActivity(i);
     }
 }

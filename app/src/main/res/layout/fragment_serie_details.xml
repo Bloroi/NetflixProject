@@ -12,6 +12,12 @@
         android:layout_height="match_parent">
 
         <!-- 1. Linearlayout principal -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
@@ -21,7 +27,7 @@
             tools:context="com.example.alexandre.netflixlibraryproject.unused.FilmDetails"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginRight="15dp">
 
             <!-- 2. Linearlayout englobant l'image avec ses caractéristiques : directeur, acteur, catégorie, année -->
@@ -29,12 +35,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginBottom="15dp">
+                android:layout_marginBottom="5dp">
 
                 <ImageView
                     android:id="@+id/iv_serie_details_poster"
                     android:layout_width="150dp"
-                    android:layout_height="200dp"
+                    android:layout_height="220dp"
                     android:layout_gravity="left"
                     android:src="@drawable/defaut" />
 
@@ -44,20 +50,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:layout_marginLeft="15dp">
+                    android:layout_marginLeft="7dp">
 
 
                     <!-- 4.1 Compagny -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Compagny : "
-                            android:textSize="15dp" />
+                            android:text="Compagny"
+                            android:textColor="@color/ColorSubtitles"
+                            android:textSize="17sp" />
 
                         <TextView
                             android:id="@+id/tv_serie_details_companys"
@@ -66,20 +69,16 @@
                             android:layout_marginBottom="15dp"
                             android:text="Not find"/>
 
-                    </LinearLayout>
 
 
                     <!-- 4.2 Category -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Category :"
-                            android:textSize="15dp" />
+                            android:text="Category"
+                            android:textColor="@color/ColorSubtitles"
+                            android:textSize="17sp" />
 
 
                         <TextView
@@ -89,70 +88,21 @@
                             android:layout_marginBottom="15dp"
                             android:text="Not find"/>
 
-                    </LinearLayout>
-
 
                     <!-- 4.3 First air date -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="First air date :"
-                            android:textSize="15dp" />
+                            android:text="First air date"
+                            android:textColor="@color/ColorSubtitles"
+                            android:textSize="17sp" />
 
                         <TextView
                             android:id="@+id/tv_serie_details_firstAirDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Not find"/>
-
-                    </LinearLayout>
-
-
-                    <!-- 4.4 Number of season -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Number of season :"
-                            android:textSize="15dp" />
-
-                        <TextView
-                            android:id="@+id/tv_serie_details_nbSeason"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Not find"/>
-
-                    </LinearLayout>
-
-
-                    <!-- 4.5 Number of episode -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Number of episode :"
-                            android:textSize="15dp" />
-
-                        <TextView
-                            android:id="@+id/tv_serie_details_nbEpisode"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Not find"/>
-
-                    </LinearLayout>
 
 
                 </LinearLayout> <!-- Fin 3 -->
@@ -166,8 +116,9 @@
                 android:id="@+id/tv_serie_details_showTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="40dp"
-                android:layout_marginBottom="15dp"
+                android:textColor="@color/ColorTitle"
+                android:textStyle="bold"
+                android:textSize="25sp"
                 android:text="Not find"/>
 
         <LinearLayout
@@ -179,7 +130,7 @@
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"/>
+                android:layout_marginBottom="15sp"/>
 
             <RatingBar
                 style="?android:attr/ratingBarStyleSmall"
@@ -199,8 +150,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cast :"
-                android:textSize="15dp" />
+                android:text="Cast"
+                android:textColor="@color/ColorSubtitles"
+                android:textSize="17dp" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_serie_details_listeActors"
@@ -208,11 +160,78 @@
                 android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
 
+
+
+            <!-- 4.4 Number of season -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:id="@+id/tv_serie_details_nbSeason"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/ColorSubtitles"
+                    android:textSize="17sp"
+                    android:text="/?"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" Saison(s)"
+                    android:textColor="@color/ColorSubtitles"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
+
+
+            <!-- 4.5 Number of episode -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+
+                <TextView
+                    android:id="@+id/tv_serie_details_nbEpisode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/ColorSubtitles"
+                    android:textSize="17sp"
+                    android:text="/?"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" episode(s)"
+                    android:textColor="@color/ColorSubtitles"
+                    android:textSize="17sp"
+                    />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_serie_details_youtube"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center_horizontal"
+                android:padding="2dp"
+                android:text="Check the trailer"
+                />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Summary :"
-                android:textSize="20dp"/>
+                android:layout_marginTop="15dp"
+                android:text="Summary"
+                android:textColor="@color/ColorSubtitles"
+                android:textSize="17sp"/>
 
             <TextView
                 android:id="@+id/tv_serie_details_summary"
@@ -223,6 +242,13 @@
 
         </LinearLayout> <!-- Fin 1 -->
 
+        <ImageView
+            android:id="@+id/iv_serie_details_backposter"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="-5dp"
+            android:layout_height="210dp"
+            android:src="@drawable/defautback" />
+    </LinearLayout>
     </ScrollView>
 
 </FrameLayout>
