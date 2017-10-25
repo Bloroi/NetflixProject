@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.alexandre.netflixlibraryproject.R;
 import com.example.alexandre.netflixlibraryproject.RecyclerItemClickListener;
+import com.example.alexandre.netflixlibraryproject.adapter.ListActorAdapter;
 import com.example.alexandre.netflixlibraryproject.adapter.MovieAdapter;
 import com.example.alexandre.netflixlibraryproject.adapter.TVAdapter;
 import com.example.alexandre.netflixlibraryproject.asynctask.CastTask;
@@ -100,17 +101,10 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             @Override
             public void onClick(View view) {
                 if(etTitre!=null){
-                    if(spinner.getSelectedItem().toString()== "Film" || spinner.getSelectedItem().toString()=="Série"){
-                        FindTask task = new FindTask(getContext());
-                        task.setCallB(MainFragment.this);
-                        Log.i("editText", etTitre.getText().toString());
-
-                        task.execute(spinner.getSelectedItem().toString(), etTitre.getText().toString());
-                   /* }else if(spinner.getSelectedItem().toString()=="Série"){
-                        Toast.makeText(getContext(), "Fonctionnalité très bientôt", Toast.LENGTH_SHORT).show();*/
-                    }else if(spinner.getSelectedItem().toString()=="Acteur"){
-                        Toast.makeText(getContext(), "Fonctionnalité bientôt", Toast.LENGTH_SHORT).show();
-                    }
+                    FindTask task = new FindTask(getContext());
+                    task.setCallB(MainFragment.this);
+                    Log.i("editText", etTitre.getText().toString());
+                    task.execute(spinner.getSelectedItem().toString(), etTitre.getText().toString());
                 }
             }
         });
@@ -127,7 +121,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
 
     @Override
     public void getResult(String result){
-    Log.i("VerifSpinner",spinner.getSelectedItem().toString());
+        Log.i("VerifSpinner",spinner.getSelectedItem().toString());
         if(spinner.getSelectedItem().toString()== "Film") {
             dataF = new ArrayList<>();
             try {
@@ -141,22 +135,17 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                     String poster = object2.getString("poster_path");
                     float rating = Float.parseFloat(object2.getString("vote_average"));
                     String release = object2.getString("release_date");
+
                     Movie movie = new Movie(id,poster,title,originalTitle,rating,release);
                     Log.i("ObjectMovie",movie.toString());
                     dataF.add(movie);
                 }
-
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-
-
-
             rv.setAdapter(new MovieAdapter(getContext(), dataF));
-        }else if(spinner.getSelectedItem().toString()== "Série"){
 
+        }else if(spinner.getSelectedItem().toString()== "Série"){
             dataS = new ArrayList<>();
             try {
                 JSONObject object = new JSONObject(result);
@@ -169,19 +158,38 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                     String poster = object2.getString("poster_path");
                     float rating = Float.parseFloat(object2.getString("vote_average"));
                     String firstairdate = object2.getString("first_air_date");
+
                     Serie serie= new Serie(id,poster,title,originalName,rating,firstairdate);
                     Log.i("ObjectMovie",serie.toString());
                     dataS.add(serie);
                 }
-
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             rv.setAdapter(new TVAdapter(getContext(), dataS));
 
         }else if(spinner.getSelectedItem().toString()== "Actor"){
+            dataA = new ArrayList<>();
+            try {
+                JSONObject object = new JSONObject(result);
+                JSONArray jsonArray = object.getJSONArray("results");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject object2 = jsonArray.getJSONObject(i);
+                    Long id = Long.parseLong(object2.getString("id"));
+                    String name = object2.getString("name");
+                    String profile_path = object2.getString("profile_path");
+                    //    String character = object2.getString("character");
+                    //    String birthday = object2.getString("birthday");
+                    //    String deathday = object2.getString("deathday");
+                    //    String biography = object2.getString("deathday");
+                    //    String place_of_birth = object2.getString("place_of_birth");
 
+                    Actor actor = new Actor(id, name,profile_path);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            rv.setAdapter(new ListActorAdapter(getContext(), dataA));
         }
 
         rv.addOnItemTouchListener(
@@ -217,11 +225,22 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
 
                             taskC.execute(spinner.getSelectedItem().toString(), id);
                         } else if(spinner.getSelectedItem().toString()== "Acteur") {
+                            String id = dataA.get(position).getId() + "";
+                            Log.i("idValeurA", id);
+                            Log.i("dataA", dataA.get(position).toString());
+                            a = dataA.get(position);
+                            DetailsTask taskD = new DetailsTask(getContext());
+                            taskD.setCallBDetails(MainFragment.this);
+                            taskD.execute(spinner.getSelectedItem().toString(), id);
 
+                            CastTask taskC = new CastTask((getContext()));
+                            taskC.setCallBCast(MainFragment.this);
+                            taskC.execute(spinner.getSelectedItem().toString(), id);
                         }
 
-                        }
-                        @Override
+                    }
+
+                    @Override
                     public void onLongItemClick(View view, int position) {
                         // do whatever
                     }
@@ -256,7 +275,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
 
 
 
-    }else if(spinner.getSelectedItem().toString()== "Série"){
+        }else if(spinner.getSelectedItem().toString()== "Série"){
             JSONObject object3 = new JSONObject(result);
             s.setBackdropPath(object3.getString("backdrop_path"));
             s.setOverview(object3.getString(("overview")));
@@ -278,9 +297,14 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             Log.i("AfficheGenresOverview",s.getGenreString()+" "+s.getCompanyString()+" "+s.getOverview());
 
 
-    }else if(spinner.getSelectedItem().toString()== "Actor"){
-
-    }
+        }else if(spinner.getSelectedItem().toString()== "Actor"){
+            JSONObject object3 = new JSONObject(result);
+            a.setCharacter(object3.getString("character"));
+            a.setbirthday(object3.getString("birthday"));
+            a.setdeathday(object3.getString("deathday"));
+            a.setbiography(object3.getString("biography"));
+            a.setplace_of_birth(object3.getString("place_of_birth"));
+        }
     }
 
     @Override
@@ -295,7 +319,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                 m.addActor(act);
             }
 
-           for(int i=0;i<m.getActors().size();i++) {
+            for(int i=0;i<m.getActors().size();i++) {
                 Log.i("veriflistActors",m.getActors().get(i).toString());
             }
             OnObjectListener.UpdateMovie(m);
@@ -315,7 +339,18 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             }
             OnObjectListener.UpdateSerie(s);
         }else if(spinner.getSelectedItem().toString()== "Actor"){
+            JSONObject object4 = new JSONObject(result);
+            JSONArray jArrayCast = object4.getJSONArray("cast");
+            for(int i =0;i<jArrayCast.length();i++) {
+                JSONObject objectCast = jArrayCast.getJSONObject(i);
+                Movie movie = new Movie(objectCast.getLong("id"),objectCast.getString("poster_path"),objectCast.getString("title"),objectCast.getString("release_date"),objectCast.getString("character"));
+                a.addMovie(movie);
+            }
 
+            for(int i=0;i<s.getActors().size();i++) {
+                Log.i("verifListMovies",a.getMovies().toString());
+            }
+            OnObjectListener.UpdateActor(a);
         }
     }
 

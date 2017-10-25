@@ -3,6 +3,7 @@ package com.example.alexandre.netflixlibraryproject.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -11,19 +12,19 @@ import javax.annotation.Generated;
 @SuppressWarnings("unused")
 public class Actor {
 
-    @SerializedName("adult")
-    private Boolean mAdult;
     @SerializedName("id")
     private Long mId;
-    @SerializedName("known_for")
-    private List<KnownFor> mKnownFor;
     @SerializedName("name")
     private String mName;
-    @SerializedName("popularity")
-    private Double mPopularity;
     @SerializedName("profile_path")
     private String mProfilePath;
     private String mcharacter;
+    private String mbirthday;
+    private String mdeathday;
+    private String mbiography;
+    private String mplace_of_birth;
+    private List<Movie> movies = new ArrayList<>();
+
 
     public Actor(String name,String character,String poster){
         mName = name;
@@ -31,12 +32,10 @@ public class Actor {
         mProfilePath=poster;
     }
 
-    public Boolean getAdult() {
-        return mAdult;
-    }
-
-    public void setAdult(Boolean adult) {
-        mAdult = adult;
+    public Actor(Long id, String name, String poster){
+        mId = id;
+        mName = name;
+        mProfilePath=poster;
     }
 
     public Long getId() {
@@ -47,48 +46,47 @@ public class Actor {
         mId = id;
     }
 
-    public List<KnownFor> getKnownFor() {
-        return mKnownFor;
+    public String getName() { return mName; }
+
+    public void setName(String name) { mName = name; }
+
+    public String getProfilePath() { return mProfilePath; }
+
+    public void setProfilePath(String profilePath) { mProfilePath = profilePath; }
+
+    public String getCharacter() { return mcharacter; }
+
+    public void setCharacter(String mcharacter) { this.mcharacter = mcharacter; }
+
+    public String getbirthday() { return mbirthday; }
+
+    public void setbirthday(String mbirthday) { this.mbirthday = mbirthday; }
+
+    public String getdeathday() { return mdeathday; }
+
+    public void setdeathday(String mdeathday) { this.mdeathday = mdeathday; }
+
+    public String getbiography() { return mbiography; }
+
+    public void setbiography(String mbiography) { this.mbiography = mbiography; }
+
+    public String getPlace_of_birth() { return mplace_of_birth; }
+
+    public void setplace_of_birth(String mplace_of_birth) { this.mplace_of_birth = mplace_of_birth; }
+
+    public List<Movie> getMovies() { return movies; }
+
+    public void setMovies(List<Movie> movies) { this.movies = movies; }
+
+    public void addMovie(Movie movie){
+        this.movies.add(movie);
     }
 
-    public void setKnownFor(List<KnownFor> knownFor) {
-        mKnownFor = knownFor;
+    @Override
+    public String toString() {
+        return "id :" + mId + " name : " + mName + " profilePath : " + mProfilePath + " character : " + mcharacter + " birdday : " + mbirthday + " deathday : " + mdeathday + " biography : " + mbirthday;
     }
 
-    public String getName() {
-        return mName;
-    }
-
-    public void setName(String name) {
-        mName = name;
-    }
-
-    public Double getPopularity() {
-        return mPopularity;
-    }
-
-    public void setPopularity(Double popularity) {
-        mPopularity = popularity;
-    }
-
-    public String getProfilePath() {
-        return mProfilePath;
-    }
-
-    public void setProfilePath(String profilePath) {
-        mProfilePath = profilePath;
-    }
-
-    public String getCharacter() {
-        return mcharacter;
-    }
-
-    public void setCharacter(String chara) {
-        mcharacter = chara;
-    }
-
-    public String toString(){
-        return getName()+" "+getCharacter()+" "+getProfilePath();
-    }
 
 }
+

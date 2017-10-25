@@ -10,8 +10,7 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/iv_image"
             android:layout_width="125dp"
@@ -19,21 +18,13 @@
             android:src="@drawable/defaut" />
 
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/tv_character"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="5dp"
             android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/tv_character"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="5dp" />
 
     </LinearLayout>
 

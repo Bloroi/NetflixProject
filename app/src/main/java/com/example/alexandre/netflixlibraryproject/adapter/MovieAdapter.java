@@ -55,6 +55,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     }
 
 
+
     public class MyViewHolder extends RecyclerView.ViewHolder implements TradTask.ICallbackTrad{
 
         private final TextView title;
@@ -93,7 +94,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
             Gson gson = new Gson();
             Traduction t = gson.fromJson(object.toString(), Traduction.class);
 
-           // category.setText(t.getText().get(0));
+            // category.setText(t.getText().get(0));
         }
     }
 }

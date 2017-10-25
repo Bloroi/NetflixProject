@@ -35,6 +35,7 @@ public class Movie {
     private float mVoteAverage;
     private List<Actor> actors = new ArrayList<>();
     private List<String> companys = new ArrayList<>();
+    private String character;
 
     public Movie(Long Id,String poster, String title,String titleOriginal,float vote,String date){
         mId = Id;
@@ -43,6 +44,14 @@ public class Movie {
         mOriginalTitle = titleOriginal;
         mVoteAverage = vote;
         mReleaseDate = date;
+    }
+
+    public Movie(Long Id,String poster, String title, String date, String chara){
+        mId = Id;
+        mPosterPath = poster;
+        mTitle = title;
+        mReleaseDate = date;
+        character = chara;
     }
 
     public Boolean getAdult() {
@@ -152,9 +161,7 @@ public class Movie {
         mVoteAverage = voteAverage;
     }
 
-    public List<Actor> getActors() {
-        return actors;
-    }
+    public List<Actor> getActors() { return actors; }
 
 
     public void setActor(List<Actor> listActor) {
@@ -182,7 +189,7 @@ public class Movie {
         String tmp = "";
         for(int i = 0;i<companys.size();i++){
             tmp+=companys.get(i);
-            if(i==2){
+            if(i==3){
                 break;
             }
             if(i!=companys.size()-1){
@@ -192,6 +199,9 @@ public class Movie {
         return tmp;
     }
 
+    public String getCharacter() { return character; }
+
+    public void setCharacter(String character) { this.character = character; }
 
     public String toString(){
         return "id : "+mId+" titre : "+getTitle()+" Titre original : "+getOriginalTitle()+" note : "+getVoteAverage()+" année :"+getReleaseDate();
