@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.example.alexandre.netflixlibraryproject.Fragment.ActorDetailsFragment;
 import com.example.alexandre.netflixlibraryproject.Fragment.MovieDetailsFragment;
 import com.example.alexandre.netflixlibraryproject.Fragment.MainFragment;
 import com.example.alexandre.netflixlibraryproject.Fragment.SerieDetailsFragment;
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnOb
     private MainFragment FragMain = MainFragment.getInstance();
     private MovieDetailsFragment FragDetMovie = MovieDetailsFragment.getInstance();
     private SerieDetailsFragment FragDetSerie = SerieDetailsFragment.getInstance();
+    private ActorDetailsFragment FragDetActor = ActorDetailsFragment.getInstance();
 
     Movie movie;
 
@@ -73,6 +75,12 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnOb
 
     @Override
     public void UpdateActor(Actor a) {
-
+        Log.i("TestUpdateActor","Je passe dans UpdateActor");
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_container, FragDetActor)
+                .addToBackStack(null)
+                .commit();
+        FragDetActor.setActor(a);
     }
 }

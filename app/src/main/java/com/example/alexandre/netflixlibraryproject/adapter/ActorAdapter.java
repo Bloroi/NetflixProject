@@ -22,7 +22,7 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
     private List<Actor> actors;
     private Context context;
 
-    public ActorAdapter(List<Actor> actors, Context context) {
+    public ActorAdapter(Context context, List<Actor> actors) {
         this.actors = actors;
         this.context = context;
     }

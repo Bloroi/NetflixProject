@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.alexandre.netflixlibraryproject.R;
 import com.example.alexandre.netflixlibraryproject.RecyclerItemClickListener;
+import com.example.alexandre.netflixlibraryproject.adapter.ActorAdapter;
 import com.example.alexandre.netflixlibraryproject.adapter.ListActorAdapter;
 import com.example.alexandre.netflixlibraryproject.adapter.MovieAdapter;
 import com.example.alexandre.netflixlibraryproject.adapter.TVAdapter;
@@ -168,7 +169,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             }
             rv.setAdapter(new TVAdapter(getContext(), dataS));
 
-        }else if(spinner.getSelectedItem().toString()== "Actor"){
+        }else if(spinner.getSelectedItem().toString()== "Acteur"){
             dataA = new ArrayList<>();
             try {
                 JSONObject object = new JSONObject(result);
@@ -185,11 +186,17 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                     //    String place_of_birth = object2.getString("place_of_birth");
 
                     Actor actor = new Actor(id, name,profile_path);
+                    dataA.add(actor);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            rv.setAdapter(new ListActorAdapter(getContext(), dataA));
+
+            for(int i = 0;i<dataA.size();i++){
+                Log.i("VerifDataA",dataA.get(i).getName());
+            }
+
+            rv.setAdapter(new ActorAdapter(getContext(), dataA));
         }
 
         rv.addOnItemTouchListener(
@@ -297,7 +304,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             Log.i("AfficheGenresOverview",s.getGenreString()+" "+s.getCompanyString()+" "+s.getOverview());
 
 
-        }else if(spinner.getSelectedItem().toString()== "Actor"){
+        }else if(spinner.getSelectedItem().toString()== "Acteur"){
             JSONObject object3 = new JSONObject(result);
             a.setCharacter(object3.getString("character"));
             a.setbirthday(object3.getString("birthday"));
@@ -338,7 +345,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                 Log.i("veriflistActors",s.getActors().toString());
             }
             OnObjectListener.UpdateSerie(s);
-        }else if(spinner.getSelectedItem().toString()== "Actor"){
+        }else if(spinner.getSelectedItem().toString()== "Acteur"){
             JSONObject object4 = new JSONObject(result);
             JSONArray jArrayCast = object4.getJSONArray("cast");
             for(int i =0;i<jArrayCast.length();i++) {
@@ -346,10 +353,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                 Movie movie = new Movie(objectCast.getLong("id"),objectCast.getString("poster_path"),objectCast.getString("title"),objectCast.getString("release_date"),objectCast.getString("character"));
                 a.addMovie(movie);
             }
-
-            for(int i=0;i<s.getActors().size();i++) {
-                Log.i("verifListMovies",a.getMovies().toString());
-            }
+            
             OnObjectListener.UpdateActor(a);
         }
     }
