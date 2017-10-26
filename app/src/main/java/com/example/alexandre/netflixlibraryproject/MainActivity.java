@@ -4,14 +4,18 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.example.alexandre.netflixlibraryproject.Fragment.ActorDetailsFragment;
-import com.example.alexandre.netflixlibraryproject.Fragment.MovieDetailsFragment;
 import com.example.alexandre.netflixlibraryproject.Fragment.MainFragment;
+import com.example.alexandre.netflixlibraryproject.Fragment.MovieDetailsFragment;
 import com.example.alexandre.netflixlibraryproject.Fragment.SerieDetailsFragment;
 import com.example.alexandre.netflixlibraryproject.model.Actor;
 import com.example.alexandre.netflixlibraryproject.model.Movie;
 import com.example.alexandre.netflixlibraryproject.model.Serie;
+
 
 public class MainActivity extends AppCompatActivity implements MainFragment.OnObjectSetListener {
 
@@ -43,10 +47,29 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnOb
 
         transaction.add(R.id.main_container, FragMain);
         transaction.commit();
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        Log.i("Init_MENU","OK");
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.mainmenu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
-
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.action_revert:
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_container, FragMain)
+                        .addToBackStack(null)
+                        .commit();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
