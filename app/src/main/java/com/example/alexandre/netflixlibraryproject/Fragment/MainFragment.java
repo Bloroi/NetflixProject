@@ -281,15 +281,12 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
 
             Log.i("AfficheGenresOverview",m.getGenreString()+" "+m.getCompanyString()+" "+m.getOverview());
 
-
-
-
         }else if(spinner.getSelectedItem().toString()== "Série"){
             JSONObject object3 = new JSONObject(result);
             s.setBackdropPath(object3.getString("backdrop_path"));
-            s.setOverview(object3.getString(("overview")));
-            s.setnbSaison(object3.getInt(("number_of_seasons")));
-            s.setnbEpisodes(object3.getInt(("number_of_episodes")));
+            s.setOverview(object3.getString("overview"));
+            s.setnbSaison(object3.getInt("number_of_seasons"));
+            s.setnbEpisodes(object3.getInt("number_of_episodes"));
             JSONArray jArrayGenre = object3.getJSONArray("genres");
             for(int i =0;i<jArrayGenre.length();i++) {
                 JSONObject objectGenre = jArrayGenre.getJSONObject(i);
@@ -307,12 +304,15 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
 
 
         }else if(spinner.getSelectedItem().toString()== "Acteur"){
+            Log.i("avant", "AfficherDétailsActeurs");
+
             JSONObject object3 = new JSONObject(result);
-            a.setCharacter(object3.getString("character"));
             a.setbirthday(object3.getString("birthday"));
             a.setdeathday(object3.getString("deathday"));
+            if(a.getdeathday() == null) a.setdeathday("...");
             a.setbiography(object3.getString("biography"));
             a.setplace_of_birth(object3.getString("place_of_birth"));
+
         }
     }
 

@@ -42,7 +42,7 @@ public class ActorDetailsFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_actor_details, container, false);
 
-        ivPoster = (ImageView) v.findViewById(R.id.iv_serie_details_poster);
+        ivPoster = (ImageView) v.findViewById(R.id.iv_actor_details_poster);
         tvName = (TextView) v.findViewById(R.id.tv_actor_details_name) ;
         tvLife = (TextView) v.findViewById(R.id.tv_actor_details_birthdayAndDeathday) ;
         tvBiography = (TextView) v.findViewById(R.id.tv_actor_details_biography) ;
@@ -52,8 +52,8 @@ public class ActorDetailsFragment extends Fragment {
 
         tvName.setText(actor.getName());
         tvLife.setText(actor.getbirthday() + " - " + actor.getdeathday());
-        tvBiography.setText(actor.getbiography());
         tvPlaceOfBirth.setText(actor.getPlace_of_birth());
+        tvBiography.setText(actor.getbiography());
 
         rv = (RecyclerView) v.findViewById(R.id.rv_actor_details_listeMovies);
         rv.setHasFixedSize(false);

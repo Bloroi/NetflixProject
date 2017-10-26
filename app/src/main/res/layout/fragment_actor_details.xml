@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- 2. LineaLayout -->
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
@@ -30,7 +31,7 @@
                 android:orientation="vertical"
                 tools:context="com.example.alexandre.netflixlibraryproject.unused.FilmDetails">
 
-                <!-- 2. Linearlayout englobant l'image avec ses caractéristiques : directeur, acteur, catégorie, année -->
+                <!-- 3. Linearlayout englobant l'image avec ses caractéristiques -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -38,79 +39,76 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/iv_serie_details_poster"
+                        android:id="@+id/iv_actor_details_poster"
                         android:layout_width="150dp"
                         android:layout_height="200dp"
                         android:layout_gravity="left"
                         android:src="@drawable/defaut" />
-                    <!-- 3. Linearlayout mettant les caractéristiques verticalement à droite de l'image -->
+
+                    <!-- 4. Linearlayout mettant les caractéristiques verticalement à droite de l'image -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="7dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tv_actor_details_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Not find"/>
+                        android:orientation="vertical"
+                        android:layout_marginLeft="7dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Life : "
-                            android:textSize="15dp" />
+                            android:textColor="@color/ColorSubtitles"
+                            android:textSize="17sp" />
 
                         <TextView
                             android:id="@+id/tv_actor_details_birthdayAndDeathday"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="15dp"
                             android:text="Not find"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Place of birth : "
-                            android:textSize="15dp" />
+                            android:textColor="@color/ColorSubtitles"
+                            android:textSize="17sp" />
 
                         <TextView
                             android:id="@+id/tv_actor_details_placeOfBirth"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="15dp"
                             android:text="Not find"/>
+                    </LinearLayout> <!-- Fin 4 -->
 
-                    </LinearLayout> <!-- Fin 3 -->
-
-
+                    <TextView
+                        android:id="@+id/tv_actor_details_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/ColorTitle"
+                        android:textStyle="bold"
+                        android:textSize="25sp"
+                        android:text="Not find"/>
                 </LinearLayout> <!-- Fin 2 -->
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Biography : "
                     android:textSize="15dp" />
 
                 <TextView
                     android:id="@+id/tv_actor_details_biography"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Not find"/>
-
-
-
-            </LinearLayout>
+            </LinearLayout> <!-- Fin 2 -->
 
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_actor_details_listeMovies"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
-
-
-        </LinearLayout>   <!-- Fin 1 -->
-
+        </LinearLayout> <!-- Fin 1 -->
     </ScrollView>
-
-
 </FrameLayout>
