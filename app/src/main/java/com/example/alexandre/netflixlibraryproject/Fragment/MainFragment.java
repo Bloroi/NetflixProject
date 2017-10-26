@@ -4,6 +4,7 @@ package com.example.alexandre.netflixlibraryproject.Fragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -197,6 +198,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             }
 
             rv.setAdapter(new ActorAdapter(getContext(), dataA));
+            rv.setLayoutManager(new GridLayoutManager(getContext(),2));
         }
 
         rv.addOnItemTouchListener(
@@ -353,7 +355,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                 Movie movie = new Movie(objectCast.getLong("id"),objectCast.getString("poster_path"),objectCast.getString("title"),objectCast.getString("release_date"),objectCast.getString("character"));
                 a.addMovie(movie);
             }
-            
+
             OnObjectListener.UpdateActor(a);
         }
     }
