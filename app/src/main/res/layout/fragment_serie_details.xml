@@ -18,17 +18,16 @@
             android:orientation="vertical">
 
             <!-- 2. Linearlayout -->
-            <LinearLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                tools:context="com.example.alexandre.netflixlibraryproject.unused.FilmDetails"
-                android:layout_marginTop="15dp"
                 android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginRight="15dp">
+                android:orientation="vertical"
+                tools:context="com.example.alexandre.netflixlibraryproject.unused.FilmDetails">
 
                 <!-- 3. Linearlayout englobant l'image avec ses caractéristiques -->
                 <LinearLayout
@@ -202,8 +201,7 @@
                         android:layout_height="wrap_content"
                         android:text=" episode(s)"
                         android:textColor="@color/ColorSubtitles"
-                        android:textSize="17sp"
-                        />
+                        android:textSize="17sp" />
 
                 </LinearLayout>
 
@@ -225,14 +223,14 @@
                     android:layout_marginTop="15dp"
                     android:text="Summary"
                     android:textColor="@color/ColorSubtitles"
-                    android:textSize="17sp"/>
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/tv_serie_details_summary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
-                    android:text="Not find"/>
+                    android:text="Not find" />
 
             </LinearLayout> <!-- Fin 2 -->
 
