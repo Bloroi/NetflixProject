@@ -88,7 +88,7 @@ public class CastTask extends AsyncTask<String,Void,String> {
             progressDialog.setProgress(20);
             try {
 
-                URL url = new URL("https://api.themoviedb.org/3/"+type+"/"+id+"/credits?api_key=" + Utils.Intent.TAG_APIKEY + "&language=" + Locale.getDefault().toString());
+                URL url = new URL("https://api.themoviedb.org/3/"+type+"/"+id+"/credits?api_key=" + Utils.Intent.TAG_APIKEY + "&language=" + Locale.getDefault().getLanguage());
 
                 Log.i("urlCastTask", "https://api.themoviedb.org/3/"+type+"/"+id+"/credits?api_key=" + Utils.Intent.TAG_APIKEY + "&language=" + Locale.getDefault().toString());
 

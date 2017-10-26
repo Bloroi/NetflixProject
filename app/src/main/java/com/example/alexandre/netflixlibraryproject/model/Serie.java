@@ -184,7 +184,7 @@ public class Serie {
         String tmp = "";
         for(int i = 0;i<companys.size();i++){
             tmp+=companys.get(i);
-            if(i==3){
+            if(i==2){
                 break;
             }
             if(i!=companys.size()-1){
