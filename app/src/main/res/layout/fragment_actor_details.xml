@@ -12,58 +12,95 @@
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
+
+        <!-- 1. Linearlayout principal -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/iv_serie_details_poster"
-                android:layout_width="150dp"
-                android:layout_height="200dp"
-                android:layout_gravity="left"
-                android:src="@drawable/defaut" />
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical"
+                tools:context="com.example.alexandre.netflixlibraryproject.unused.FilmDetails">
 
-            <TextView
-                android:id="@+id/tv_actor_details_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Not find"/>
+                <!-- 2. Linearlayout englobant l'image avec ses caractéristiques : directeur, acteur, catégorie, année -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Life : "
-                android:textSize="15dp" />
+                    <ImageView
+                        android:id="@+id/iv_serie_details_poster"
+                        android:layout_width="150dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="left"
+                        android:src="@drawable/defaut" />
+                    <!-- 3. Linearlayout mettant les caractéristiques verticalement à droite de l'image -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="7dp"
+                        android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_actor_details_birthdayAndDeathday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Not find"/>
+                        <TextView
+                            android:id="@+id/tv_actor_details_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Not find"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Biography : "
-                android:textSize="15dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Life : "
+                            android:textSize="15dp" />
 
-            <TextView
-                android:id="@+id/tv_actor_details_biography"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Not find"/>
+                        <TextView
+                            android:id="@+id/tv_actor_details_birthdayAndDeathday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Not find"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Place of birth : "
-                android:textSize="15dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Place of birth : "
+                            android:textSize="15dp" />
 
-            <TextView
-                android:id="@+id/tv_actor_details_placeOfBirth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Not find"/>
+                        <TextView
+                            android:id="@+id/tv_actor_details_placeOfBirth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Not find"/>
+
+                    </LinearLayout> <!-- Fin 3 -->
+
+
+                </LinearLayout> <!-- Fin 2 -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Biography : "
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/tv_actor_details_biography"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Not find"/>
+
+
+
+            </LinearLayout>
+
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_actor_details_listeMovies"
@@ -71,8 +108,8 @@
                 android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
 
+        </LinearLayout>   <!-- Fin 1 -->
 
-        </LinearLayout>
     </ScrollView>
 
 
