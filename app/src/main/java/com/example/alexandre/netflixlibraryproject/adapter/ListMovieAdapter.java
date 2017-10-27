@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.alexandre.netflixlibraryproject.R;
 import com.example.alexandre.netflixlibraryproject.model.Movie;
+import com.example.alexandre.netflixlibraryproject.model.Serie;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
@@ -20,12 +21,11 @@ import java.util.List;
  */
 
 public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.MyViewHoler> {
-
     private List<Movie> listMovies = Collections.emptyList();
     private ListActorAdapter.ItemClickListener clickListener;
     private Context context;
 
-    public ListMovieAdapter(List<Movie> listMovies, Context context) {
+    public ListMovieAdapter(Context context, List<Movie> listMovies) {
         this.listMovies = listMovies;
         this.context = context;
     }
@@ -52,20 +52,29 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.MyVi
 
 
     public class MyViewHoler extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private final TextView tvFilmOuSerie;
+        private final ImageView ivImage;
+        private final TextView tvCharacter;
+        private final TextView tvTitle;
+        private final TextView tvRelease_date;
 
-        private final ImageView image;
-        private final TextView character;
 
 
         public MyViewHoler(View itemView) {
             super(itemView);
-            image = ((ImageView) itemView.findViewById(R.id.iv_image));
-            character = ((TextView) itemView.findViewById(R.id.tv_character));
+            ivImage = ((ImageView) itemView.findViewById(R.id.iv_image));
+            tvCharacter = ((TextView) itemView.findViewById(R.id.tv_character));
+            tvTitle = ((TextView) itemView.findViewById(R.id.tv_title));
+            tvFilmOuSerie = ((TextView) itemView.findViewById(R.id.tv_filmOuSerie));
+            tvRelease_date = ((TextView) itemView.findViewById(R.id.tv_release_date));
         }
 
         public void bind(Movie movie) {
-            Picasso.with(context).load("http://image.tmdb.org/t/p/original" + movie.getPosterPath()).error(context.getDrawable(R.drawable.defaut)).centerCrop().fit().into(image);
-            character.setText(movie.getCharacter());
+            Picasso.with(context).load("http://image.tmdb.org/t/p/original" + movie.getPosterPath()).error(context.getDrawable(R.drawable.defaut)).centerCrop().fit().into(ivImage);
+            tvCharacter.setText(movie.getCharacter());
+            tvTitle.setText(movie.getTitle());
+            tvRelease_date.setText(movie.getReleaseDate());
+
         }
 
         @Override

@@ -1,30 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    cardCornerRadius="2dp"
-    cardElevation="2dp"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:orientation="vertical">
+
+    app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="2dp"
+    app:cardElevation="2dp">
+
+    <!-- Les CardView possèdent des attributs supplémentaires dont
+         - cardBackgroundColor
+         - cardElevation pour l'élévation (donc aussi l'ombre)
+         - cardCornerRadius pour arrondir les angles
+     -->
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_filmOuSerie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
+
         <ImageView
             android:id="@+id/iv_image"
             android:layout_width="125dp"
-            android:layout_height="175dp"
-            android:src="@drawable/defaut" />
+            android:layout_height="170dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/defaut"/>
 
         <TextView
-            android:id="@+id/tv_character"
+            android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="5dp"
             android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_release_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp" />
+
+        <TextView
+            android:id="@+id/tv_character"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp" />
 
     </LinearLayout>
 
