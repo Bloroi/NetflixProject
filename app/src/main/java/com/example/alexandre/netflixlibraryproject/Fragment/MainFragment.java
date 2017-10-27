@@ -180,12 +180,6 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                     Long id = Long.parseLong(object2.getString("id"));
                     String name = object2.getString("name");
                     String profile_path = object2.getString("profile_path");
-                    //    String character = object2.getString("character");
-                    //    String birthday = object2.getString("birthday");
-                    //    String deathday = object2.getString("deathday");
-                    //    String biography = object2.getString("deathday");
-                    //    String place_of_birth = object2.getString("place_of_birth");
-
                     Actor actor = new Actor(id, name,profile_path);
                     dataA.add(actor);
                 }
@@ -309,7 +303,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             JSONObject object3 = new JSONObject(result);
             a.setbirthday(object3.getString("birthday"));
             a.setdeathday(object3.getString("deathday"));
-            if(a.getdeathday() == null) a.setdeathday("...");
+            if(a.getdeathday().equals("null")) a.setdeathday(". . .");
             a.setbiography(object3.getString("biography"));
             a.setplace_of_birth(object3.getString("place_of_birth"));
 
@@ -347,6 +341,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                 Log.i("veriflistActors",s.getActors().toString());
             }
             OnObjectListener.UpdateSerie(s);
+
         }else if(spinner.getSelectedItem().toString()== "Acteur"){
             JSONObject object4 = new JSONObject(result);
             JSONArray jArrayCast = object4.getJSONArray("cast");

@@ -21,13 +21,11 @@ import java.util.List;
 
 public class ListActorAdapter extends RecyclerView.Adapter<ListActorAdapter.MyViewHolder> {
     private List<Actor> listActors = Collections.emptyList();
-    //private LayoutInflater inflater;
     private ItemClickListener clickListener;
     private Context context;
 
     public ListActorAdapter(Context context,List<Actor> listActors) {
         this.listActors = listActors;
-        //this.inflater = LayoutInflater.from(context);
         this.context = context;
     }
 
@@ -35,9 +33,6 @@ public class ListActorAdapter extends RecyclerView.Adapter<ListActorAdapter.MyVi
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.list_details_actor, parent, false);
         return new MyViewHolder(view);
-        //View view = inflater.inflate(R.layout.list_details_actor, parent, false);
-        //MyViewHolder myViewHolder = new MyViewHolder(view);
-        //return myViewHolder;
     }
 
     @Override
