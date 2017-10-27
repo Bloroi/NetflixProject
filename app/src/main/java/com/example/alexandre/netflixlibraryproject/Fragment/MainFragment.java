@@ -15,12 +15,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.alexandre.netflixlibraryproject.R;
 import com.example.alexandre.netflixlibraryproject.RecyclerItemClickListener;
 import com.example.alexandre.netflixlibraryproject.adapter.ActorAdapter;
-import com.example.alexandre.netflixlibraryproject.adapter.ListActorAdapter;
 import com.example.alexandre.netflixlibraryproject.adapter.MovieAdapter;
 import com.example.alexandre.netflixlibraryproject.adapter.TVAdapter;
 import com.example.alexandre.netflixlibraryproject.asynctask.CastTask;
@@ -52,6 +50,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
     private Movie m;
     private Serie s;
     private Actor a;
+    private int type = 0;
 
     private OnObjectSetListener OnObjectListener;
 
@@ -97,7 +96,8 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
         spinner.setAdapter(adapter);
 
 
-        Button btnRech = (Button) v.findViewById(R.id.btn_Fragmain_chercher);
+
+                Button btnRech = (Button) v.findViewById(R.id.btn_Fragmain_chercher);
 
         btnRech.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +114,31 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
         rv = (RecyclerView) v.findViewById(R.id.rv_fragmain_listeF);
         rv.setHasFixedSize(false);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        switch(type){
+            case 1 : rv.setAdapter(new TVAdapter(getContext(), dataS));break;
+            case 2 : rv.setAdapter(new ActorAdapter(getContext(), dataA));break;
+            default : rv.setAdapter(new MovieAdapter(getContext(), dataF));
+        }
+  /*      spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos,
+                                       long id) {
+
+                Toast.makeText(parent.getContext(),
+                        "On Item Select : \n" + parent.getItemAtPosition(pos).toString(),
+                        Toast.LENGTH_LONG).show();
+                rv.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+
+
+            }
+        });
+*/
+        onClickList();
+
+
 
         return v;
     }
@@ -146,7 +171,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                 e.printStackTrace();
             }
             rv.setAdapter(new MovieAdapter(getContext(), dataF));
-
+            type=0;
         }else if(spinner.getSelectedItem().toString()== "Série"){
             dataS = new ArrayList<>();
             try {
@@ -169,7 +194,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                 e.printStackTrace();
             }
             rv.setAdapter(new TVAdapter(getContext(), dataS));
-
+            type =1;
         }else if(spinner.getSelectedItem().toString()== "Acteur"){
             dataA = new ArrayList<>();
             try {
@@ -198,13 +223,26 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             }
 
             rv.setAdapter(new ActorAdapter(getContext(), dataA));
+            type=2;
             rv.setLayoutManager(new GridLayoutManager(getContext(),2));
         }
+
+        onClickList();
+
+
+    }
+
+    public void onClickList(){
+
+        rv.setVisibility(View.VISIBLE);
+        Log.i("Visible","Je passe bien au visible");
 
         rv.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), rv, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
+                        rv.setVisibility(View.VISIBLE);
+                        Log.i("Visible","Je passe bien au visible");
                         if (spinner.getSelectedItem().toString() == "Film") {
 
                             String id = dataF.get(position).getId() + "";
@@ -218,6 +256,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                             CastTask taskC = new CastTask((getContext()));
                             taskC.setCallBCast(MainFragment.this);
                             taskC.execute(spinner.getSelectedItem().toString(), id);
+
                             //OnObjectListener.UpdateMovie(movie);
                         } else if (spinner.getSelectedItem().toString() == "Série") {
 
@@ -246,7 +285,6 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                             taskC.setCallBCast(MainFragment.this);
                             taskC.execute(spinner.getSelectedItem().toString(), id);
                         }
-
                     }
 
                     @Override
@@ -255,8 +293,6 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                     }
                 })
         );
-
-
     }
 
     @Override
