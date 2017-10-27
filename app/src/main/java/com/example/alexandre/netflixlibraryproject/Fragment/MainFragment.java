@@ -116,9 +116,12 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         switch(type){
             case 1 : rv.setAdapter(new TVAdapter(getContext(), dataS));break;
-            case 2 : rv.setAdapter(new ActorAdapter(getContext(), dataA));break;
+            case 2 : rv.setAdapter(new ActorAdapter(getContext(), dataA));
+                rv.setLayoutManager(new GridLayoutManager(getContext(),2));break;
             default : rv.setAdapter(new MovieAdapter(getContext(), dataF));
         }
+
+        //Tentative de faire fonctionner que si le spiner change -> le Recyclerview disparait mais ne marche pas comme il faut
   /*      spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos,
                                        long id) {
@@ -235,8 +238,6 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                 new RecyclerItemClickListener(getContext(), rv, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        rv.setVisibility(View.VISIBLE);
-                        Log.i("Visible","Je passe bien au visible");
                         if (spinner.getSelectedItem().toString() == "Film") {
 
                             String id = dataF.get(position).getId() + "";
