@@ -81,8 +81,8 @@ public class SerieDetailsFragment extends Fragment implements View.OnClickListen
         tvShowTitle.setText(serie.getTitle());
         tvRating.setText(serie.getVoteAverage()+"/10");
         tvSummary.setText(serie.getOverview());
-        tvNbSeason.setText(serie.getnbSaison()+"");
-        tvNbEpisode.setText(serie.getnbEpisodes()+"");
+        tvNbSeason.setText(serie.getnbSaison()+" ");
+        tvNbEpisode.setText(serie.getnbEpisodes()+" ");
         tvCompanys.setText(serie.getCompanyString());
 
 

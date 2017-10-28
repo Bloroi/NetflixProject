@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Recherche : "
+            android:text="@string/tv_mainF_seek"
             />
         <EditText
             android:id="@+id/et_main_titre"
@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/btn_main_chercher" />
+        android:text="@string/btn_mainF_seek" />
 
 
         <android.support.v7.widget.RecyclerView

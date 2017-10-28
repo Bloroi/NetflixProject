@@ -56,7 +56,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Compagny"
+                            android:text="@string/tv_movieF_compagny"
                             android:textColor="@color/ColorSubtitles"
                             android:textSize="17sp" />
 
@@ -65,7 +65,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="15dp"
-                            android:text="Not find" />
+                            android:text="@string/notFind" />
 
 
                         <!-- 4.2 Category -->
@@ -73,7 +73,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Category"
+                            android:text="@string/tv_movieF_category"
                             android:textColor="@color/ColorSubtitles"
                             android:textSize="17sp" />
 
@@ -83,7 +83,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="15dp"
-                            android:text="Not find" />
+                            android:text="@string/notFind" />
 
 
                         <!-- 4.3 Release year -->
@@ -91,7 +91,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Release year"
+                            android:text="@string/tv_movieF_release"
                             android:textColor="@color/ColorSubtitles"
                             android:textSize="17sp" />
 
@@ -99,7 +99,7 @@
                             android:id="@+id/tv_film_details_releaseYear"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Not find" />
+                            android:text="@string/notFind" />
 
                     </LinearLayout> <!-- Fin 3 -->
 
@@ -111,7 +111,7 @@
                     android:id="@+id/tv_film_details_showTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Not find"
+                    android:text="@string/notFind"
                     android:textColor="@color/ColorTitle"
                     android:textSize="25sp"
                     android:textStyle="bold" />
@@ -145,7 +145,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cast"
+                    android:text="@string/tv_movieF_cast"
                     android:textColor="@color/ColorSubtitles"
                     android:textSize="17sp" />
 
@@ -163,14 +163,14 @@
                     android:layout_marginTop="15dp"
                     android:layout_gravity="center_horizontal"
                     android:padding="2dp"
-                    android:text="Check the trailer"
+                    android:text="@string/btn_movieF_trailer"
                     />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Summary"
+                    android:text="@string/tv_movieF_summary"
                     android:textColor="@color/ColorSubtitles"
                     android:textSize="17sp" />
 
@@ -178,7 +178,7 @@
                     android:id="@+id/tv_film_details_summary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Not find" />
+                    android:text="@string/notFind" />
 
             </LinearLayout>
 

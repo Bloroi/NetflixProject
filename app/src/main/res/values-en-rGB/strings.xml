@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Movies4You</string>
+    <string name="btn_conn_submit">Submit</string>
+    <string name="btn_conn_reset">Reset</string>
+    <string name="btn_conn_signIn">Sign In</string>
+    <string name="cb_conn_remember">Remember Me</string>
+    <string name="tv_mainF_seek">"Seek : "</string>
+    <string name="btn_mainF_seek">Seek</string>
+    <string name="itemMenu_settings">Settings</string>
+    <string name="tv_movieF_compagny">Company/ies</string>
+    <string name="tv_movieF_category">Category/ies</string>
+    <string name="tv_movieF_release">Release year</string>
+    <string name="tv_movieF_cast">Cast</string>
+    <string name="btn_movieF_trailer">Check the trailer</string>
+    <string name="tv_movieF_summary">Summary</string>
+    <string name="tv_serieF_firstairdate">First air date</string>
+    <string name="tv_serieF_season">season(s)</string>
+    <string name="tv_serieF_episode">episode(s)</string>
+    <string name="tv_actorF_life">Life</string>
+    <string name="tv_actorF_placeBirth">Place of birth</string>
+    <string name="tv_actorF_biography">Biography</string>
+    <string name="tv_actorF_film">Filmography</string>
+    <string name="hint_conn_username">Username</string>
+    <string name="hint_conn_password">Password</string>
+    <string name="notFind">No info</string>
+</resources>

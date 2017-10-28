@@ -55,7 +55,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Life : "
+                            android:text="@string/tv_actorF_life"
                             android:textColor="@color/ColorSubtitles"
                             android:textSize="17sp" />
 
@@ -64,12 +64,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="15dp"
-                            android:text="Not find"/>
+                            android:text="@string/notFind"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Place of birth : "
+                            android:text="@string/tv_actorF_placeBirth"
                             android:textColor="@color/ColorSubtitles"
                             android:textSize="17sp" />
 
@@ -78,7 +78,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="15dp"
-                            android:text="Not find"/>
+                            android:text="@string/notFind"/>
                     </LinearLayout> <!-- Fin 4 -->
                 </LinearLayout> <!-- Fin 3 -->
 
@@ -89,13 +89,13 @@
                     android:textColor="@color/ColorTitle"
                     android:textStyle="bold"
                     android:textSize="25sp"
-                    android:text="Not find"/>
+                    android:text="@string/notFind"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Biography"
+                    android:text="@string/tv_actorF_biography"
                     android:textColor="@color/ColorSubtitles"
                     android:textSize="17sp" />
 
@@ -104,9 +104,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
-                    android:text="Not find" />
+                    android:text="@string/notFind" />
             </LinearLayout> <!-- Fin 2 -->
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_actorF_film"
+                android:textColor="@color/ColorSubtitles"
+                android:textSize="17sp" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_actor_details_listeMovies"

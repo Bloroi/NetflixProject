@@ -11,14 +11,14 @@
         android:id="@+id/et_login_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Username"
+        android:hint="@string/hint_conn_username"
         android:inputType="text"/>
 
     <EditText
         android:id="@+id/et_login_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
+        android:hint="@string/hint_conn_password"
         android:inputType="textPassword"/>
 
     <CheckBox
@@ -26,24 +26,24 @@
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Remember me"/>
+        android:text="@string/cb_conn_remember"/>
 
     <Button
         android:id="@+id/btn_login_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Submit"/>
+        android:text="@string/btn_conn_submit"/>
 
     <Button
         android:id="@+id/btn_login_reset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Reset"/>
+        android:text="@string/btn_conn_reset"/>
 
     <Button
     android:id="@+id/btn_login_checkin"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Check in"/>
+    android:text="@string/btn_conn_signIn"/>
 
 </LinearLayout>

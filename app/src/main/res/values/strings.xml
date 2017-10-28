@@ -1,7 +1,40 @@
 <resources>
-    <string name="app_name">Netflix Library</string>
-    <string name="btn_main_chercher">Chercher</string>
+    <string name="app_name">Movies4You</string>
+
+    <!-- Connexion -->
+    <string name="hint_conn_username">Pseudo</string>
+    <string name="hint_conn_password">Mot de passe</string>
+    <string name="btn_conn_submit">Valider</string>
+    <string name="btn_conn_reset">Effacer les champs</string>
+    <string name="btn_conn_signIn">S\'enregistrer</string>
+    <string name="cb_conn_remember">Se souvenir de moi</string>
 
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- MainFragment -->
+    <string name="btn_mainF_seek">Chercher</string>
+    <string name="tv_mainF_seek">Recherche :</string>
+
+    <!--Menu-->
+    <string name="itemMenu_settings">Paramètres</string>
+
+    <!--Fragment Movie-->
+    <string name="tv_movieF_compagny">Compagnie(s)</string>
+    <string name="tv_movieF_category">Catégorie(s)</string>
+    <string name="tv_movieF_release">Date de sortie</string>
+    <string name="tv_movieF_cast">Acteurs</string>
+    <string name="btn_movieF_trailer">Voir la bande annonce</string>
+    <string name="tv_movieF_summary">Résumé</string>
+    <!--Element du Fragment Série -->
+    <string name="tv_serieF_firstairdate">Première diffusion</string>
+    <string name="tv_serieF_season">saison(s)</string>
+    <string name="tv_serieF_episode">épisode(s)</string>
+    <!--Element du fragment Acteur-->
+    <string name="tv_actorF_life">Vie</string>
+    <string name="tv_actorF_placeBirth">Lieu de naissance</string>
+    <string name="tv_actorF_biography">Biographie</string>
+    <string name="tv_actorF_film">Filmographie</string>
+    <string name="notFind">Aucune info</string>
+
+
+    <!-- <string name="hello_blank_fragment">Hello blank fragment</string>-->
 </resources>

@@ -112,14 +112,6 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
         });
 
         rv = (RecyclerView) v.findViewById(R.id.rv_fragmain_listeF);
-        rv.setHasFixedSize(false);
-        rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        switch(type){
-            case 1 : rv.setAdapter(new TVAdapter(getContext(), dataS));break;
-            case 2 : rv.setAdapter(new ActorAdapter(getContext(), dataA));
-                rv.setLayoutManager(new GridLayoutManager(getContext(),2));break;
-            default : rv.setAdapter(new MovieAdapter(getContext(), dataF));
-        }
 
         //Tentative de faire fonctionner que si le spiner change -> le Recyclerview disparait mais ne marche pas comme il faut
   /*      spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -139,6 +131,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             }
         });
 */
+        setLayout();
         onClickList();
 
 
@@ -147,89 +140,9 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
     }
 
 
-
-
-    @Override
-    public void getResult(String result){
-        Log.i("VerifSpinner",spinner.getSelectedItem().toString());
-        if(spinner.getSelectedItem().toString()== "Film") {
-            dataF = new ArrayList<>();
-            try {
-                JSONObject object = new JSONObject(result);
-                JSONArray jsonArray = object.getJSONArray("results");
-                for(int i =0;i<jsonArray.length();i++){
-                    JSONObject object2 = jsonArray.getJSONObject(i);
-                    Long id = Long.parseLong(object2.getString("id"));
-                    String title = object2.getString("title");
-                    String originalTitle = object2.getString("original_title");
-                    String poster = object2.getString("poster_path");
-                    float rating = Float.parseFloat(object2.getString("vote_average"));
-                    String release = object2.getString("release_date");
-
-                    Movie movie = new Movie(id,poster,title,originalTitle,rating,release);
-                    Log.i("ObjectMovie",movie.toString());
-                    dataF.add(movie);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            rv.setAdapter(new MovieAdapter(getContext(), dataF));
-            type=0;
-        }else if(spinner.getSelectedItem().toString()== "Série"){
-            dataS = new ArrayList<>();
-            try {
-                JSONObject object = new JSONObject(result);
-                JSONArray jsonArray = object.getJSONArray("results");
-                for(int i =0;i<jsonArray.length();i++){
-                    JSONObject object2 = jsonArray.getJSONObject(i);
-                    Long id = Long.parseLong(object2.getString("id"));
-                    String title = object2.getString("name");
-                    String originalName = object2.getString("original_name");
-                    String poster = object2.getString("poster_path");
-                    float rating = Float.parseFloat(object2.getString("vote_average"));
-                    String firstairdate = object2.getString("first_air_date");
-
-                    Serie serie= new Serie(id,poster,title,originalName,rating,firstairdate);
-                    Log.i("ObjectMovie",serie.toString());
-                    dataS.add(serie);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            rv.setAdapter(new TVAdapter(getContext(), dataS));
-            type =1;
-        }else if(spinner.getSelectedItem().toString()== "Acteur"){
-            dataA = new ArrayList<>();
-            try {
-                JSONObject object = new JSONObject(result);
-                JSONArray jsonArray = object.getJSONArray("results");
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject object2 = jsonArray.getJSONObject(i);
-                    Long id = Long.parseLong(object2.getString("id"));
-                    String name = object2.getString("name");
-                    String profile_path = object2.getString("profile_path");
-                    Actor actor = new Actor(id, name,profile_path);
-                    dataA.add(actor);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            for(int i = 0;i<dataA.size();i++){
-                Log.i("VerifDataA",dataA.get(i).getName());
-            }
-
-            rv.setAdapter(new ActorAdapter(getContext(), dataA));
-            type=2;
-            rv.setLayoutManager(new GridLayoutManager(getContext(),2));
-        }
-
-        onClickList();
-
-
-    }
-
     public void onClickList(){
+
+        Log.i("SpinnerFilmprevious?",spinner.getSelectedItem().toString());
 
         rv.setVisibility(View.VISIBLE);
         Log.i("Visible","Je passe bien au visible");
@@ -238,6 +151,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                 new RecyclerItemClickListener(getContext(), rv, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
+                        Log.i("SpinnerFilm?",spinner.getSelectedItem().toString());
                         if (spinner.getSelectedItem().toString() == "Film") {
 
                             String id = dataF.get(position).getId() + "";
@@ -251,8 +165,6 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                             CastTask taskC = new CastTask((getContext()));
                             taskC.setCallBCast(MainFragment.this);
                             taskC.execute(spinner.getSelectedItem().toString(), id);
-
-                            //OnObjectListener.UpdateMovie(movie);
                         } else if (spinner.getSelectedItem().toString() == "Série") {
 
                             String id = dataS.get(position).getId() + "";
@@ -289,6 +201,84 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                 })
         );
     }
+
+
+    //GetResults
+
+    @Override
+    public void getResult(String result){
+        Log.i("VerifSpinner",spinner.getSelectedItem().toString());
+        if(spinner.getSelectedItem().toString()== "Film") {
+            dataF = new ArrayList<>();
+            try {
+                JSONObject object = new JSONObject(result);
+                JSONArray jsonArray = object.getJSONArray("results");
+                for(int i =0;i<jsonArray.length();i++){
+                    JSONObject object2 = jsonArray.getJSONObject(i);
+                    Long id = Long.parseLong(object2.getString("id"));
+                    String title = object2.getString("title");
+                    String originalTitle = object2.getString("original_title");
+                    String poster = object2.getString("poster_path");
+                    float rating = Float.parseFloat(object2.getString("vote_average"));
+                    String release = object2.getString("release_date");
+
+                    Movie movie = new Movie(id,poster,title,originalTitle,rating,release);
+                    Log.i("ObjectMovie",movie.toString());
+                    dataF.add(movie);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            type=0;
+        }else if(spinner.getSelectedItem().toString()== "Série"){
+            dataS = new ArrayList<>();
+            try {
+                JSONObject object = new JSONObject(result);
+                JSONArray jsonArray = object.getJSONArray("results");
+                for(int i =0;i<jsonArray.length();i++){
+                    JSONObject object2 = jsonArray.getJSONObject(i);
+                    Long id = Long.parseLong(object2.getString("id"));
+                    String title = object2.getString("name");
+                    String originalName = object2.getString("original_name");
+                    String poster = object2.getString("poster_path");
+                    float rating = Float.parseFloat(object2.getString("vote_average"));
+                    String firstairdate = object2.getString("first_air_date");
+
+                    Serie serie= new Serie(id,poster,title,originalName,rating,firstairdate);
+                    Log.i("ObjectMovie",serie.toString());
+                    dataS.add(serie);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+           type =1;
+        }else if(spinner.getSelectedItem().toString()== "Acteur"){
+            dataA = new ArrayList<>();
+            try {
+                JSONObject object = new JSONObject(result);
+                JSONArray jsonArray = object.getJSONArray("results");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject object2 = jsonArray.getJSONObject(i);
+                    Long id = Long.parseLong(object2.getString("id"));
+                    String name = object2.getString("name");
+                    String profile_path = object2.getString("profile_path");
+                    Actor actor = new Actor(id, name,profile_path);
+                    dataA.add(actor);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            for(int i = 0;i<dataA.size();i++){
+                Log.i("VerifDataA",dataA.get(i).getName());
+            }
+           type=2;
+        }
+        setLayout();
+        onClickList();
+    }
+
+
 
     @Override
     public void getResultDetails(String result) throws JSONException {
@@ -392,7 +382,23 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
         }
     }
 
+    public void setLayout() {
 
+        switch (type) {
+            case 1:
+                rv.setAdapter(new TVAdapter(getContext(), dataS));
+                rv.setLayoutManager(new LinearLayoutManager(getContext()));
+                break;
+            case 2:
+                rv.setAdapter(new ActorAdapter(getContext(), dataA));
+                rv.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                break;
+            default:
+                rv.setAdapter(new MovieAdapter(getContext(), dataF));
+                rv.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        }
+    }
 
     public interface OnObjectSetListener {
         void UpdateMovie(Movie m);
