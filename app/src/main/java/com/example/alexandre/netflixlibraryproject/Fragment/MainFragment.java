@@ -283,6 +283,8 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
     @Override
     public void getResultDetails(String result) throws JSONException {
         Log.i("testResult2",result);
+        List<String> genres = new ArrayList<>();
+        List<String>  companies = new ArrayList<>();
         if(spinner.getSelectedItem().toString()== "Film") {
             JSONObject object3 = new JSONObject(result);
             m.setBackdropPath(object3.getString("backdrop_path"));
@@ -291,14 +293,16 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             for(int i =0;i<jArrayGenre.length();i++) {
                 JSONObject objectGenre = jArrayGenre.getJSONObject(i);
                 String genre = objectGenre.getString("name");
-                m.addGenre(genre);
+                genres.add(genre);
             }
+            m.setGenre(genres);
             JSONArray jArrayCompany = object3.getJSONArray("production_companies");
             for(int i =0;i<jArrayCompany.length();i++) {
                 JSONObject objectCompany = jArrayCompany.getJSONObject(i);
                 String comp = objectCompany.getString("name");
-                m.addCompany(comp);
+                companies.add(comp);
             }
+            m.setCompany(companies);
 
             Log.i("AfficheGenresOverview",m.getGenreString()+" "+m.getCompanyString()+" "+m.getOverview());
 
@@ -312,15 +316,16 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             for(int i =0;i<jArrayGenre.length();i++) {
                 JSONObject objectGenre = jArrayGenre.getJSONObject(i);
                 String genre = objectGenre.getString("name");
-                s.addGenre(genre);
+                genres.add(genre);
             }
+            s.setGenre(genres);
             JSONArray jArrayCompany = object3.getJSONArray("production_companies");
             for(int i =0;i<jArrayCompany.length();i++) {
                 JSONObject objectCompany = jArrayCompany.getJSONObject(i);
                 String comp = objectCompany.getString("name");
-                s.addCompany(comp);
+                companies.add(comp);
             }
-
+            s.setCompany(companies);
             Log.i("AfficheGenresOverview",s.getGenreString()+" "+s.getCompanyString()+" "+s.getOverview());
 
 
@@ -340,14 +345,17 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
     @Override
     public void getResultCast(String result) throws JSONException {
         Log.i("testResult3",result);
+        List<Actor> listActors = new ArrayList<>();
+        List<Movie> listMovieCast = new ArrayList<>();
         if(spinner.getSelectedItem().toString()== "Film") {
             JSONObject object4 = new JSONObject(result);
             JSONArray jArrayCast = object4.getJSONArray("cast");
             for(int i =0;i<jArrayCast.length();i++) {
                 JSONObject objectCast = jArrayCast.getJSONObject(i);
                 Actor act = new Actor(objectCast.getString("name"),objectCast.getString("character"),objectCast.getString("profile_path"));
-                m.addActor(act);
+                listActors.add(act);
             }
+            m.setActor(listActors);
 
             for(int i=0;i<m.getActors().size();i++) {
                 Log.i("veriflistActors",m.getActors().get(i).toString());
@@ -375,8 +383,9 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             for(int i =0;i<jArrayCast.length();i++) {
                 JSONObject objectCast = jArrayCast.getJSONObject(i);
                 Movie movie = new Movie(objectCast.getLong("id"),objectCast.getString("poster_path"),objectCast.getString("title"),objectCast.getString("release_date"),objectCast.getString("character"));
-                a.addMovie(movie);
+                listMovieCast.add(movie);
             }
+            a.setMovies(listMovieCast);
 
             OnObjectListener.UpdateActor(a);
         }

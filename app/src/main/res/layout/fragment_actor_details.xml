@@ -111,6 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/tv_actorF_film"
+                android:layout_marginLeft="15dp"
                 android:textColor="@color/ColorSubtitles"
                 android:textSize="17sp" />
 
