@@ -10,14 +10,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.alexandre.netflixlibraryproject.R;
-import com.example.alexandre.netflixlibraryproject.asynctask.TradTask;
 import com.example.alexandre.netflixlibraryproject.model.Movie;
-import com.example.alexandre.netflixlibraryproject.model.Traduction;
-import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -56,7 +50,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
 
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements TradTask.ICallbackTrad{
+    public class MyViewHolder extends RecyclerView.ViewHolder{
 
         private final TextView title;
         private final TextView originalTitle;
@@ -76,25 +70,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         }
 
         public void bind(Movie film){
-          /*TradTask tradtask = new TradTask();
-            tradtask.setCallBTrad(this);*/
-
             title.setText(film.getTitle());
             originalTitle.setText(film.getOriginalTitle());
             rating.setRating(film.getVoteAverage()/2);
             releaseYear.setText(film.getReleaseDate());
             Picasso.with(context).load("http://image.tmdb.org/t/p/original"+film.getPosterPath()).error(context.getDrawable(R.drawable.defaut)).centerCrop().fit().into(image);
-        }
-
-
-        //Unused
-        @Override
-        public void getResultTrad(String result) throws JSONException {
-            JSONObject object = new JSONObject(result);
-            Gson gson = new Gson();
-            Traduction t = gson.fromJson(object.toString(), Traduction.class);
-
-            // category.setText(t.getText().get(0));
         }
     }
 }
