@@ -387,14 +387,37 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                         Log.i("isEmpty",objectCast.has("release_date")+"");
 
 
-                        String release;
+                        String release = "";
+                        String poster= "";
+                        String character = "";
+                        String title ="";
 
                         if(!objectCast.has("release_date")){
-                            release ="---------";
+                            release ="00-00-0000";
                         }else{
                             release = objectCast.getString("release_date");
                         }
-                        Movie m = new Movie(objectCast.getLong("id"), objectCast.getString("poster_path"), objectCast.getString("title"), release, objectCast.getString("character"));
+
+                        if(!objectCast.has("character")){
+                            character=getString(R.string.notFind);
+                        }else{
+                            character=objectCast.getString("character");
+                        }
+
+                        if(!objectCast.has("poster_path")){
+                            poster="";
+                        }else{
+                            poster=objectCast.getString("poster_path");
+                        }
+
+                        if(!objectCast.has("title")){
+                            title=getString(R.string.notFind);
+                        }else{
+                            title=objectCast.getString("title");
+                        }
+
+
+                        Movie m = new Movie(objectCast.getLong("id"), poster, title, release, character);
                         // Object object = new Serie(objectCast.getLong("id"),objectCast.getString("poster_path"),objectCast.getString("firt_air_date"),objectCast.getString("title"));
                         listMovieCast.add(m);
                         Log.i("listMovie", m.toString());
