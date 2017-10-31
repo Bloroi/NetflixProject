@@ -59,7 +59,7 @@ public class ActorDetailsFragment extends Fragment {
         rv = (RecyclerView) v.findViewById(R.id.rv_actor_details_listeMovies);
         rv.setHasFixedSize(false);
         rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        rv.setAdapter(new ListMovieAdapter(getContext(), actor.getMovies()));
+        rv.setAdapter(new ListMovieAdapter(getContext(), actor.getMoviesAndSeries()));
 
 
         return v;

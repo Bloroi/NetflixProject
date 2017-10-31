@@ -38,13 +38,20 @@ public class Serie {
     private int mNbrSaison;
     private int mNbrEpisodes;
 
-    public Serie(Long Id,String poster, String title,String nameOriginal,float vote,String date){
+    public Serie(Long Id,String poster, String title,String nameOriginal,float vote,String date) {
         mId = Id;
         mPosterPath = poster;
         mTitle = title;
         mOriginalName = nameOriginal;
         mVoteAverage = vote;
         mFirstAirDate = date;
+    }
+
+    public Serie(Long mId, String mPosterPath, String mFirstAirDate, String mTitle) {
+        this.mId = mId;
+        this.mPosterPath = mPosterPath;
+        this.mFirstAirDate = mFirstAirDate;
+        this.mTitle = mTitle;
     }
 
     public Boolean getAdult() {

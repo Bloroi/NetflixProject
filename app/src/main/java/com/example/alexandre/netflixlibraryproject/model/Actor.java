@@ -23,7 +23,7 @@ public class Actor {
     private String mdeathday;
     private String mbiography;
     private String mplace_of_birth;
-    private List<Movie> movies = new ArrayList<>();
+    private List<Object> moviesAndSeries = new ArrayList<>();
 
 
     public Actor(String name,String character,String poster){
@@ -74,12 +74,12 @@ public class Actor {
 
     public void setplace_of_birth(String mplace_of_birth) { this.mplace_of_birth = mplace_of_birth; }
 
-    public List<Movie> getMovies() { return movies; }
+    public List<Object> getMoviesAndSeries() { return moviesAndSeries; }
 
-    public void setMovies(List<Movie> movies) { this.movies = movies; }
+    public void setMoviesAndSeries(List<Object> moviesAndSeries) { this.moviesAndSeries = moviesAndSeries; }
 
-    public void addMovie(Movie movie){
-        this.movies.add(movie);
+    public void addMovieAndSerie(Object o){
+        this.moviesAndSeries.add(o);
     }
 
     @Override

@@ -346,7 +346,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
     public void getResultCast(String result) throws JSONException {
         Log.i("testResult3",result);
         List<Actor> listActors = new ArrayList<>();
-        List<Movie> listMovieCast = new ArrayList<>();
+        List<Object> listeMoviesAndSeriesCast = new ArrayList<>();
         if(spinner.getSelectedItem().toString()== "Film") {
             JSONObject object4 = new JSONObject(result);
             JSONArray jArrayCast = object4.getJSONArray("cast");
@@ -382,10 +382,12 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             JSONArray jArrayCast = object4.getJSONArray("cast");
             for(int i =0;i<jArrayCast.length();i++) {
                 JSONObject objectCast = jArrayCast.getJSONObject(i);
-                Movie movie = new Movie(objectCast.getLong("id"),objectCast.getString("poster_path"),objectCast.getString("title"),objectCast.getString("release_date"),objectCast.getString("character"));
-                listMovieCast.add(movie);
+
+                 Object object = new Movie(objectCast.getLong("id"),objectCast.getString("poster_path"),objectCast.getString("title"),objectCast.getString("release_date"),objectCast.getString("character"));
+                // Object object = new Serie(objectCast.getLong("id"),objectCast.getString("poster_path"),objectCast.getString("firt_air_date"),objectCast.getString("title"));
+                listeMoviesAndSeriesCast.add(object);
             }
-            a.setMovies(listMovieCast);
+            a.setMoviesAndSeries(listeMoviesAndSeriesCast);
 
             OnObjectListener.UpdateActor(a);
         }
