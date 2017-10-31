@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.alexandre.netflixlibraryproject.R;
-import com.example.alexandre.netflixlibraryproject.model.Movie;
 import com.example.alexandre.netflixlibraryproject.model.Serie;
 import com.squareup.picasso.Picasso;
 
@@ -70,7 +69,7 @@ public class ListSerieAdapter extends RecyclerView.Adapter<ListSerieAdapter.MyVi
             Picasso.with(context).load("http://image.tmdb.org/t/p/original" + serie.getPosterPath()).error(context.getDrawable(R.drawable.defaut)).centerCrop().fit().into(ivImage);
             tvCharacter.setText(serie.getCharacter());
             tvTitle.setText(serie.getTitle());
-            tvFirstAirDate.setText(serie.getFistAirDate());
+            tvFirstAirDate.setText(serie.getReleaseDate());
 
         }
 

@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.example.alexandre.netflixlibraryproject.R;
 import com.example.alexandre.netflixlibraryproject.adapter.ListMovieAdapter;
-import com.example.alexandre.netflixlibraryproject.adapter.MovieAdapter;
 import com.example.alexandre.netflixlibraryproject.model.Actor;
 import com.squareup.picasso.Picasso;
 
@@ -59,7 +58,7 @@ public class ActorDetailsFragment extends Fragment {
         rv = (RecyclerView) v.findViewById(R.id.rv_actor_details_listeMovies);
         rv.setHasFixedSize(false);
         rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        rv.setAdapter(new ListMovieAdapter(getContext(), actor.getMoviesAndSeries()));
+        rv.setAdapter(new ListMovieAdapter(getContext(), actor.getMovies()));
 
 
         return v;
