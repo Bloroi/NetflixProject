@@ -119,6 +119,11 @@
                 android:id="@+id/rv_actor_details_listeMovies"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_actor_details_listeSeries"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
         </LinearLayout> <!-- Fin 1 -->
     </ScrollView>
 </FrameLayout>
