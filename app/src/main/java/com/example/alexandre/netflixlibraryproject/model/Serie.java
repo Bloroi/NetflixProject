@@ -37,6 +37,7 @@ public class Serie {
     private List<String> companys = new ArrayList<>();
     private int mNbrSaison;
     private int mNbrEpisodes;
+    private String character;
 
     public Serie(Long Id,String poster, String title,String nameOriginal,float vote,String date) {
         mId = Id;
@@ -47,11 +48,12 @@ public class Serie {
         mFirstAirDate = date;
     }
 
-    public Serie(Long mId, String mPosterPath, String mFirstAirDate, String mTitle) {
+    public Serie(Long mId, String mPosterPath, String mTitle, String mFirstAirDate,String chara) {
         this.mId = mId;
         this.mPosterPath = mPosterPath;
         this.mFirstAirDate = mFirstAirDate;
         this.mTitle = mTitle;
+        this.character = chara;
     }
 
     public Boolean getAdult() {
@@ -217,6 +219,9 @@ public class Serie {
         mNbrEpisodes= nbrE;
     }
 
+    public String getCharacter() { return character; }
+
+    public void setCharacter(String character) { this.character = character; }
 
     public String toString(){
         return "id : "+mId+" titre : "+getTitle()+" Titre original : "+getOriginalTitle()+" note : "+getVoteAverage()+" année :"+getReleaseDate();

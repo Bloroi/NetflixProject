@@ -86,34 +86,65 @@ public class CastTask extends AsyncTask<String,Void,String> {
 
         if (type != "error") {
             progressDialog.setProgress(20);
-            try {
+            if(type.equals("movie") || type.equals("tv")) {
+                try {
 
-                URL url = new URL("https://api.themoviedb.org/3/"+type+"/"+id+"/credits?api_key=" + Utils.Intent.TAG_APIKEY + "&language=" + Locale.getDefault().getLanguage());
+                    URL url = new URL("https://api.themoviedb.org/3/" + type + "/" + id + "/credits?api_key=" + Utils.Intent.TAG_APIKEY + "&language=" + Locale.getDefault().getLanguage());
 
-                Log.i("urlCastTask", "https://api.themoviedb.org/3/"+type+"/"+id+"/credits?api_key=" + Utils.Intent.TAG_APIKEY + "&language=" + Locale.getDefault().toString());
+                    Log.i("urlCastTask", "https://api.themoviedb.org/3/" + type + "/" + id + "/credits?api_key=" + Utils.Intent.TAG_APIKEY + "&language=" + Locale.getDefault().toString());
 
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.connect();
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.connect();
 
-                InputStream stream = connection.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-                StringBuilder builder = new StringBuilder();
-                String line = "";
+                    InputStream stream = connection.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+                    StringBuilder builder = new StringBuilder();
+                    String line = "";
 
-                while ((line = reader.readLine()) != null) {
-                    builder.append(line);
-                    Log.i("TestWhile", line);
+                    while ((line = reader.readLine()) != null) {
+                        builder.append(line);
+                        Log.i("TestWhile", line);
+                    }
+                    reader.close();
+                    connection.disconnect();
+                    return builder.toString();
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                reader.close();
-                connection.disconnect();
-                return builder.toString();
-            } catch (ProtocolException e) {
-                e.printStackTrace();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            }else if(type.equals("person")){
+                try{
+
+                    URL url = new URL("https://api.themoviedb.org/3/"+type+"/"+id+"/combined_credits?api_key="+ Utils.Intent.TAG_APIKEY+"&language=" + Locale.getDefault().getLanguage());
+                    Log.i("urlCastTask2", "https://api.themoviedb.org/3/"+type+"/"+id+"/combined_credits?api_key="+ Utils.Intent.TAG_APIKEY+"&language=" + Locale.getDefault().getLanguage());
+
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.connect();
+
+                    InputStream stream = connection.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+                    StringBuilder builder = new StringBuilder();
+                    String line = "";
+
+                    while ((line = reader.readLine()) != null) {
+                        builder.append(line);
+                        Log.i("TestWhile", line);
+                    }
+                    reader.close();
+                    connection.disconnect();
+                    return builder.toString();
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return null;

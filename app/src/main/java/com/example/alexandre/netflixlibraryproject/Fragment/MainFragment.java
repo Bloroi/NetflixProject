@@ -346,7 +346,6 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
     public void getResultCast(String result) throws JSONException {
         Log.i("testResult3",result);
         List<Actor> listActors = new ArrayList<>();
-        List<Object> listeMoviesAndSeriesCast = new ArrayList<>();
         if(spinner.getSelectedItem().toString()== "Film") {
             JSONObject object4 = new JSONObject(result);
             JSONArray jArrayCast = object4.getJSONArray("cast");
@@ -378,17 +377,24 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             OnObjectListener.UpdateSerie(s);
 
         }else if(spinner.getSelectedItem().toString()== "Acteur"){
+            List<Movie> listMovieCast = new ArrayList<>();
+            List<Serie> listSerieCast = new ArrayList<>();
             JSONObject object4 = new JSONObject(result);
             JSONArray jArrayCast = object4.getJSONArray("cast");
             for(int i =0;i<jArrayCast.length();i++) {
                 JSONObject objectCast = jArrayCast.getJSONObject(i);
+                if(objectCast.getString("media_type").equals("movie")) {
 
-                 Object object = new Movie(objectCast.getLong("id"),objectCast.getString("poster_path"),objectCast.getString("title"),objectCast.getString("release_date"),objectCast.getString("character"));
-                // Object object = new Serie(objectCast.getLong("id"),objectCast.getString("poster_path"),objectCast.getString("firt_air_date"),objectCast.getString("title"));
-                listeMoviesAndSeriesCast.add(object);
+                    Movie m = new Movie(objectCast.getLong("id"), objectCast.getString("poster_path"), objectCast.getString("title"), objectCast.getString("release_date"), objectCast.getString("character"));
+                    // Object object = new Serie(objectCast.getLong("id"),objectCast.getString("poster_path"),objectCast.getString("firt_air_date"),objectCast.getString("title"));
+                    listMovieCast.add(m);
+                }else if(objectCast.getString("media_type").equals("tv")){
+                    Serie s = new Serie(objectCast.getLong("id"),objectCast.getString("poster_path"),objectCast.getString("title"),objectCast.getString("first_air_date"),objectCast.getString("character"));
+                    listSerieCast.add(s);
+                }
             }
-            a.setMoviesAndSeries(listeMoviesAndSeriesCast);
-
+            a.setMovies(listMovieCast);
+            a.setSeries(listSerieCast);
             OnObjectListener.UpdateActor(a);
         }
     }
