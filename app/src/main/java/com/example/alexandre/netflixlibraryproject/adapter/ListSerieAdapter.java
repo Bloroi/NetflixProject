@@ -64,11 +64,10 @@ public class ListSerieAdapter extends RecyclerView.Adapter<ListSerieAdapter.MyVi
             tvFirstAirDate = ((TextView) itemView.findViewById(R.id.tv_first_air_date));
         }
 
-        public void bind(Object moviesAndSeries) {
-            Serie serie = (Serie) moviesAndSeries;
+        public void bind(Serie serie) {
             Picasso.with(context).load("http://image.tmdb.org/t/p/original" + serie.getPosterPath()).error(context.getDrawable(R.drawable.defaut)).centerCrop().fit().into(ivImage);
-            tvCharacter.setText(serie.getCharacter());
             tvTitle.setText(serie.getTitle());
+            tvCharacter.setText(serie.getCharacter());
             tvFirstAirDate.setText(serie.getReleaseDate());
 
         }

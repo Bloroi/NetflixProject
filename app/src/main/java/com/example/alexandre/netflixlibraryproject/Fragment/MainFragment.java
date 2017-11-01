@@ -404,6 +404,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                             character=objectCast.getString("character");
                         }
 
+                        Log.i(character,"perso");
                         if(!objectCast.has("poster_path")){
                             poster="";
                         }else{

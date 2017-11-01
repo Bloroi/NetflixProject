@@ -83,6 +83,8 @@ public class Actor {
         this.movies.add(m);
     }
 
+    public List<Serie> getSeries() { return series; }
+
     public void setSeries(List<Serie> series) { this.series = series; }
 
     public void addSerie(Serie s){

@@ -110,7 +110,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/tv_actorF_film"
+                android:text="Films"
                 android:layout_marginLeft="15dp"
                 android:textColor="@color/ColorSubtitles"
                 android:textSize="17sp" />
@@ -119,6 +119,15 @@
                 android:id="@+id/rv_actor_details_listeMovies"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Séries"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/ColorSubtitles"
+                android:textSize="17sp" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_actor_details_listeSeries"

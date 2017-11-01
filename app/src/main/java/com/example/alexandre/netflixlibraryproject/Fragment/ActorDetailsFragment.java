@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.alexandre.netflixlibraryproject.R;
 import com.example.alexandre.netflixlibraryproject.adapter.ListMovieAdapter;
+import com.example.alexandre.netflixlibraryproject.adapter.ListSerieAdapter;
 import com.example.alexandre.netflixlibraryproject.model.Actor;
 import com.squareup.picasso.Picasso;
 
@@ -21,7 +22,8 @@ public class ActorDetailsFragment extends Fragment {
     private TextView tvLife;    // Birthday and deathday
     private TextView tvBiography;
     private TextView tvPlaceOfBirth;
-    private RecyclerView rv;
+    private RecyclerView rvMovies;
+    private RecyclerView rvSeries;
     Actor actor;
 
     private static ActorDetailsFragment instance=null;
@@ -55,10 +57,16 @@ public class ActorDetailsFragment extends Fragment {
         tvPlaceOfBirth.setText(actor.getPlace_of_birth());
         tvBiography.setText(actor.getbiography());
 
-        rv = (RecyclerView) v.findViewById(R.id.rv_actor_details_listeMovies);
-        rv.setHasFixedSize(false);
-        rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        rv.setAdapter(new ListMovieAdapter(getContext(), actor.getMovies()));
+        rvMovies = (RecyclerView) v.findViewById(R.id.rv_actor_details_listeMovies);
+        rvMovies.setHasFixedSize(false);
+        rvMovies.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        rvMovies.setAdapter(new ListMovieAdapter(getContext(), actor.getMovies()));
+
+
+        rvSeries = (RecyclerView) v.findViewById(R.id.rv_actor_details_listeSeries);
+        rvSeries.setHasFixedSize(false);
+        rvSeries.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        rvSeries.setAdapter(new ListSerieAdapter(getContext(), actor.getSeries()));
 
 
         return v;

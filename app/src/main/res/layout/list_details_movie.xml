@@ -22,13 +22,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_filmOuSerie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:layout_gravity="center"/>
-
         <ImageView
             android:id="@+id/iv_image"
             android:layout_width="125dp"
