@@ -1,10 +1,11 @@
 package com.example.alexandre.netflixlibraryproject.asynctask;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.alexandre.netflixlibraryproject.R;
 import com.example.alexandre.netflixlibraryproject.model.Utils;
 
 import org.json.JSONException;
@@ -19,6 +20,8 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.Locale;
 
+import dmax.dialog.SpotsDialog;
+
 /**
  * Created by Alexandre on 18-10-17.
  */
@@ -26,7 +29,7 @@ import java.util.Locale;
 public class DetailsTask extends AsyncTask<String,Void,String>{
     private ICallbackDetails callBDetails;
     public void setCallBDetails(ICallbackDetails callBDetails){this.callBDetails=callBDetails;}
-    private ProgressDialog progressDialog;
+    private AlertDialog dialog;
 
     private Context context;
 
@@ -39,24 +42,8 @@ public class DetailsTask extends AsyncTask<String,Void,String>{
     @Override
     protected void onPreExecute()
     {
-        //Create a new progress dialog
-        progressDialog = new ProgressDialog(context);
-        //Set the progress dialog to display a horizontal progress bar
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        //Set the dialog title to 'Loading...'
-        progressDialog.setTitle("Loading...");
-        //Set the dialog message to 'Loading application View, please wait...'
-        progressDialog.setMessage("Chargement des infos en cours...");
-        //This dialog can't be canceled by pressing the back key
-        progressDialog.setCancelable(false);
-        //This dialog isn't indeterminate
-        progressDialog.setIndeterminate(false);
-        //The maximum number of items is 100
-        progressDialog.setMax(100);
-        //Set the current progress to zero
-        progressDialog.setProgress(0);
-        //Display the progress dialog
-        progressDialog.show();
+        dialog = new SpotsDialog(context, R.style.Custom);
+        dialog.show();
     }
 
 
@@ -85,7 +72,6 @@ public class DetailsTask extends AsyncTask<String,Void,String>{
 
 
         if (type != "error") {
-            progressDialog.setProgress(20);
             try {
 
                 URL url = new URL("https://api.themoviedb.org/3/"+type+"/"+id+"?api_key=" + Utils.Intent.TAG_APIKEY + "&language=" + Locale.getDefault().getLanguage());
@@ -122,8 +108,7 @@ public class DetailsTask extends AsyncTask<String,Void,String>{
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        //close the progress dialog
-        progressDialog.dismiss();
+        dialog.dismiss();
         if(s != null){
             try {
                 callBDetails.getResultDetails(s);

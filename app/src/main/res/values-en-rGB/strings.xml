@@ -24,4 +24,5 @@
     <string name="hint_conn_username">Username</string>
     <string name="hint_conn_password">Password</string>
     <string name="notFind">No info</string>
+    <string name="Loading">Loading...</string>
 </resources>

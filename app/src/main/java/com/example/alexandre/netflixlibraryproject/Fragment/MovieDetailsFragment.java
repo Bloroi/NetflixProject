@@ -266,7 +266,7 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
                 String posterS;
                 String nameS;
 
-                if(!objectCast.has("firt_air_date")){
+                if(!objectCast.has("first_air_date")){
                     first_air ="00-00-0000";
                 }else{
                     first_air = objectCast.getString("first_air_date");

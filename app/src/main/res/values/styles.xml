@@ -12,5 +12,15 @@
         <item name="android:windowBackground">@drawable/background_splash</item>
     </style>
 
+    <!-- Chargement des asyncs tasks -->
+
+    <style name="Custom" parent="android:Theme.DeviceDefault.Dialog">
+        <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
+        <item name="DialogTitleText">@string/Loading</item>
+        <item name="DialogSpotColor">@color/colorPrimary</item>
+        <item name="DialogSpotCount">4</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
 
 </resources>
