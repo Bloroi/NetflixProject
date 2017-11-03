@@ -48,6 +48,11 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnOb
         transaction.add(R.id.main_container, FragMain);
         transaction.commit();
     }
+/*
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

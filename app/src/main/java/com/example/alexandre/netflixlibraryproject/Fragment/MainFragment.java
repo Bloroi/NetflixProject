@@ -138,6 +138,21 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
 
         return v;
     }
+/*
+    @Override
+    public void onDestroyView() {
+
+
+        if (instance != null
+                && getFragmentManager().findFragmentById(
+                instance.getId()) != null) {
+
+            getFragmentManager().beginTransaction().remove(instance)
+                    .commit();
+            instance = null;
+        }
+        super.onDestroyView();
+    }*/
 
 
     public void onClickList(){
