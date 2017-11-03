@@ -1,11 +1,13 @@
 package com.example.alexandre.netflixlibraryproject.Fragment;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +16,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.alexandre.netflixlibraryproject.R;
+import com.example.alexandre.netflixlibraryproject.RecyclerItemClickListener;
 import com.example.alexandre.netflixlibraryproject.adapter.ListActorAdapter;
+import com.example.alexandre.netflixlibraryproject.asynctask.CastTask;
+import com.example.alexandre.netflixlibraryproject.asynctask.DetailsTask;
+import com.example.alexandre.netflixlibraryproject.model.Actor;
+import com.example.alexandre.netflixlibraryproject.model.Movie;
 import com.example.alexandre.netflixlibraryproject.model.Serie;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
-public class SerieDetailsFragment extends Fragment implements View.OnClickListener {
+public class SerieDetailsFragment extends Fragment implements View.OnClickListener,DetailsTask.ICallbackDetails,CastTask.ICallbackCast {
     private ImageView ivPoster;
     private ImageView ivBackPoster;
     private TextView tvCategory;
@@ -35,7 +48,8 @@ public class SerieDetailsFragment extends Fragment implements View.OnClickListen
     private RecyclerView rv;
     private Serie serie;
     private Button btnYoutube;
-
+    private OnObjectSetListener OnObjectListener;
+    private Actor a;
 
     private static SerieDetailsFragment instance = null;
 
@@ -92,6 +106,28 @@ public class SerieDetailsFragment extends Fragment implements View.OnClickListen
         rv.setAdapter(new ListActorAdapter(getContext(), serie.getActors()));
 
 
+        rv.addOnItemTouchListener(
+                new RecyclerItemClickListener(getContext(), rv, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+
+                        Log.i("Test RV acteur Serie","Je suis clické num : "+position);
+
+                        a = serie.getActors().get(position);
+
+                        Log.i("testActeur",a.toString());
+                        DetailsTask taskD = new DetailsTask(getContext());
+                        taskD.setCallBDetails(SerieDetailsFragment.this);
+                        taskD.execute("Acteur", a.getId()+"");
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                })
+        );
+
         return v;
     }
 
@@ -113,5 +149,127 @@ public class SerieDetailsFragment extends Fragment implements View.OnClickListen
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse("https://www.youtube.com/results?search_query="+serie.getTitle()+" trailer "+Locale.getDefault().getLanguage()));
         startActivity(i);
+    }
+
+    @Override
+    public void getResultDetails(String result) throws JSONException {
+        Log.i("avant", "AfficherDétailsActeurs");
+
+
+        JSONObject object3 = new JSONObject(result);
+        a.setbirthday(object3.getString("birthday"));
+        a.setdeathday(object3.getString("deathday"));
+        if(a.getdeathday().equals("null")) a.setdeathday(". . .");
+        a.setbiography(object3.getString("biography"));
+        a.setplace_of_birth(object3.getString("place_of_birth"));
+
+        CastTask taskC = new CastTask((getContext()));
+        taskC.setCallBCast(SerieDetailsFragment.this);
+        taskC.execute("Acteur", a.getId()+"");
+    }
+
+    @Override
+    public void getResultCast(String result) throws JSONException {
+        List<Movie> listMovieCast = new ArrayList<>();
+        List<Serie> listSerieCast = new ArrayList<>();
+        JSONObject object4 = new JSONObject(result);
+        JSONArray jArrayCast = object4.getJSONArray("cast");
+        for(int i =0;i<jArrayCast.length();i++) {
+            JSONObject objectCast = jArrayCast.getJSONObject(i);
+            if(objectCast.getString("media_type").equals("movie")) {
+                Log.i("isEmpty",objectCast.has("release_date")+"");
+
+
+                String release = "";
+                String poster= "";
+                String character = "";
+                String title ="";
+
+                if(!objectCast.has("release_date")){
+                    release ="00-00-0000";
+                }else{
+                    release = objectCast.getString("release_date");
+                }
+
+                if(!objectCast.has("character")){
+                    character=getString(R.string.notFind);
+                }else{
+                    character=objectCast.getString("character");
+                }
+
+                Log.i(character,"perso");
+                if(!objectCast.has("poster_path")){
+                    poster="";
+                }else{
+                    poster=objectCast.getString("poster_path");
+                }
+
+                if(!objectCast.has("title")){
+                    title=getString(R.string.notFind);
+                }else{
+                    title=objectCast.getString("title");
+                }
+
+
+                Movie m = new Movie(objectCast.getLong("id"), poster, title, release, character);
+                // Object object = new Serie(objectCast.getLong("id"),objectCast.getString("poster_path"),objectCast.getString("firt_air_date"),objectCast.getString("title"));
+                listMovieCast.add(m);
+                Log.i("listMovie", m.toString());
+
+            }
+            else if(objectCast.getString("media_type").equals("tv")){
+                String first_air;
+                String characterS;
+                String posterS;
+                String nameS;
+
+                if(!objectCast.has("first_air_date")){
+                    first_air ="00-00-0000";
+                }else{
+                    first_air = objectCast.getString("first_air_date");
+                }
+
+                if(!objectCast.has("character")){
+                    characterS =getString(R.string.notFind);
+                }else{
+                    characterS = objectCast.getString("character");
+                }
+
+                if(!objectCast.has("poster_path")){
+                    posterS="";
+                }else{
+                    posterS=objectCast.getString("poster_path");
+                }
+
+                if(!objectCast.has("name")){
+                    nameS=getString(R.string.notFind);
+                }else{
+                    nameS=objectCast.getString("name");
+                }
+
+                Serie s = new Serie(objectCast.getLong("id"),posterS,nameS,first_air,characterS);
+                listSerieCast.add(s);
+                Log.i("listSerie",s.toString());
+            }
+        }
+        a.setSeries(listSerieCast);
+        a.setMovies(listMovieCast);
+        OnObjectListener.UpdateActor(a);
+    }
+
+
+    public interface OnObjectSetListener {
+        void UpdateActor(Actor a);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try{
+            OnObjectListener = (SerieDetailsFragment.OnObjectSetListener) context;
+        }catch(Exception e){
+
+        }
+
     }
 }

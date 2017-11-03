@@ -17,7 +17,7 @@ import com.example.alexandre.netflixlibraryproject.model.Movie;
 import com.example.alexandre.netflixlibraryproject.model.Serie;
 
 
-public class MainActivity extends AppCompatActivity implements MainFragment.OnObjectSetListener {
+public class MainActivity extends AppCompatActivity implements MainFragment.OnObjectSetListener,MovieDetailsFragment.OnObjectSetListener,SerieDetailsFragment.OnObjectSetListener,ActorDetailsFragment.OnObjectSetListener {
 
 
     private MainFragment FragMain = MainFragment.getInstance();

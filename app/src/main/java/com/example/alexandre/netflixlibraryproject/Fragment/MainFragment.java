@@ -366,7 +366,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             JSONArray jArrayCast = object4.getJSONArray("cast");
             for(int i =0;i<jArrayCast.length();i++) {
                 JSONObject objectCast = jArrayCast.getJSONObject(i);
-                Actor act = new Actor(objectCast.getString("name"),objectCast.getString("character"),objectCast.getString("profile_path"));
+                Actor act = new Actor(objectCast.getLong("id"),objectCast.getString("name"),objectCast.getString("character"),objectCast.getString("profile_path"));
                 listActors.add(act);
             }
             m.setActor(listActors);
@@ -382,7 +382,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             JSONArray jArrayCast = object4.getJSONArray("cast");
             for(int i =0;i<jArrayCast.length();i++) {
                 JSONObject objectCast = jArrayCast.getJSONObject(i);
-                Actor act = new Actor(objectCast.getString("name"),objectCast.getString("character"),objectCast.getString("profile_path"));
+                Actor act = new Actor(objectCast.getLong("id"),objectCast.getString("name"),objectCast.getString("character"),objectCast.getString("profile_path"));
                 s.addActor(act);
             }
 
@@ -440,7 +440,37 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
 
                 }
                 else if(objectCast.getString("media_type").equals("tv")){
-                    Serie s = new Serie(objectCast.getLong("id"),objectCast.getString("poster_path"),objectCast.getString("name"),objectCast.getString("first_air_date"),objectCast.getString("character"));
+
+                    String first_air;
+                    String characterS;
+                    String posterS;
+                    String nameS;
+
+                    if(!objectCast.has("first_air_date")){
+                        first_air ="00-00-0000";
+                    }else{
+                        first_air = objectCast.getString("first_air_date");
+                    }
+
+                    if(!objectCast.has("character")){
+                        characterS =getString(R.string.notFind);
+                    }else{
+                        characterS = objectCast.getString("character");
+                    }
+
+                    if(!objectCast.has("poster_path")){
+                        posterS="";
+                    }else{
+                        posterS=objectCast.getString("poster_path");
+                    }
+
+                    if(!objectCast.has("name")){
+                        nameS=getString(R.string.notFind);
+                    }else{
+                        nameS=objectCast.getString("name");
+                    }
+
+                    Serie s = new Serie(objectCast.getLong("id"),posterS,nameS,first_air,characterS);
                     listSerieCast.add(s);
                     Log.i("listSerie",s.toString());
                 }

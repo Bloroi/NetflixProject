@@ -27,7 +27,10 @@ public class Actor {
     private List<Serie> series = new ArrayList<>();
 
 
-    public Actor(String name,String character,String poster){
+    public Actor(){}
+
+    public Actor(Long id,String name,String character,String poster){
+        mId = id;
         mName = name;
         mcharacter = character;
         mProfilePath=poster;
