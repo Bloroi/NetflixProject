@@ -32,9 +32,10 @@
     <string name="tv_actorF_life">Vie</string>
     <string name="tv_actorF_placeBirth">Lieu de naissance</string>
     <string name="tv_actorF_biography">Biographie</string>
-    <string name="tv_actorF_film">Filmographie</string>
+    <string name="tv_actorF_film">Films</string>
     <string name="notFind">Aucune info</string>
     <string name="Loading">Chargement...</string>
+    <string name="tv_actorF_serie">Series Télévisées</string>
 
 
     <!-- <string name="hello_blank_fragment">Hello blank fragment</string>-->
