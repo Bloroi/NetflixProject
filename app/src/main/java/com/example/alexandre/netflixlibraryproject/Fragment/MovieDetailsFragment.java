@@ -89,15 +89,15 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
                  @Override public void onPrepareLoad(Drawable placeHolderDrawable) {}});*/
 
 
-        ivPoster = (ImageView) v.findViewById(R.id.iv_film_details_poster);
-        ivBackPoster = (ImageView) v.findViewById(R.id.iv_film_details_backposter) ;
-        tvCompany = (TextView) v.findViewById(R.id.tv_film_details_company);
-        tvCategory = (TextView) v.findViewById(R.id.tv_film_details_category);
-        tvReleaseYear = (TextView) v.findViewById(R.id.tv_film_details_releaseYear);
-        tvShowTitle = (TextView) v.findViewById(R.id.tv_film_details_showTitle);
-        tvRating = (TextView) v.findViewById(R.id.tv_film_details_rating);
-        tvSummary = (TextView) v.findViewById(R.id.tv_film_details_summary);
-        btnYoutube = (Button) v.findViewById(R.id.btn_film_details_youtube);
+        ivPoster = v.findViewById(R.id.iv_film_details_poster);
+        ivBackPoster = v.findViewById(R.id.iv_film_details_backposter);
+        tvCompany = v.findViewById(R.id.tv_film_details_company);
+        tvCategory = v.findViewById(R.id.tv_film_details_category);
+        tvReleaseYear = v.findViewById(R.id.tv_film_details_releaseYear);
+        tvShowTitle = v.findViewById(R.id.tv_film_details_showTitle);
+        tvRating = v.findViewById(R.id.tv_film_details_rating);
+        tvSummary = v.findViewById(R.id.tv_film_details_summary);
+        btnYoutube = v.findViewById(R.id.btn_film_details_youtube);
         btnYoutube.setOnClickListener(MovieDetailsFragment.this);
 
 
@@ -140,7 +140,7 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
             tvReleaseYear.setText(formatedDate);
         }
 
-        rv = (RecyclerView) v.findViewById(R.id.rv_film_details_listeActors);
+        rv = v.findViewById(R.id.rv_film_details_listeActors);
         rv.setHasFixedSize(false);
         rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rv.setAdapter(new ListActorAdapter(getContext(), movie.getActors()));
@@ -196,14 +196,47 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
     @Override
     public void getResultDetails(String result) throws JSONException {
         Log.i("avant", "AfficherDétailsActeurs");
-
-
         JSONObject object3 = new JSONObject(result);
-        a.setbirthday(object3.getString("birthday"));
-        a.setdeathday(object3.getString("deathday"));
-        if(a.getdeathday().equals("null")) a.setdeathday(". . .");
-        a.setbiography(object3.getString("biography"));
-        a.setplace_of_birth(object3.getString("place_of_birth"));
+
+        if(!object3.has("birthday")){
+            a.setbirthday(getString(R.string.notFind));
+        }else{
+            if(object3.getString("birthday")=="null"){
+                a.setbirthday("...");
+            }else {
+                a.setbirthday(object3.getString("birthday"));
+            }
+        }
+
+        if(!object3.has("deathday")){
+            a.setdeathday(getString(R.string.notFind));
+        }else{
+            if(object3.getString("deathday")=="null"){
+                a.setdeathday("...");
+            }else {
+                a.setdeathday(object3.getString("deathday"));
+            }
+        }
+
+        if(!object3.has("place_of_birth")){
+            a.setplace_of_birth(getString(R.string.notFind));
+        }else{
+            if(object3.getString("place_of_birth")=="null"){
+                a.setplace_of_birth(getString(R.string.notFind));
+            }else {
+                a.setplace_of_birth(object3.getString("place_of_birth"));
+            }
+        }
+
+        if(!object3.has("biography")){
+            a.setbiography(getString(R.string.notFind));
+        }else{
+            if(object3.getString("biography")=="null"){
+                a.setbiography(getString(R.string.notFind));
+            }else {
+                a.setbiography(object3.getString("biography"));
+            }
+        }
 
         CastTask taskC = new CastTask((getContext()));
         taskC.setCallBCast(MovieDetailsFragment.this);
@@ -295,6 +328,8 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
                 Log.i("listSerie",s.toString());
             }
         }
+        
+
         a.setSeries(listSerieCast);
         a.setMovies(listMovieCast);
         OnObjectListener.UpdateActor(a);

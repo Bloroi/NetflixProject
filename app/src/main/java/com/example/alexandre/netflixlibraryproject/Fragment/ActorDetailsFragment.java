@@ -36,6 +36,8 @@ public class ActorDetailsFragment extends Fragment implements DetailsTask.ICallb
     private TextView tvLife;    // Birthday and deathday
     private TextView tvBiography;
     private TextView tvPlaceOfBirth;
+    private TextView tvFilm;
+    private TextView tvSeries;
     private RecyclerView rvMovies;
     private RecyclerView rvSeries;
     private OnObjectSetListener OnObjectListener;
@@ -67,6 +69,8 @@ public class ActorDetailsFragment extends Fragment implements DetailsTask.ICallb
         tvLife = (TextView) v.findViewById(R.id.tv_actor_details_birthdayAndDeathday) ;
         tvBiography = (TextView) v.findViewById(R.id.tv_actor_details_biography) ;
         tvPlaceOfBirth = (TextView) v.findViewById(R.id.tv_actor_details_placeOfBirth) ;
+        tvFilm = (TextView) v.findViewById(R.id.tv_actor_details_movies);
+        tvSeries = (TextView) v.findViewById(R.id.tv_actor_details_tvseries);
 
         Picasso.with(getContext()).load("http://image.tmdb.org/t/p/original"+actor.getProfilePath()).error(getContext().getDrawable(R.drawable.defaut))/*.centerCrop().fit()*/.into(ivPoster);
 
@@ -79,6 +83,14 @@ public class ActorDetailsFragment extends Fragment implements DetailsTask.ICallb
         rvMovies.setHasFixedSize(false);
         rvMovies.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rvMovies.setAdapter(new ListMovieAdapter(getContext(), actor.getMovies()));
+
+        if(actor.getMovies().isEmpty()){
+            rvMovies.setVisibility(View.INVISIBLE);
+            tvFilm.setVisibility(View.INVISIBLE);
+        }else{
+            rvMovies.setVisibility(View.VISIBLE);
+            tvFilm.setVisibility(View.VISIBLE);
+        }
 
 
         rvMovies.addOnItemTouchListener(
@@ -111,6 +123,14 @@ public class ActorDetailsFragment extends Fragment implements DetailsTask.ICallb
         rvSeries.setHasFixedSize(false);
         rvSeries.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rvSeries.setAdapter(new ListSerieAdapter(getContext(), actor.getSeries()));
+
+        if(actor.getSeries().isEmpty()){
+            rvSeries.setVisibility(View.INVISIBLE);
+            tvSeries.setVisibility(View.INVISIBLE);
+        }else{
+            rvSeries.setVisibility(View.VISIBLE);
+            tvSeries.setVisibility(View.VISIBLE);
+        }
 
         rvSeries.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), rvSeries, new RecyclerItemClickListener.OnItemClickListener() {
@@ -224,6 +244,8 @@ public class ActorDetailsFragment extends Fragment implements DetailsTask.ICallb
             }
             OnObjectListener.UpdateMovie(m);
 
+
+
         }else if(ListeChoisie== "Série"){
 
             JSONObject object4 = new JSONObject(result);
@@ -237,6 +259,8 @@ public class ActorDetailsFragment extends Fragment implements DetailsTask.ICallb
             for(int i=0;i<s.getActors().size();i++) {
                 Log.i("veriflistActors",s.getActors().toString());
             }
+
+
             OnObjectListener.UpdateSerie(s);
 
         }

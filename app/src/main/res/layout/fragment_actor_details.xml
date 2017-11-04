@@ -108,6 +108,7 @@
             </LinearLayout> <!-- Fin 2 -->
 
             <TextView
+                android:id="@+id/tv_actor_details_movies"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/tv_actorF_film"
@@ -121,9 +122,10 @@
                 android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
             <TextView
+                android:id="@+id/tv_actor_details_tvseries"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="tv_actorF_serie"
+                android:text="@string/tv_actorF_serie"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"
                 android:textColor="@color/ColorSubtitles"

@@ -96,7 +96,7 @@ public class Actor {
 
     @Override
     public String toString() {
-        return "id :" + mId + " name : " + mName + " profilePath : " + mProfilePath + " character : " + mcharacter + " birdday : " + mbirthday + " deathday : " + mdeathday + " biography : " + mbirthday;
+        return "id :" + mId + " name : " + mName + " profilePath : " + mProfilePath + " character : " + mcharacter + " birthday : " + mbirthday + " deathday : " + mdeathday + " biography : " + mbirthday;
     }
 
 

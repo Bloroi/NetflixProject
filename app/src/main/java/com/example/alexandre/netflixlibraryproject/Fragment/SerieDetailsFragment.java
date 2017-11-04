@@ -105,7 +105,6 @@ public class SerieDetailsFragment extends Fragment implements View.OnClickListen
         rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rv.setAdapter(new ListActorAdapter(getContext(), serie.getActors()));
 
-
         rv.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), rv, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
@@ -157,11 +156,46 @@ public class SerieDetailsFragment extends Fragment implements View.OnClickListen
 
 
         JSONObject object3 = new JSONObject(result);
-        a.setbirthday(object3.getString("birthday"));
-        a.setdeathday(object3.getString("deathday"));
-        if(a.getdeathday().equals("null")) a.setdeathday(". . .");
-        a.setbiography(object3.getString("biography"));
-        a.setplace_of_birth(object3.getString("place_of_birth"));
+
+        if(!object3.has("birthday")){
+            a.setbirthday("...");
+        }else{
+            if(object3.getString("birthday")=="null"){
+                a.setbirthday("...");
+            }else {
+                a.setbirthday(object3.getString("birthday"));
+            }
+        }
+
+        if(!object3.has("deathday")){
+            a.setdeathday("...");
+        }else{
+            if(object3.getString("deathday")=="null"){
+                a.setdeathday("...");
+            }else {
+                a.setdeathday(object3.getString("deathday"));
+            }
+        }
+
+        if(!object3.has("place_of_birth")){
+            a.setplace_of_birth(getString(R.string.notFind));
+        }else{
+            if(object3.getString("place_of_birth")=="null"){
+                a.setplace_of_birth(getString(R.string.notFind));
+            }else {
+                a.setplace_of_birth(object3.getString("place_of_birth"));
+            }
+        }
+
+        if(!object3.has("biography")){
+            a.setbiography(getString(R.string.notFind));
+        }else{
+            if(object3.getString("biography")=="null"){
+                a.setbiography(getString(R.string.notFind));
+            }else {
+                a.setbiography(object3.getString("biography"));
+            }
+        }
 
         CastTask taskC = new CastTask((getContext()));
         taskC.setCallBCast(SerieDetailsFragment.this);
