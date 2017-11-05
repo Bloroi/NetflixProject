@@ -111,4 +111,15 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnOb
                 .commit();
         FragDetActor.setActor(a);
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        if(FragMain.isAdded()){
+
+        }else{
+            super.onBackPressed();
+        }
+
+    }
 }
