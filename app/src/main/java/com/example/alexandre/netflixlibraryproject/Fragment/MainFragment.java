@@ -28,12 +28,15 @@ import com.example.alexandre.netflixlibraryproject.asynctask.FindTask;
 import com.example.alexandre.netflixlibraryproject.model.Actor;
 import com.example.alexandre.netflixlibraryproject.model.Movie;
 import com.example.alexandre.netflixlibraryproject.model.Serie;
+import com.example.alexandre.netflixlibraryproject.model.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainFragment extends Fragment implements FindTask.ICallback,DetailsTask.ICallbackDetails,CastTask.ICallbackCast{
@@ -194,7 +197,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                     String originalTitle = object2.getString("original_title");
                     String poster = object2.getString("poster_path");
                     float rating = Float.parseFloat(object2.getString("vote_average"));
-                    String release = object2.getString("release_date");
+                    String release = Utils.formatDate(object2.getString("release_date"));
 
                     Movie movie = new Movie(id,poster,title,originalTitle,rating,release);
                     dataF.add(movie);
@@ -214,7 +217,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                     String originalName = object2.getString("original_name");
                     String poster = object2.getString("poster_path");
                     float rating = Float.parseFloat(object2.getString("vote_average"));
-                    String firstairdate = object2.getString("first_air_date");
+                    String  firstairdate = Utils.formatDate(object2.getString("first_air_date"));
 
                     Serie serie= new Serie(id,poster,title,originalName,rating,firstairdate);
                     dataS.add(serie);
@@ -296,15 +299,15 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             String deathday = "";
 
             if(!object3.has("birthday")){
-                birthday ="null";
+                birthday = getString(R.string.notFind);
             }else{
-                birthday = object3.getString("birthday");
+                birthday = Utils.formatDate(object3.getString("birthday"));
             }
 
             if(!object3.has("deathday")){
-                deathday ="null";
+                deathday = getString(R.string.notFind);
             }else{
-                deathday = object3.getString("deathday");
+                deathday = Utils.formatDate(object3.getString("deathday"));
             }
 
             a.setbirthday(birthday);
@@ -356,9 +359,9 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                         String title ="";
 
                         if(!objectCast.has("release_date")){
-                            release ="null";
+                            release = getString(R.string.notFind);
                         }else{
-                            release = objectCast.getString("release_date");
+                            release = Utils.formatDate(objectCast.getString("release_date"));
                         }
 
                         if(!objectCast.has("character")){
@@ -391,9 +394,9 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                     String nameS;
 
                     if(!objectCast.has("first_air_date")){
-                        first_air ="null";
+                        first_air = getString(R.string.notFind);
                     }else{
-                        first_air = objectCast.getString("first_air_date");
+                        first_air = Utils.formatDate(objectCast.getString("first_air_date"));
                     }
 
                     if(!objectCast.has("character")){

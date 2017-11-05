@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/NetflixLibraryProject.iml" filepath="$PROJECT_DIR$/NetflixLibraryProject.iml" />
-      <module fileurl="file://C:\Users\Florian\OneDrive\Helha\Bloc_3\7) Technologie_mobile\Travail android par groupes de 2\NetflixProject\NetflixLibraryProject.iml" filepath="C:\Users\Florian\OneDrive\Helha\Bloc_3\7) Technologie_mobile\Travail android par groupes de 2\NetflixProject\NetflixLibraryProject.iml" />
-      <module fileurl="file://C:\Users\Florian\OneDrive\Helha\Florian\OneDrive\Helha\Florian\Desktop\backup\NetflixProject\NetflixLibraryProject.iml" filepath="C:\Users\Florian\OneDrive\Helha\Florian\OneDrive\Helha\Florian\Desktop\backup\NetflixProject\NetflixLibraryProject.iml" />
       <module fileurl="file://C:\Users\Florian\OneDrive\Helha\Florian\OneDrive\Helha\Bloc_3\7) Technologie_mobile\Travail android par groupes de 2\NetflixProject\NetflixLibraryProject.iml" filepath="C:\Users\Florian\OneDrive\Helha\Florian\OneDrive\Helha\Bloc_3\7) Technologie_mobile\Travail android par groupes de 2\NetflixProject\NetflixLibraryProject.iml" />
+      <module fileurl="file://C:\Users\Florian\OneDrive\Helha\Florian\OneDrive\Helha\Florian\Desktop\backup\NetflixProject\NetflixLibraryProject.iml" filepath="C:\Users\Florian\OneDrive\Helha\Florian\OneDrive\Helha\Florian\Desktop\backup\NetflixProject\NetflixLibraryProject.iml" />
+      <module fileurl="file://C:\Users\Florian\OneDrive\Helha\Bloc_3\7) Technologie_mobile\Travail android par groupes de 2\NetflixProject\NetflixLibraryProject.iml" filepath="C:\Users\Florian\OneDrive\Helha\Bloc_3\7) Technologie_mobile\Travail android par groupes de 2\NetflixProject\NetflixLibraryProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NetflixProject.iml" filepath="$PROJECT_DIR$/NetflixProject.iml" />
       <module fileurl="file://C:\Users\Alexandre\AndroidStudioProjects\ProjetMobile\NetflixLibraryProject\NetflixProject.iml" filepath="C:\Users\Alexandre\AndroidStudioProjects\ProjetMobile\NetflixLibraryProject\NetflixProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
