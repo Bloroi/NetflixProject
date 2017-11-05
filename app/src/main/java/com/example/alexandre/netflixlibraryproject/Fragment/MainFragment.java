@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,7 +51,6 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
     private Movie m;
     private Serie s;
     private Actor a;
-    private int type = 0;
 
     private OnObjectSetListener OnObjectListener;
 
@@ -95,6 +95,21 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
         //Enfin on passe l'adapter au Spinner et c'est tout
         spinner.setAdapter(adapter);
 
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                Log.i("SpinnerFilmprevious2",spinner.getSelectedItem().toString());
+                onClickList();
+                setLayout();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
 
 
                 Button btnRech = (Button) v.findViewById(R.id.btn_Fragmain_chercher);
@@ -138,6 +153,8 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
 
         return v;
     }
+
+
 /*
     @Override
     public void onDestroyView() {
@@ -157,7 +174,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
 
     public void onClickList(){
 
-        Log.i("SpinnerFilmprevious?",spinner.getSelectedItem().toString());
+        Log.i("SpinnerFilmprevious",spinner.getSelectedItem().toString());
 
         rv.setVisibility(View.VISIBLE);
         Log.i("Visible","Je passe bien au visible");
@@ -215,6 +232,8 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                     }
                 })
         );
+
+        Log.i("SpinnerSelectedItem",spinner.getSelectedItem().toString());
     }
 
 
@@ -244,7 +263,6 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            type=0;
         }else if(spinner.getSelectedItem().toString()== "Série"){
             dataS = new ArrayList<>();
             try {
@@ -266,7 +284,6 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-           type =1;
         }else if(spinner.getSelectedItem().toString()== "Acteur"){
             dataA = new ArrayList<>();
             try {
@@ -287,7 +304,6 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             for(int i = 0;i<dataA.size();i++){
                 Log.i("VerifDataA",dataA.get(i).getName());
             }
-           type=2;
         }
         setLayout();
         onClickList();
@@ -483,12 +499,12 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
 
     public void setLayout() {
 
-        switch (type) {
-            case 1:
+        switch (spinner.getSelectedItem().toString()) {
+            case "Série":
                 rv.setAdapter(new TVAdapter(getContext(), dataS));
                 rv.setLayoutManager(new LinearLayoutManager(getContext()));
                 break;
-            case 2:
+            case "Acteur":
                 rv.setAdapter(new ActorAdapter(getContext(), dataA));
                 rv.setLayoutManager(new GridLayoutManager(getContext(), 2));
                 break;
