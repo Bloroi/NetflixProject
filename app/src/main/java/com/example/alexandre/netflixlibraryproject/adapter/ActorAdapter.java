@@ -14,10 +14,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-/**
- * Created by Florian on 25-10-17.
- */
-
 public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder>{
     private List<Actor> actors;
     private Context context;
@@ -42,7 +38,6 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
     public int getItemCount() {
         return actors.size();
     }
-
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

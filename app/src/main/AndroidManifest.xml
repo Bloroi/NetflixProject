@@ -34,7 +34,6 @@
         </activity>-->
        <!-- <activity android:name=".unused.ShowFilm" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".InscriptionActivity" />
         <activity android:name=".Fragment.SerieDetailsFragment"></activity>-->
     </application>
 

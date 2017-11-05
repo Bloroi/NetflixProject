@@ -41,7 +41,6 @@ public class SerieDetailsFragment extends Fragment implements View.OnClickListen
     private TextView tvCategory;
     private TextView tvRating;
     private TextView tvFirstAirDate;
-    private TextView tvShowCast;
     private TextView tvShowTitle;
     private TextView tvSummary;
     private TextView tvNbSeason;
@@ -64,15 +63,11 @@ public class SerieDetailsFragment extends Fragment implements View.OnClickListen
     }
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_serie_details, container, false);
-
-
 
         ivPoster = (ImageView) v.findViewById(R.id.iv_serie_details_poster);
         ivBackPoster = (ImageView) v.findViewById(R.id.iv_serie_details_backposter) ;
@@ -87,10 +82,8 @@ public class SerieDetailsFragment extends Fragment implements View.OnClickListen
         btnYoutube = (Button) v.findViewById(R.id.btn_serie_details_youtube);
         btnYoutube.setOnClickListener(SerieDetailsFragment.this);
 
-
         Picasso.with(getContext()).load("http://image.tmdb.org/t/p/original"+serie.getPosterPath()).error(getContext().getDrawable(R.drawable.defaut))/*.centerCrop().fit()*/.into(ivPoster);
         Picasso.with(getContext()).load("http://image.tmdb.org/t/p/original"+serie.getBackdropPath()).error(getContext().getDrawable(R.drawable.defautback)).into(ivBackPoster);
-
 
         tvCategory.setText(serie.getGenreString());
         tvFirstAirDate.setText(serie.getReleaseDate());
@@ -132,11 +125,8 @@ public class SerieDetailsFragment extends Fragment implements View.OnClickListen
                     @Override
                     public void onItemClick(View view, int position) {
 
-                        Log.i("Test RV acteur Serie","Je suis clické num : "+position);
-
                         a = serie.getActors().get(position);
 
-                        Log.i("testActeur",a.toString());
                         DetailsTask taskD = new DetailsTask(getContext());
                         taskD.setCallBDetails(SerieDetailsFragment.this);
                         taskD.execute("Acteur", a.getId()+"");
@@ -151,7 +141,6 @@ public class SerieDetailsFragment extends Fragment implements View.OnClickListen
 
         return v;
     }
-
 
     public void setSerie(Serie s) {
         serie = s;
@@ -174,8 +163,6 @@ public class SerieDetailsFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void getResultDetails(String result) throws JSONException {
-        Log.i("avant", "AfficherDétailsActeurs");
-
 
         JSONObject object3 = new JSONObject(result);
 
@@ -233,8 +220,6 @@ public class SerieDetailsFragment extends Fragment implements View.OnClickListen
         for(int i =0;i<jArrayCast.length();i++) {
             JSONObject objectCast = jArrayCast.getJSONObject(i);
             if(objectCast.getString("media_type").equals("movie")) {
-                Log.i("isEmpty",objectCast.has("release_date")+"");
-
 
                 String release = "";
                 String poster= "";
@@ -268,10 +253,7 @@ public class SerieDetailsFragment extends Fragment implements View.OnClickListen
 
 
                 Movie m = new Movie(objectCast.getLong("id"), poster, title, release, character);
-                // Object object = new Serie(objectCast.getLong("id"),objectCast.getString("poster_path"),objectCast.getString("firt_air_date"),objectCast.getString("title"));
                 listMovieCast.add(m);
-                Log.i("listMovie", m.toString());
-
             }
             else if(objectCast.getString("media_type").equals("tv")){
                 String first_air;
@@ -305,7 +287,6 @@ public class SerieDetailsFragment extends Fragment implements View.OnClickListen
 
                 Serie s = new Serie(objectCast.getLong("id"),posterS,nameS,first_air,characterS);
                 listSerieCast.add(s);
-                Log.i("listSerie",s.toString());
             }
         }
         a.setSeries(listSerieCast);
@@ -324,7 +305,7 @@ public class SerieDetailsFragment extends Fragment implements View.OnClickListen
         try{
             OnObjectListener = (SerieDetailsFragment.OnObjectSetListener) context;
         }catch(Exception e){
-
+            e.printStackTrace();
         }
 
     }

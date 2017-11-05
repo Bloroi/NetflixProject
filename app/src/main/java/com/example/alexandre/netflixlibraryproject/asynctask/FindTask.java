@@ -3,7 +3,6 @@ package com.example.alexandre.netflixlibraryproject.asynctask;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.example.alexandre.netflixlibraryproject.R;
 import com.example.alexandre.netflixlibraryproject.model.Utils;
@@ -22,15 +21,11 @@ import java.util.Locale;
 
 import dmax.dialog.SpotsDialog;
 
-/**
- * Created by Alexandre on 04-10-17.
- */
 
 public class FindTask extends AsyncTask<String,Void,String>{
 
     private ICallback callB;
     public void setCallB(ICallback callB){this.callB=callB;}
-    //private ProgressDialog progressDialog;
     private AlertDialog dialog;
     private Context context;
 
@@ -39,7 +34,6 @@ public class FindTask extends AsyncTask<String,Void,String>{
     }
 
 
-    //Before running code in separate thread
     @Override
     protected void onPreExecute()
     {
@@ -52,8 +46,6 @@ public class FindTask extends AsyncTask<String,Void,String>{
     protected String doInBackground(String... strings) {
         String type = strings[0];
         String rech = strings[1];
-
-        int i,j;
 
 
         if (type == "Film") {
@@ -77,8 +69,6 @@ public class FindTask extends AsyncTask<String,Void,String>{
 
                 URL url = new URL("https://api.themoviedb.org/3/search/" + type + "?query=" + rech + "&api_key=" + Utils.Intent.TAG_APIKEY + "&language=" + Locale.getDefault().getLanguage());
 
-                Log.i("url", "https://api.themoviedb.org/3/search/" + type + "?query=" + rech + "&api_key=" + Utils.Intent.TAG_APIKEY + "&language=" + Locale.getDefault().getLanguage());
-
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.connect();
@@ -90,7 +80,6 @@ public class FindTask extends AsyncTask<String,Void,String>{
 
                 while ((line = reader.readLine()) != null) {
                     builder.append(line);
-                    Log.i("TestWhile", line);
                 }
                 reader.close();
                 connection.disconnect();

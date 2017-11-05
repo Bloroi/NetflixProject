@@ -3,7 +3,6 @@ package com.example.alexandre.netflixlibraryproject.asynctask;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.example.alexandre.netflixlibraryproject.R;
 import com.example.alexandre.netflixlibraryproject.model.Utils;
@@ -22,9 +21,6 @@ import java.util.Locale;
 
 import dmax.dialog.SpotsDialog;
 
-/**
- * Created by Alexandre on 18-10-17.
- */
 
 public class DetailsTask extends AsyncTask<String,Void,String>{
     private ICallbackDetails callBDetails;
@@ -38,7 +34,6 @@ public class DetailsTask extends AsyncTask<String,Void,String>{
     }
 
 
-    //Before running code in separate thread
     @Override
     protected void onPreExecute()
     {
@@ -51,9 +46,6 @@ public class DetailsTask extends AsyncTask<String,Void,String>{
     protected String doInBackground(String... strings) {
         String type = strings[0];
         String id = strings[1];
-
-        int i,j;
-
 
         if (type == "Film") {
 
@@ -76,7 +68,6 @@ public class DetailsTask extends AsyncTask<String,Void,String>{
 
                 URL url = new URL("https://api.themoviedb.org/3/"+type+"/"+id+"?api_key=" + Utils.Intent.TAG_APIKEY + "&language=" + Locale.getDefault().getLanguage());
 
-                Log.i("urlDetailsTask", "https://api.themoviedb.org/3/"+type+"/"+id+"?api_key=" + Utils.Intent.TAG_APIKEY + "&language=" + Locale.getDefault().getLanguage());
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.connect();
@@ -88,7 +79,6 @@ public class DetailsTask extends AsyncTask<String,Void,String>{
 
                 while ((line = reader.readLine()) != null) {
                     builder.append(line);
-                    Log.i("TestWhile", line);
                 }
                 reader.close();
                 connection.disconnect();

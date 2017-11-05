@@ -15,16 +15,12 @@ import com.squareup.picasso.Picasso;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by Alexandre on 18-10-17.
- */
 
 public class ListActorAdapter extends RecyclerView.Adapter<ListActorAdapter.MyViewHolder> {
     private List<Actor> listActors = Collections.emptyList();
-    private ItemClickListener clickListener;
     private Context context;
 
-    public ListActorAdapter(Context context,List<Actor> listActors) {
+    public ListActorAdapter(Context context, List<Actor> listActors) {
         this.listActors = listActors;
         this.context = context;
     }
@@ -47,11 +43,7 @@ public class ListActorAdapter extends RecyclerView.Adapter<ListActorAdapter.MyVi
     }
 
 
-
-
-
-
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView name;
         private final TextView character;
@@ -65,32 +57,12 @@ public class ListActorAdapter extends RecyclerView.Adapter<ListActorAdapter.MyVi
             character = ((TextView) itemView.findViewById(R.id.tv_character));
             image = ((ImageView) itemView.findViewById(R.id.iv_image));
 
-            itemView.setOnClickListener(this);
         }
 
-        public void bind(Actor actor){
+        public void bind(Actor actor) {
             name.setText(actor.getName());
             character.setText(actor.getCharacter());
             Picasso.with(context).load("http://image.tmdb.org/t/p/original" + actor.getProfilePath()).error(context.getDrawable(R.drawable.defaut)).centerCrop().fit().into(image);
         }
-
-        @Override
-        public void onClick(View view) {
-            if(clickListener != null){
-                clickListener.onItemClick(view, getAdapterPosition());
-            }
-        }
-
-
-    }   // Fin class MyViewHolder
-
-    public interface ItemClickListener{
-        void onItemClick(View view, int position);
     }
-
-    public void setClickListener(ItemClickListener itemClickListener){
-        this.clickListener = itemClickListener;
-    }
-
-
 }

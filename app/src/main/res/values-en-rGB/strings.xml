@@ -21,8 +21,6 @@
     <string name="tv_actorF_placeBirth">Place of birth</string>
     <string name="tv_actorF_biography">Biography</string>
     <string name="tv_actorF_film">Movies</string>
-    <string name="hint_conn_username">Username</string>
-    <string name="hint_conn_password">Password</string>
     <string name="notFind">No info</string>
     <string name="Loading">Loading...</string>
     <string name="tv_actorF_serie">Tv Series</string>

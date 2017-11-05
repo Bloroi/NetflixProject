@@ -15,10 +15,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-/**
- * Created by Alexandre on 18-10-17.
- */
-
 
 public class TVAdapter extends RecyclerView.Adapter<TVAdapter.MyViewHolder> {
     private List<Serie> series;
@@ -61,7 +57,6 @@ public class TVAdapter extends RecyclerView.Adapter<TVAdapter.MyViewHolder> {
             super(itemView);
 
             title = ((TextView) itemView.findViewById(R.id.tv_title));
-            //category = ((TextView) itemView.findViewById(R.id.tv_category));
             rating = ((RatingBar) itemView.findViewById(R.id.tv_rating));
             releaseYear = ((TextView) itemView.findViewById(R.id.tv_releaseYear));
             image = ((ImageView) itemView.findViewById(R.id.iv_image));

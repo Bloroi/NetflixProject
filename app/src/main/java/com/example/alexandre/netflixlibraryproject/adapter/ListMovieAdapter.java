@@ -15,13 +15,9 @@ import com.squareup.picasso.Picasso;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by Florian on 25-10-17.
- */
 
 public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.MyViewHoler> {
     private List<Movie> listMovies = Collections.emptyList();
-    private ListActorAdapter.ItemClickListener clickListener;
     private Context context;
 
     public ListMovieAdapter(Context context, List<Movie> listMovies) {
@@ -48,9 +44,7 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.MyVi
 
 
 
-
-
-    public class MyViewHoler extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class MyViewHoler extends RecyclerView.ViewHolder {
         private final ImageView ivImage;
         private final TextView tvCharacter;
         private final TextView tvTitle;
@@ -73,24 +67,6 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.MyVi
             tvTitle.setText(movie.getTitle());
             tvRelease_date.setText(movie.getReleaseDate());
         }
-
-        @Override
-        public void onClick(View view) {
-            if(clickListener != null){
-            clickListener.onItemClick(view, getAdapterPosition());
-            }
-        }
     }
-
-    public interface ItemClickListener{
-        void onItemClick(View view, int position);
-    }
-
-    public void setClickListener(ListActorAdapter.ItemClickListener itemClickListener){
-        this.clickListener = itemClickListener;
-    }
-
-
-
 
 }

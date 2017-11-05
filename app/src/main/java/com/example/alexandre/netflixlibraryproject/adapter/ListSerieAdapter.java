@@ -15,13 +15,9 @@ import com.squareup.picasso.Picasso;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by Florian on 31-10-17.
- */
 
 public class ListSerieAdapter extends RecyclerView.Adapter<ListSerieAdapter.MyViewHolder> {
     private List<Serie> listSeries = Collections.emptyList();
-    private ListActorAdapter.ItemClickListener clickListener;
     private Context context;
 
     public ListSerieAdapter(Context context, List<Serie> listSeries) {
@@ -48,7 +44,6 @@ public class ListSerieAdapter extends RecyclerView.Adapter<ListSerieAdapter.MyVi
 
 
 
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private final ImageView ivImage;
         private final TextView tvCharacter;
@@ -71,11 +66,5 @@ public class ListSerieAdapter extends RecyclerView.Adapter<ListSerieAdapter.MyVi
             tvFirstAirDate.setText(serie.getReleaseDate());
 
         }
-
-
-
-
     }
-
-
 }

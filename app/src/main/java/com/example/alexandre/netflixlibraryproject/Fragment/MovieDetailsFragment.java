@@ -44,7 +44,6 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
     private TextView tvCompany;
     private TextView tvRating;
     private TextView tvReleaseYear;
-    private TextView tvShowCast;
     private TextView tvShowTitle;
     private TextView tvSummary;
     private Movie movie;
@@ -73,22 +72,6 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
 
         v = inflater.inflate(R.layout.fragment_movie_details, container, false);
 
-        //v.setBackgroundColor ( (new Random()).nextInt() );
-         /*   Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/original"+movie.getBackdropPath()).into(new Target() {
-
-                 @Override
-                 public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                     v.setBackground(new BitmapDrawable(getResources(),bitmap));
-                 }
-
-                 @Override
-                 public void onBitmapFailed(Drawable errorDrawable) {
-
-                 }
-
-                 @Override public void onPrepareLoad(Drawable placeHolderDrawable) {}});*/
-
-
         ivPoster = v.findViewById(R.id.iv_film_details_poster);
         ivBackPoster = v.findViewById(R.id.iv_film_details_backposter);
         tvCompany = v.findViewById(R.id.tv_film_details_company);
@@ -105,20 +88,14 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
 
         Picasso.with(getContext()).load("http://image.tmdb.org/t/p/original"+movie.getPosterPath()).error(getContext().getDrawable(R.drawable.defaut)).centerCrop().fit().into(ivPoster);
         Picasso.with(getContext()).load("http://image.tmdb.org/t/p/original"+movie.getBackdropPath()).error(getContext().getDrawable(R.drawable.defautback)).into(ivBackPoster);
-        //v.setBackground(getContext().getDrawable(ivPoster.getDrawable()));
 
-        //tvShowCast.setText(movie.getShowCast());
         tvCategory.setText(movie.getGenreString());
-        //tvReleaseYear.setText(movie.getReleaseDate());
         tvShowTitle.setText(movie.getTitle());
         tvRating.setText(movie.getVoteAverage()+"/10");
         tvSummary.setText(movie.getOverview());
         tvCompany.setText(movie.getCompanyString());
 
 
-        Log.i("ratingverifValeur", tvRating.getText()+"r");
-       // rbRating.setRating(2);
-       // Log.i("ratingverifValeur", rbRating.getRating()+" ");
         // Changement du format de la date
         String mStringDate = movie.getReleaseDate();
         if(movie.getReleaseDate().length() == 10 ) {
@@ -135,8 +112,6 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
             }
 
             SimpleDateFormat timeFormat = new SimpleDateFormat(newFormat);
-            Log.i("dateM",mStringDate);
-            Log.i("dateM",myDate+"");
             formatedDate = timeFormat.format(myDate);
 
             tvReleaseYear.setText(formatedDate);
@@ -152,16 +127,11 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
                     @Override
                     public void onItemClick(View view, int position) {
 
-                        Log.i("Test RV acteur","Je suis clické num : "+position);
-
                         a = movie.getActors().get(position);
 
-                        Log.i("testActeur",a.toString());
                         DetailsTask taskD = new DetailsTask(getContext());
                         taskD.setCallBDetails(MovieDetailsFragment.this);
-                        Log.i("Execute en dessous","hop");
                         taskD.execute("Acteur", a.getId()+"");
-                        Log.i("Execute au dessus","hop là");
                     }
 
                     @Override
@@ -197,7 +167,6 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void getResultDetails(String result) throws JSONException {
-        Log.i("avant", "AfficherDétailsActeurs");
         JSONObject object3 = new JSONObject(result);
 
         if(!object3.has("birthday")){
@@ -251,8 +220,6 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
         for(int i =0;i<jArrayCast.length();i++) {
             JSONObject objectCast = jArrayCast.getJSONObject(i);
             if(objectCast.getString("media_type").equals("movie")) {
-                Log.i("isEmpty",objectCast.has("release_date")+"");
-
 
                 String release = "";
                 String poster= "";
@@ -286,10 +253,7 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
 
 
                 Movie m = new Movie(objectCast.getLong("id"), poster, title, release, character);
-                // Object object = new Serie(objectCast.getLong("id"),objectCast.getString("poster_path"),objectCast.getString("firt_air_date"),objectCast.getString("title"));
                 listMovieCast.add(m);
-                Log.i("listMovie", m.toString());
-
             }
             else if(objectCast.getString("media_type").equals("tv")){
                 String first_air;
@@ -323,11 +287,8 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
 
                 Serie s = new Serie(objectCast.getLong("id"),posterS,nameS,first_air,characterS);
                 listSerieCast.add(s);
-                Log.i("listSerie",s.toString());
             }
         }
-        
-
         a.setSeries(listSerieCast);
         a.setMovies(listMovieCast);
         OnObjectListener.UpdateActor(a);
@@ -343,7 +304,7 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
         try{
             OnObjectListener = (MovieDetailsFragment.OnObjectSetListener) context;
         }catch(Exception e){
-
+            e.printStackTrace();
         }
 
     }

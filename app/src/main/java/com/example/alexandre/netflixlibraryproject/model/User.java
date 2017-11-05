@@ -3,9 +3,6 @@ package com.example.alexandre.netflixlibraryproject.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Florian on 08-10-17.
- */
 
 public class User implements Parcelable {
 

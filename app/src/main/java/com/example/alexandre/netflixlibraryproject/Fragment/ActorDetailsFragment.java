@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,8 +58,6 @@ public class ActorDetailsFragment extends Fragment implements DetailsTask.ICallb
     }
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -81,7 +78,7 @@ public class ActorDetailsFragment extends Fragment implements DetailsTask.ICallb
         tvPlaceOfBirth.setText(actor.getPlace_of_birth());
         tvBiography.setText(actor.getbiography());
 
-        // Changement du format de la date
+        // Changement du format de la date de naissance
         String mStringDate = actor.getbirthday();
         if(actor.getbirthday().length() == 10) {
             String oldFormat = "yyyy-MM-dd";
@@ -139,13 +136,9 @@ public class ActorDetailsFragment extends Fragment implements DetailsTask.ICallb
                     @Override
                     public void onItemClick(View view, int position) {
 
-                        Log.i("Test RV acteur Film","Je suis clické num : "+position);
-
                         ListeChoisie = "Film";
-
                         m = actor.getMovies().get(position);
 
-                        Log.i("testMovie",m.toString());
                         DetailsTask taskD = new DetailsTask(getContext());
                         taskD.setCallBDetails(ActorDetailsFragment.this);
                         taskD.execute(ListeChoisie, m.getId()+"");
@@ -178,13 +171,10 @@ public class ActorDetailsFragment extends Fragment implements DetailsTask.ICallb
                     @Override
                     public void onItemClick(View view, int position) {
 
-                        Log.i("Test RV acteur Serie","Je suis clické num : "+position);
 
                         ListeChoisie = "Série";
-
                         s = actor.getSeries().get(position);
 
-                        Log.i("testSerie",s.toString());
                         DetailsTask taskD = new DetailsTask(getContext());
                         taskD.setCallBDetails(ActorDetailsFragment.this);
                         taskD.execute(ListeChoisie, s.getId()+"");
@@ -205,7 +195,6 @@ public class ActorDetailsFragment extends Fragment implements DetailsTask.ICallb
 
     @Override
     public void getResultDetails(String result) throws JSONException {
-        Log.i("testResult2",result);
         List<String> genres = new ArrayList<>();
         List<String>  companies = new ArrayList<>();
 
@@ -233,8 +222,6 @@ public class ActorDetailsFragment extends Fragment implements DetailsTask.ICallb
             }
             m.setCompany(companies);
 
-            Log.i("AfficheGenresOverview",m.getGenreString()+" "+m.getCompanyString()+" "+m.getOverview());
-
             taskC.execute(ListeChoisie, m.getId()+"");
 
         }else if(ListeChoisie == "Série"){
@@ -259,7 +246,6 @@ public class ActorDetailsFragment extends Fragment implements DetailsTask.ICallb
                 companies.add(comp);
             }
             s.setCompany(companies);
-            Log.i("AfficheGenresOverview",s.getGenreString()+" "+s.getCompanyString()+" "+s.getOverview());
 
             taskC.execute(ListeChoisie, s.getId()+"");
 
@@ -268,7 +254,6 @@ public class ActorDetailsFragment extends Fragment implements DetailsTask.ICallb
 
     @Override
     public void getResultCast(String result) throws JSONException {
-        Log.i("testResult3",result);
         List<Actor> listActors = new ArrayList<>();
         if(ListeChoisie== "Film") {
             JSONObject object4 = new JSONObject(result);
@@ -280,12 +265,7 @@ public class ActorDetailsFragment extends Fragment implements DetailsTask.ICallb
             }
             m.setActor(listActors);
 
-            for(int i=0;i<m.getActors().size();i++) {
-                Log.i("veriflistActors",m.getActors().get(i).toString());
-            }
             OnObjectListener.UpdateMovie(m);
-
-
 
         }else if(ListeChoisie== "Série"){
 
@@ -297,13 +277,7 @@ public class ActorDetailsFragment extends Fragment implements DetailsTask.ICallb
                 s.addActor(act);
             }
 
-            for(int i=0;i<s.getActors().size();i++) {
-                Log.i("veriflistActors",s.getActors().toString());
-            }
-
-
             OnObjectListener.UpdateSerie(s);
-
         }
     }
 
@@ -318,7 +292,7 @@ public class ActorDetailsFragment extends Fragment implements DetailsTask.ICallb
         try{
             OnObjectListener = (ActorDetailsFragment.OnObjectSetListener) context;
         }catch(Exception e){
-
+            e.printStackTrace();
         }
 
     }

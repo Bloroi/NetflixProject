@@ -22,9 +22,6 @@ import java.util.Locale;
 
 import dmax.dialog.SpotsDialog;
 
-/**
- * Created by Alexandre on 18-10-17.
- */
 
 public class CastTask extends AsyncTask<String,Void,String> {
     private ICallbackCast callBCast;
@@ -38,7 +35,6 @@ public class CastTask extends AsyncTask<String,Void,String> {
     }
 
 
-    //Before running code in separate thread
     @Override
     protected void onPreExecute()
     {
@@ -51,8 +47,6 @@ public class CastTask extends AsyncTask<String,Void,String> {
     protected String doInBackground(String... strings) {
         String type = strings[0];
         String id = strings[1];
-
-        int i,j;
 
 
         if (type == "Film") {
@@ -77,8 +71,6 @@ public class CastTask extends AsyncTask<String,Void,String> {
 
                     URL url = new URL("https://api.themoviedb.org/3/" + type + "/" + id + "/credits?api_key=" + Utils.Intent.TAG_APIKEY + "&language=" + Locale.getDefault().getLanguage());
 
-                    Log.i("urlCastTask", "https://api.themoviedb.org/3/" + type + "/" + id + "/credits?api_key=" + Utils.Intent.TAG_APIKEY + "&language=" + Locale.getDefault().getLanguage());
-
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("GET");
                     connection.connect();
@@ -90,7 +82,6 @@ public class CastTask extends AsyncTask<String,Void,String> {
 
                     while ((line = reader.readLine()) != null) {
                         builder.append(line);
-                        Log.i("TestWhile", line);
                     }
                     reader.close();
                     connection.disconnect();
@@ -106,7 +97,6 @@ public class CastTask extends AsyncTask<String,Void,String> {
                 try{
 
                     URL url = new URL("https://api.themoviedb.org/3/"+type+"/"+id+"/combined_credits?api_key="+ Utils.Intent.TAG_APIKEY+"&language=" + Locale.getDefault().getLanguage());
-                    Log.i("urlCastTask2", "https://api.themoviedb.org/3/"+type+"/"+id+"/combined_credits?api_key="+ Utils.Intent.TAG_APIKEY+"&language=" + Locale.getDefault().getLanguage());
 
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("GET");
@@ -119,7 +109,6 @@ public class CastTask extends AsyncTask<String,Void,String> {
 
                     while ((line = reader.readLine()) != null) {
                         builder.append(line);
-                        Log.i("TestWhile", line);
                     }
                     reader.close();
                     connection.disconnect();

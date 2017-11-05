@@ -2,8 +2,6 @@
     <string name="app_name">Movies4You</string>
 
     <!-- Connexion -->
-    <string name="hint_conn_username">Pseudo</string>
-    <string name="hint_conn_password">Mot de passe</string>
     <string name="btn_conn_submit">Valider</string>
     <string name="btn_conn_reset">Effacer les champs</string>
     <string name="btn_conn_signIn">S\'enregistrer</string>
