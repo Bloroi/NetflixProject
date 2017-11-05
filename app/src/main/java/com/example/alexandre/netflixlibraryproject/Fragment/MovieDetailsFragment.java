@@ -121,7 +121,7 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
        // Log.i("ratingverifValeur", rbRating.getRating()+" ");
         // Changement du format de la date
         String mStringDate = movie.getReleaseDate();
-        if(!movie.getReleaseDate().isEmpty()) {
+        if(movie.getReleaseDate().length() == 10 ) {
             String oldFormat = "yyyy-MM-dd";
             String newFormat = "dd-MM-yyyy";
 
@@ -135,6 +135,8 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
             }
 
             SimpleDateFormat timeFormat = new SimpleDateFormat(newFormat);
+            Log.i("dateM",mStringDate);
+            Log.i("dateM",myDate+"");
             formatedDate = timeFormat.format(myDate);
 
             tvReleaseYear.setText(formatedDate);
@@ -199,13 +201,9 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
         JSONObject object3 = new JSONObject(result);
 
         if(!object3.has("birthday")){
-            a.setbirthday(getString(R.string.notFind));
+            a.setbirthday("null");
         }else{
-            if(object3.getString("birthday")=="null"){
-                a.setbirthday("...");
-            }else {
-                a.setbirthday(object3.getString("birthday"));
-            }
+            a.setbirthday(object3.getString("birthday"));
         }
 
         if(!object3.has("deathday")){

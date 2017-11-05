@@ -29,7 +29,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -99,6 +101,26 @@ public class SerieDetailsFragment extends Fragment implements View.OnClickListen
         tvNbEpisode.setText(serie.getnbEpisodes()+" ");
         tvCompanys.setText(serie.getCompanyString());
 
+        // Changement du format de la date
+        String mStringDate = serie.getReleaseDate();
+        if(serie.getReleaseDate().length() == 10) {
+            String oldFormat = "yyyy-MM-dd";
+            String newFormat = "dd-MM-yyyy";
+
+            String formatedDate = "";
+            SimpleDateFormat dateFormat = new SimpleDateFormat(oldFormat);
+            Date myDate = null;
+            try {
+                myDate = dateFormat.parse(mStringDate);
+            } catch (java.text.ParseException e) {
+                e.printStackTrace();
+            }
+
+            SimpleDateFormat timeFormat = new SimpleDateFormat(newFormat);
+            formatedDate = timeFormat.format(myDate);
+
+            tvFirstAirDate.setText(formatedDate);
+        }
 
         rv = (RecyclerView) v.findViewById(R.id.rv_serie_details_listeActors);
         rv.setHasFixedSize(false);

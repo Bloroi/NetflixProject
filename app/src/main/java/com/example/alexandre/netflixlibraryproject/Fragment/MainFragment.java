@@ -348,9 +348,24 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
             Log.i("avant", "AfficherDétailsActeurs");
 
             JSONObject object3 = new JSONObject(result);
-            a.setbirthday(object3.getString("birthday"));
-            a.setdeathday(object3.getString("deathday"));
-            if(a.getdeathday().equals("null")) a.setdeathday(". . .");
+
+            String birthday = "";
+            String deathday = "";
+
+            if(!object3.has("birthday")){
+                birthday ="null";
+            }else{
+                birthday = object3.getString("birthday");
+            }
+
+            if(!object3.has("deathday")){
+                deathday ="null";
+            }else{
+                deathday = object3.getString("deathday");
+            }
+
+            a.setbirthday(birthday);
+            a.setdeathday(deathday);
             a.setbiography(object3.getString("biography"));
             a.setplace_of_birth(object3.getString("place_of_birth"));
 
@@ -408,7 +423,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                         String title ="";
 
                         if(!objectCast.has("release_date")){
-                            release ="00-00-0000";
+                            release ="null";
                         }else{
                             release = objectCast.getString("release_date");
                         }
@@ -447,7 +462,7 @@ public class MainFragment extends Fragment implements FindTask.ICallback,Details
                     String nameS;
 
                     if(!objectCast.has("first_air_date")){
-                        first_air ="00-00-0000";
+                        first_air ="null";
                     }else{
                         first_air = objectCast.getString("first_air_date");
                     }
