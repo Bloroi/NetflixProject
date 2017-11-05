@@ -23,6 +23,7 @@ import com.example.alexandre.netflixlibraryproject.asynctask.DetailsTask;
 import com.example.alexandre.netflixlibraryproject.model.Actor;
 import com.example.alexandre.netflixlibraryproject.model.Movie;
 import com.example.alexandre.netflixlibraryproject.model.Serie;
+import com.example.alexandre.netflixlibraryproject.model.Utils;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -94,28 +95,7 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
         tvRating.setText(movie.getVoteAverage()+"/10");
         tvSummary.setText(movie.getOverview());
         tvCompany.setText(movie.getCompanyString());
-
-
-        // Changement du format de la date
-        String mStringDate = movie.getReleaseDate();
-        if(movie.getReleaseDate().length() == 10 ) {
-            String oldFormat = "yyyy-MM-dd";
-            String newFormat = "dd-MM-yyyy";
-
-            String formatedDate = "";
-            SimpleDateFormat dateFormat = new SimpleDateFormat(oldFormat);
-            Date myDate = null;
-            try {
-                myDate = dateFormat.parse(mStringDate);
-            } catch (java.text.ParseException e) {
-                e.printStackTrace();
-            }
-
-            SimpleDateFormat timeFormat = new SimpleDateFormat(newFormat);
-            formatedDate = timeFormat.format(myDate);
-
-            tvReleaseYear.setText(formatedDate);
-        }
+        tvReleaseYear.setText(movie.getReleaseDate());
 
         rv = v.findViewById(R.id.rv_film_details_listeActors);
         rv.setHasFixedSize(false);
@@ -170,9 +150,9 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
         JSONObject object3 = new JSONObject(result);
 
         if(!object3.has("birthday")){
-            a.setbirthday("null");
+            a.setbirthday(getString(R.string.notFind));
         }else{
-            a.setbirthday(object3.getString("birthday"));
+            a.setbirthday(Utils.formatDate(object3.getString("birthday")));
         }
 
         if(!object3.has("deathday")){
@@ -181,7 +161,7 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
             if(object3.getString("deathday")=="null"){
                 a.setdeathday("...");
             }else {
-                a.setdeathday(object3.getString("deathday"));
+                a.setdeathday(Utils.formatDate(object3.getString("deathday")));
             }
         }
 
@@ -227,9 +207,9 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
                 String title ="";
 
                 if(!objectCast.has("release_date")){
-                    release ="00-00-0000";
+                    release = getString(R.string.notFind);
                 }else{
-                    release = objectCast.getString("release_date");
+                    release = Utils.formatDate(objectCast.getString("release_date"));
                 }
 
                 if(!objectCast.has("character")){
@@ -262,9 +242,9 @@ public class MovieDetailsFragment extends Fragment implements View.OnClickListen
                 String nameS;
 
                 if(!objectCast.has("first_air_date")){
-                    first_air ="00-00-0000";
+                    first_air = getString(R.string.notFind);
                 }else{
-                    first_air = objectCast.getString("first_air_date");
+                    first_air = Utils.formatDate(objectCast.getString("first_air_date"));
                 }
 
                 if(!objectCast.has("character")){

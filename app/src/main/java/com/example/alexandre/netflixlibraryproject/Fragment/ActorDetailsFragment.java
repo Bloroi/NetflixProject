@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,44 +78,6 @@ public class ActorDetailsFragment extends Fragment implements DetailsTask.ICallb
         tvLife.setText(actor.getbirthday() + " - " + actor.getdeathday());
         tvPlaceOfBirth.setText(actor.getPlace_of_birth());
         tvBiography.setText(actor.getbiography());
-
-        // Changement du format de la date de naissance
-        String mStringDate = actor.getbirthday();
-        if(actor.getbirthday().length() == 10) {
-            String oldFormat = "yyyy-MM-dd";
-            String newFormat = "dd-MM-yyyy";
-
-            String formatedDate = "";
-            SimpleDateFormat dateFormat = new SimpleDateFormat(oldFormat);
-            Date myDate = null;
-            try {
-                myDate = dateFormat.parse(mStringDate);
-            } catch (java.text.ParseException e) {
-                e.printStackTrace();
-            }
-
-            SimpleDateFormat timeFormat = new SimpleDateFormat(newFormat);
-            formatedDate = timeFormat.format(myDate);
-
-            tvLife.setText(formatedDate + " à ...");
-
-
-            // Changement du format de la date de mort
-            String mStringDate2 = actor.getdeathday();
-            if(actor.getdeathday().length() == 10 ) {
-
-                String formatedDate2 = "";
-                try {
-                    myDate = dateFormat.parse(mStringDate2);
-                } catch (java.text.ParseException e) {
-                    e.printStackTrace();
-                }
-
-                formatedDate2 = timeFormat.format(myDate);
-
-                tvLife.setText(formatedDate + " à " +formatedDate2);
-            }
-        }
 
 
         rvMovies = (RecyclerView) v.findViewById(R.id.rv_actor_details_listeMovies);
