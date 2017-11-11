@@ -47,6 +47,8 @@ public class FindTask extends AsyncTask<String,Void,String>{
         String type = strings[0];
         String rech = strings[1];
 
+        //Permet à certains téléphones de chercher des films séries ou acteurs avec espaces dans la recherche
+        rech=rech.replaceAll(" ","%20");
 
         if (type == "Film") {
 
@@ -66,9 +68,8 @@ public class FindTask extends AsyncTask<String,Void,String>{
 
         if (type != "error") {
             try {
-
+                //https://api.themoviedb.org/3/search/tv?query=game of&api_key=d3f617c2a1b78f7220853c4627424fe5&language=fr
                 URL url = new URL("https://api.themoviedb.org/3/search/" + type + "?query=" + rech + "&api_key=" + Utils.Intent.TAG_APIKEY + "&language=" + Locale.getDefault().getLanguage());
-
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.connect();
